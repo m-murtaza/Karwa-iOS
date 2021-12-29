@@ -60,7 +60,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     private var ebillPopup : KTFarePopupViewController?
     private var ratingPopup : KTRatingViewController?
 
-    var bottomSheetVC : KTBookingDetailsBottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTBookingDetailsBottomSheetVC") as! KTBookingDetailsBottomSheetVC
+    weak var bottomSheetVC : KTBookingDetailsBottomSheetVC?
 
     var isOpenFromNotification : Bool = false
 
@@ -68,13 +68,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     var isAbleToObserveZooming = false
     var haltAutoZooming = false
     var showCancelCharges = false
-
     var manualMoveBegins: Bool = false
-
-    lazy var sheet = SheetViewController(
-        controller: bottomSheetVC,
-        sizes: [.percent(0.25), .intrinsic],
-        options: SheetOptions(useInlineMode: true))
     
     lazy var scheduleTimeTitleLable: UILabel = {
         let view = UILabel()
@@ -94,8 +88,13 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 //        sheetCoordinator = UBottomSheetCoordinator(parent: self)
 //        sheetCoordinator.dataSource = self
 //
-        bottomSheetVC.sheet = sheet
-        bottomSheetVC.vModel = viewModel as? KTBookingDetailsViewModel
+        bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTBookingDetailsBottomSheetVC") as? KTBookingDetailsBottomSheetVC
+        let sheet = SheetViewController(
+            controller: bottomSheetVC!,
+            sizes: [.percent(0.25), .intrinsic],
+            options: SheetOptions(useInlineMode: true))
+        bottomSheetVC?.sheet = sheet
+        bottomSheetVC?.vModel = viewModel as? KTBookingDetailsViewModel
 //        sheetCoordinator.addSheet(bottomSheetVC, to: self)
 //        sheetCoordinator.setPosition(self.view.frame.height - 240, animated: true)
 //        sheetCoordinator.delegate = self
@@ -292,17 +291,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     //MARK:- ETA
     func updateEta(eta: String)
     {
-        bottomSheetVC.updateEta(eta: eta)
+        bottomSheetVC?.updateEta(eta: eta)
     }
     
     func hideEtaView()
     {
-        bottomSheetVC.hideEtaView()
+        bottomSheetVC?.hideEtaView()
     }
     
     func showEtaView()
     {
-        bottomSheetVC.showEtaView()
+        bottomSheetVC?.showEtaView()
     }
     
     func showHideShareButton(_ show : Bool)
@@ -418,7 +417,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func updateAssignmentInfo()
     {
-        bottomSheetVC.updateAssignmentInfo()
+        bottomSheetVC?.updateAssignmentInfo()
     }
     //MARK:- CallerId
     func updateCallerId()
@@ -427,12 +426,12 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     //MARK:- Booking Card
     func updateBookingCard()
     {
-        bottomSheetVC.updateBookingCard()
+        bottomSheetVC?.updateBookingCard()
     }
     
     func updateBookingStatusOnCard(_ withAnimation: Bool)
     {
-        bottomSheetVC.updateBookingStatusOnCard(withAnimation)
+        bottomSheetVC?.updateBookingStatusOnCard(withAnimation)
     }
     
     func updateBookingStatusOnCard()
@@ -442,11 +441,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func updateBookingCardForCompletedBooking() {
         
-        bottomSheetVC.updateBookingCardForCompletedBooking()
+        bottomSheetVC?.updateBookingCardForCompletedBooking()
     }
     
     func updateBookingCardForUnCompletedBooking() {
-        bottomSheetVC.updateBookingCardForUnCompletedBooking()
+        bottomSheetVC?.updateBookingCardForUnCompletedBooking()
     }
     
     
@@ -750,17 +749,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     }
     
     func hidePhoneButton() {
-        bottomSheetVC.hidePhoneButton()
+        bottomSheetVC?.hidePhoneButton()
     }
     
     func hideDriverInfoBox() {
         self.showCancelCharges = false
-        bottomSheetVC.hideDriverInfoBox()
+        bottomSheetVC?.hideDriverInfoBox()
     }
     
     func showDriverInfoBox() {
         self.showCancelCharges = true
-        bottomSheetVC.showDriverInfoBox()
+        bottomSheetVC?.showDriverInfoBox()
     }
     
     func setMapPadding(height : CGFloat)
@@ -777,7 +776,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func updateHeaderMsg(_ msg : String)
     {
-        bottomSheetVC.updateHeaderMsg(msg)
+        bottomSheetVC?.updateHeaderMsg(msg)
     }
     
     func hideRecenterBtn()

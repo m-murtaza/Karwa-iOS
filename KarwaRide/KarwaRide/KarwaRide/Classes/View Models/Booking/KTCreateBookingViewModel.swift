@@ -69,7 +69,7 @@ protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
     func restoreCustomerServiceSelection(animateView: Bool)
     func reloadSelection()
     
-    func noOfPromotions(count: Int)
+    func getPromotions(promotions: [PromotionModel])
     func rebookRide()
 }
 
@@ -192,7 +192,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        rebook = false
         del?.allowScrollVTypeCard(allow: true)
     }
     
@@ -472,7 +471,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     }
     
     //MARK: - Promotion
-    func getNoOfPromotions() {
+    func getPromotions() {
         guard (booking.pickupAddress != nil && booking.pickupAddress != "") || (booking.dropOffAddress != nil && booking.dropOffAddress != "") else {return}
         var params: PromotionParams = PromotionParams()
         if booking.pickupAddress != nil && booking.pickupAddress != "" {
@@ -483,20 +482,38 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             params.dropoffLat = booking.dropOffLat
             params.dropoffLong = booking.dropOffLon
         }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss a"
+        let date = dateFormatter.string(from: selectedPickupDateTime)
+        params.dateTime = date
 
         KTPromotionManager().fetchPromotions(params: params) { [weak self] (status, response) in
             guard let `self` = self else{return}
             if status == Constants.APIResponseStatus.SUCCESS
             {
+                var promotionList: [PromotionModel] = []
                 guard let promotions = response["D"] as? [[String : Any]] else {
-                    (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
+                    (self.delegate as! KTCreateBookingViewModelDelegate).getPromotions(promotions: [])
                     return
                 }
-                (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: promotions.count)
+                for item in promotions {
+                    var promotionInfo = PromotionModel()
+                    
+                    promotionInfo.id = item["Id"] as? Int
+                    promotionInfo.name = item["Name"] as? String
+                    promotionInfo.description = item["Description"] as? String
+                    promotionInfo.moreInfo = item["MoreInfo"] as? String
+                    promotionInfo.code = item["Code"] as? String
+                    let iconUrl = KTConfiguration.sharedInstance.envValue(forKey: Constants.API.BaseURLKey) + Constants.APIURL.PromotionIcon + String(promotionInfo.id!)
+                    promotionInfo.icon = iconUrl
+                    
+                    promotionList.append(promotionInfo)
+                }
+                (self.delegate as! KTCreateBookingViewModelDelegate).getPromotions(promotions: promotionList)
             }
             else
             {
-                (self.delegate as! KTCreateBookingViewModelDelegate).noOfPromotions(count: 0)
+                (self.delegate as! KTCreateBookingViewModelDelegate).getPromotions(promotions: [])
             }
         }
     }
@@ -573,6 +590,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                                                             self.estimates?.removeAll()
                                                             self.estimates = nil
                                                         }
+                                                        if rebook {
+                                                            self.del?.rebookRide()
+                                                        }
                                                     }
                                                  })
             
@@ -606,6 +626,9 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             estimates = nil
         } else {
             (self.delegate as! KTCreateBookingViewModelDelegate).reloadSelection()
+            if rebook {
+                self.del?.rebookRide()
+            }
         }
         
     }
@@ -688,6 +711,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     {
                         self.promo = promoEntered
                         (self.delegate as! KTCreateBookingViewModelDelegate).setPromotionCode(promo: promoEntered)
+                        (self.delegate as! KTCreateBookingViewModelDelegate).showPromotionAppliedToast(show: true)
                         self.del?.setPromoButtonLabel(validPromo: promoEntered)
                         self.estimates = KTVehicleTypeManager().estimates()
                         
@@ -718,7 +742,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     }
                     else
                     {
-                        (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: response["T"] as! String, descMessage: response["M"] as! String, completion:
+                        let title = (response[Constants.ResponseAPIKey.Title] as? String) ?? "error_sr".localized()
+                        let message = (response[Constants.ResponseAPIKey.Message] as? String) ?? "please_dialog_msg_went_wrong".localized()
+                        
+                        (self.delegate as! KTBaseViewController).showOkDialog(titleMessage: title, descMessage: message, completion:
                                                                                 { (UIAlertAction) in
                                                                                     self.removeBooking = false
                                                                                     self.promo = ""
@@ -994,6 +1021,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         selectedPickupDateTime = date
         updateUI(forDate: selectedPickupDateTime)
+        getPromotions()
     }
     
     func updateUI(forDate date: Date)
@@ -1169,6 +1197,33 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return result.isEmpty ? "txt_not_available".localized() : result
     }
     
+    func getAvailableEta(category: VehicleCategories) -> String {
+        var result = ""
+        
+        if let _ = self.vehicleTypes {
+            
+            if  !isDropAvailable() && (selectedPickupDateTime >= Date()) {
+                result =  "str_starting_fare".localized()
+            } else if isDropAvailable() && (selectedPickupDateTime >= Date()) {
+                result = "str_estimated_fare".localized()
+            } else {
+                let minEta = vehicleCategories[category.rawValue]?.compactMap({Int($0.etaText?.components(separatedBy: " ").first ?? "")}).min() ?? -1
+                if minEta == -1 {
+                    result = "txt_not_available".localized()
+                }
+                else {
+                    let eta = vehicleCategories[category.rawValue]?.first(where: { item in
+                        item.etaText?.starts(with: String(minEta)) ?? false
+                    })?.etaText ?? ""
+                    result = eta
+                }
+            }
+            
+        }
+        
+        return result.isEmpty ? "txt_not_available".localized() : result
+    }
+    
     func getTypeVehicleImage(typeId: Int16) -> UIImage {
         var imgSType : UIImage = UIImage()
         if let sType : KTVehicleType = vehicleTypes?.first(where: {$0.typeId == typeId}) {
@@ -1193,6 +1248,21 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             }
         }
         return imgSType
+    }
+    
+    func getVehicleCategoyIcon(category: VehicleCategories) -> UIImage {
+        var icon : UIImage = UIImage()
+        switch category {
+        case .FIRST:
+            icon = UIImage(named: "icon-taxi-category")!
+        case .SECOND:
+            icon = UIImage(named: "icon-accessible-category")!
+        case .THIRD:
+            icon = UIImage(named: "icon-luxury-category")!
+        case .FOURTH:
+            icon = UIImage(named: "icon-etectric-category")!
+        }
+        return icon
     }
     
     func getEstimate(typeId: Int16) -> KTFareEstimate? {
@@ -1345,13 +1415,17 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             description = "description_accessible".localized()
             
         case VehicleType.KTStandardLimo.rawValue:
-            description = "txt_limo_standard".localized()
+            description = "description_standard_limo".localized()
             
         case VehicleType.KTBusinessLimo.rawValue:
-            description = "txt_limo_buisness".localized()
+            description = "description_business_limo".localized()
             
         case VehicleType.KTLuxuryLimo.rawValue:
             description = "description_limo".localized()
+            
+        case VehicleType.KTIconicLimousine.rawValue:
+            description = "description_electric_limo".localized()
+            
         default:
             description = ""
         }
@@ -1822,7 +1896,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                     //self.delegate?.userIntraction(enable: true)
                     if self.delegate != nil {
                         (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: self.booking.pickupAddress)
-                        
                     }
                 }
             }

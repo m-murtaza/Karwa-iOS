@@ -34,12 +34,16 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     @IBOutlet weak var svDetail: UIStackView!
     @IBOutlet weak var uiPreventTouch: UIView!
     
+    @IBOutlet weak var fareDetailStackView: UIStackView!
+    @IBOutlet weak var headerStackView: UIStackView!
+    @IBOutlet weak var infoStackView: UIStackView!
+    
     @IBOutlet weak var heightOFScrollViewContent: NSLayoutConstraint!
     
     var vModel: KTCreateBookingViewModel?
     var vehicles: [KTVehicleType] = []
     var isDataLoaded = false
-    var sheet: SheetViewController?
+    weak var sheet: SheetViewController?
     var sheetCoordinator: UBottomSheetCoordinator?
     var selectedVehicleType: VehicleType?
     var rebook: Bool?
@@ -73,6 +77,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         return pageSize
     }
     var screenSize: CGRect!
+    var widthRatio = 0.8
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +86,10 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         self.sheet?.view.backgroundColor = .clear
         self.setupView()
         self.setupCV()
+    }
+    
+    deinit{
+        print("VehicleDetailBottomSheetVC->deinit")
     }
     
     override func viewWillAppear(_ animated: Bool){
@@ -97,6 +106,20 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
         
         btnRightArrow.setImage(UIImage(named: "ic_right_arrow_white")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
         btnLeftArrow.setImage(UIImage(named: "ic_left_arrow_white")?.imageFlippedForRightToLeftLayoutDirection(), for: .normal)
+        
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 1920, 2208:
+                print("iPhone 6+/6S+/7+/8+")
+                widthRatio = 0.9
+            default:
+                widthRatio = 0.8
+            }
+        }
+        let cellWidth = (collectionView.frame.width * widthRatio)-8
+        fareDetailStackView.widthAnchor.constraint(equalToConstant: cellWidth).isActive = true
+        headerStackView.widthAnchor.constraint(equalToConstant: cellWidth).isActive = true
+        infoStackView.widthAnchor.constraint(equalToConstant: cellWidth).isActive = true
     }
     
     func updateDetailBottomSheet(forIndex: Int = 0){
@@ -165,6 +188,9 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
                 type.typeId == selectedType.rawValue
             }) {
                 if vehicleIndex < self.collectionView.numberOfItems(inSection: 0) {
+                    if let cell = self.collectionView.cellForItem(at: IndexPath(row: vehicleIndex, section: 0)) as? VehicleDetailCarouselCell {
+                        cell.imgVehicleType.isHidden = false
+                    }
                     self.collectionView.scrollToItem(at: IndexPath(row: vehicleIndex, section: 0), at: .centeredHorizontally, animated: true)
                 }
             }
@@ -217,6 +243,7 @@ class VehicleDetailBottomSheetVC: KTBaseViewController, Draggable {
     
     @IBAction func btnRequestBooking(_ sender: Any){
         springAnimateButtonTapOut(button: btnRequestBooking)
+        sheet?.attemptDismiss(animated: true)
         vModel?.btnRequestBookingTapped()
     }
     
@@ -286,7 +313,7 @@ extension VehicleDetailBottomSheetVC: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width * 0.8, height: collectionView.frame.height)
+        return CGSize(width: collectionView.frame.width * widthRatio, height: collectionView.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -314,9 +341,9 @@ extension VehicleDetailBottomSheetVC: UICollectionViewDelegate {
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: String(describing: VehicleDetailCarouselCell.self), bundle:nil), forCellWithReuseIdentifier: String(describing: VehicleDetailCarouselCell.self))
         let layout = UPCarouselFlowLayout()
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0)
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 2)
         layout.sideItemScale = 0.8
-        layout.itemSize = CGSize(width: collectionView.frame.width * 0.8, height: collectionView.frame.height)
+        layout.itemSize = CGSize(width: collectionView.frame.width * widthRatio, height: collectionView.frame.height)
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0

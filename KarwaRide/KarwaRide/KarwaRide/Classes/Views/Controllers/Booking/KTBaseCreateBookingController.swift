@@ -44,6 +44,7 @@ class KTBaseCreateBookingController: KTBaseDrawerRootViewController {
     public var pickupHint : String = ""
     public var callerId : String?
     public var promoCode : String = ""
+    public var previousPromoCode : String = ""
 
     //MARK:- Outlets
     @IBOutlet weak var mapView : GMSMapView!

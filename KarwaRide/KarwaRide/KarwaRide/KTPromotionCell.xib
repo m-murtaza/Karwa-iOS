@@ -30,13 +30,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="07p-wO-euZ" customClass="ViewWithRoundCorner" customModule="KarwaRide" customModuleProvider="target">
-                        <rect key="frame" x="12" y="4" width="390" height="243"/>
+                        <rect key="frame" x="12" y="4" width="390" height="258.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9dK-nD-2t4">
-                                <rect key="frame" x="20" y="20" width="350" height="203"/>
+                                <rect key="frame" x="20" y="20" width="350" height="218.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pvz-xU-me0">
-                                        <rect key="frame" x="0.0" y="0.0" width="350" height="80"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="95.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heading" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xt-5T-6xC">
                                                 <rect key="frame" x="0.0" y="0.0" width="204" height="17"/>
@@ -62,12 +62,24 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Code: XYZ123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXX-ON-m17">
-                                                <rect key="frame" x="0.0" y="61" width="204" height="8.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="8.5" id="d4j-sc-y32"/>
-                                                </constraints>
+                                                <rect key="frame" x="0.0" y="61" width="204" height="13.5"/>
                                                 <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="11"/>
                                                 <color key="textColor" name="PrimaryColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZr-h7-toZ">
+                                                <rect key="frame" x="0.0" y="79.5" width="204" height="11"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="11" id="9a4-fV-OB4"/>
+                                                </constraints>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="See More">
+                                                        <attributes>
+                                                            <font key="NSFont" size="10" name="MuseoSans-700"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -75,20 +87,24 @@
                                         <constraints>
                                             <constraint firstItem="AzB-n4-Vec" firstAttribute="trailing" secondItem="7xt-5T-6xC" secondAttribute="trailing" id="3hQ-Vp-uKQ"/>
                                             <constraint firstItem="aXX-ON-m17" firstAttribute="top" secondItem="AzB-n4-Vec" secondAttribute="bottom" constant="4" id="Eng-Z5-ud9"/>
+                                            <constraint firstItem="UZr-h7-toZ" firstAttribute="top" secondItem="aXX-ON-m17" secondAttribute="bottom" constant="5" id="Gbh-oe-wVV"/>
                                             <constraint firstItem="aXX-ON-m17" firstAttribute="leading" secondItem="7xt-5T-6xC" secondAttribute="leading" id="Kv1-5P-t5J"/>
                                             <constraint firstItem="AzB-n4-Vec" firstAttribute="leading" secondItem="7xt-5T-6xC" secondAttribute="leading" id="LE2-zW-XWe"/>
+                                            <constraint firstItem="UZr-h7-toZ" firstAttribute="trailing" secondItem="aXX-ON-m17" secondAttribute="trailing" id="ROD-8u-o5D"/>
                                             <constraint firstItem="aXX-ON-m17" firstAttribute="trailing" secondItem="7xt-5T-6xC" secondAttribute="trailing" id="Wrt-Ac-fzW"/>
                                             <constraint firstItem="AzB-n4-Vec" firstAttribute="top" secondItem="7xt-5T-6xC" secondAttribute="bottom" id="bsk-50-tHq"/>
                                             <constraint firstAttribute="trailing" secondItem="zCH-Iz-ZcC" secondAttribute="trailing" id="dUm-AA-e1V"/>
-                                            <constraint firstAttribute="bottom" secondItem="zCH-Iz-ZcC" secondAttribute="bottom" constant="5" id="nZr-vF-IpO"/>
+                                            <constraint firstAttribute="bottom" secondItem="UZr-h7-toZ" secondAttribute="bottom" constant="5" id="gkI-z1-fsa"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zCH-Iz-ZcC" secondAttribute="bottom" constant="5" id="nZr-vF-IpO"/>
                                             <constraint firstItem="7xt-5T-6xC" firstAttribute="top" secondItem="pvz-xU-me0" secondAttribute="top" id="o4B-Hj-8cU"/>
                                             <constraint firstItem="7xt-5T-6xC" firstAttribute="leading" secondItem="pvz-xU-me0" secondAttribute="leading" id="tZI-Vb-lX4"/>
+                                            <constraint firstItem="UZr-h7-toZ" firstAttribute="leading" secondItem="aXX-ON-m17" secondAttribute="leading" id="uIA-Xv-efx"/>
                                             <constraint firstItem="zCH-Iz-ZcC" firstAttribute="leading" secondItem="7xt-5T-6xC" secondAttribute="trailing" constant="16" id="uZD-F0-rld"/>
                                             <constraint firstItem="zCH-Iz-ZcC" firstAttribute="top" secondItem="pvz-xU-me0" secondAttribute="top" id="yoZ-En-RGv"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RYO-ui-VzG">
-                                        <rect key="frame" x="0.0" y="80" width="350" height="112"/>
+                                        <rect key="frame" x="0.0" y="95.5" width="350" height="112"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbI-jn-Zvf">
                                                 <rect key="frame" x="0.0" y="0.0" width="55" height="15"/>
@@ -123,7 +139,7 @@ Karwa Taxi App for hassle free and discounted taxi rides to and from all Metro S
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWv-Lv-4FP">
-                                        <rect key="frame" x="0.0" y="192" width="350" height="11"/>
+                                        <rect key="frame" x="0.0" y="207.5" width="350" height="11"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="11" id="5LG-en-a5M"/>
                                         </constraints>
@@ -155,7 +171,7 @@ Karwa Taxi App for hassle free and discounted taxi rides to and from all Metro S
                                 <real key="value" value="0.0"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                <color key="value" name="PrimaryColor"/>
+                                <color key="value" red="0.16078431372549018" green="0.29411764705882354" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -174,6 +190,7 @@ Karwa Taxi App for hassle free and discounted taxi rides to and from all Metro S
                 <outlet property="lblCode" destination="aXX-ON-m17" id="1je-kf-Wbu"/>
                 <outlet property="lblDetail" destination="P44-t2-wJo" id="5mZ-6x-fSz"/>
                 <outlet property="lblHeading" destination="7xt-5T-6xC" id="rED-gN-MpY"/>
+                <outlet property="lblSeeLess" destination="UZr-h7-toZ" id="ZDY-gc-TkT"/>
                 <outlet property="lblSeeMore" destination="IWv-Lv-4FP" id="ixb-vh-uhF"/>
                 <outlet property="lblSubHeading" destination="AzB-n4-Vec" id="YrH-Yj-wMB"/>
                 <outlet property="uiDetailView" destination="RYO-ui-VzG" id="Jda-8G-fph"/>

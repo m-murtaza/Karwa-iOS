@@ -21,6 +21,7 @@ class SharedPrefUtil
     static let LANGUAGE_SET = "LANGUAGE_SET"
     static let DELTA_TO_TRUE_TIME = "DELTA_TO_REAL_TIME"
     static let ENVIRONMENT = "ENVIRONMENT"
+    static let PROMOTION_TOOLTIP_COUNT = "PROMOTION_TOOLTIP_COUNT"
     
     static func setSharedPref(_ key:String, _ value: String)
     {

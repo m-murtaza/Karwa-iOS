@@ -3,7 +3,6 @@ import UIKit
 /// Delegate to handle touch event of the close button.
 protocol HeaderViewControllerDelegate: class {
   func headerViewControllerDidTapCloseButton(_ controller: HeaderViewController)
-  func headerViewControllerDidTapManageButton(_ controller: HeaderViewController)
 }
 
 /// View controller with title label and close button.
@@ -20,9 +19,6 @@ public final class HeaderViewController: UIViewController {
   /// Left bar button item of the navigation bar.
   public private(set) lazy var closeButton: UIButton = self.makeCloseButton()
 
-    /// Right bar button item of the navigation bar.
-    public private(set) lazy var manageButton: UIButton = self.makeManageButton()
-
   // MARK: - View lifecycle
 
   public override func viewDidLoad() {
@@ -30,7 +26,6 @@ public final class HeaderViewController: UIViewController {
 
     navigationBar.delegate = self
     closeButton.addTarget(self, action: #selector(handleCloseButtonTap), for: .touchUpInside)
-    manageButton.addTarget(self, action: #selector(handleManageButtonTap), for: .touchUpInside)
 
     view.addSubview(navigationBar)
     setupConstraints()
@@ -41,9 +36,6 @@ public final class HeaderViewController: UIViewController {
   @objc private func handleCloseButtonTap() {
     delegate?.headerViewControllerDidTapCloseButton(self)
   }
-    @objc private func handleManageButtonTap() {
-      delegate?.headerViewControllerDidTapManageButton(self)
-    }
 
   // MARK: - Layout
 
@@ -75,9 +67,7 @@ private extension HeaderViewController {
   func makeNavigationItem() -> UINavigationItem {
     let navigationItem = UINavigationItem()
     closeButton.sizeToFit()
-    manageButton.sizeToFit()
     navigationItem.leftBarButtonItem = UIBarButtonItem(customView: closeButton)
-    navigationItem.rightBarButtonItem = UIBarButtonItem(customView: manageButton)
     titleLabel.sizeToFit()
     navigationItem.titleView = titleLabel
     return navigationItem
@@ -100,14 +90,6 @@ private extension HeaderViewController {
     button.tintColor = .black
     return button
   }
-    
-    func makeManageButton() -> UIButton {
-      let button = UIButton(type: .system)
-      button.setTitle(localizedString("BUTTON_MANAGE"), for: UIControl.State())
-      button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-      button.tintColor = .black
-      return button
-    }
 }
 
 // MARK: - UINavigationBarDelegate

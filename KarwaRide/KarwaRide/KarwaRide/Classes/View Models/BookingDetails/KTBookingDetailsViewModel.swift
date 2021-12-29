@@ -274,7 +274,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     func imgForPlate() -> UIImage {
         
         switch booking?.vehicleType  {
-        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?:
+        case VehicleType.KTAirportSpare.rawValue?, VehicleType.KTCityTaxi.rawValue?, VehicleType.KTCityTaxi7Seater.rawValue?, VehicleType.KTSpecialNeedTaxi.rawValue?:
             return UIImage(named:"taxiplate")!
         default:
             return UIImage(named:"limo_number_plate")!
