@@ -61,10 +61,12 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         if isShowing {
             self.tableView.isHidden = true
             self.btnShowMore.isHidden = true
+            self.resizeSheetOnKeyboardNotify(isKeyboardActive: true)
         }
         else {
             self.tableView.isHidden = false
             self.btnShowMore.isHidden = (self.viewModel as! KTPromotionsViewModel).numberOfRows() > 3 ? false : true
+            self.resizeSheetOnKeyboardNotify(isKeyboardActive: false)
         }
     }
     
@@ -114,6 +116,10 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
             guard let `self` = self else {return}
             self.btnShowMore.isHidden = true
         }
+    }
+    
+    private func resizeSheetOnKeyboardNotify(isKeyboardActive: Bool) {
+        sheet?.resize(to: isKeyboardActive ? .percent(0.30) : .percent(0.70), duration: 0.2, options: .curveEaseIn, animated: true)
     }
     
     @IBAction func btnApplyTouchDown(_ sender: SpringButton){
