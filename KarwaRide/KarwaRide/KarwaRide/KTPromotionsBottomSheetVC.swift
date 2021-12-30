@@ -49,6 +49,19 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         btnShowMore.setImage(UIImage(named: "ic_bottom_arrow_stack"), for: .highlighted)
         
         tfPromoCode.delegate = self
+        tfPromoCode.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if textField.text?.isEmpty ?? false {
+            if let promo = previousPromo, !promo.isEmpty {
+                let title = NSAttributedString(
+                    string: "promo_apply".localized(),
+                    attributes: [.font: UIFont(name: "MuseoSans-900", size: 12.0)!, .foregroundColor: UIColor.white]
+                )
+                btnApply.setAttributedTitle(title, for: .normal)
+            }
+        }
     }
     
     func setupKeyboardNotifications(){
@@ -60,11 +73,13 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         let isShowing = notification.name == .UIKeyboardWillShow
         if isShowing {
             self.tableView.isHidden = true
+            self.lblHeading.isHidden = true
             self.btnShowMore.isHidden = true
             self.resizeSheetOnKeyboardNotify(isKeyboardActive: true)
         }
         else {
             self.tableView.isHidden = false
+            self.lblHeading.isHidden = false
             self.btnShowMore.isHidden = (self.viewModel as! KTPromotionsViewModel).numberOfRows() > 3 ? false : true
             self.resizeSheetOnKeyboardNotify(isKeyboardActive: false)
         }
@@ -79,11 +94,9 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         var btnText = "promo_apply".localized()
         if let promo = previousPromo, !promo.isEmpty {
             btnText = "str_remove".localized()
-            tfPromoCode.isUserInteractionEnabled = false
             lblHeading.text = "str_applied_promo".localized() + " (\(promo))"
         } else {
             btnText = "promo_apply".localized()
-            tfPromoCode.isUserInteractionEnabled = true
             lblHeading.text = "str_promo_codes".localized()
         }
         let title = NSAttributedString(
