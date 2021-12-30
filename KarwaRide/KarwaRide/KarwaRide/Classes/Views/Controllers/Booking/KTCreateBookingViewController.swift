@@ -435,7 +435,7 @@ class KTCreateBookingViewController:
     tableView.delegate = self
     tableView.dataSource = self
     tableView.backgroundColor = .clear
-    tableView.isScrollEnabled = false
+    tableView.isScrollEnabled = true
 //    let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     
 //    rideServicesContainer.addGestureRecognizer(gesture)
