@@ -24,7 +24,7 @@ class KTSettingsViewModel: KTBaseViewModel {
         userInfo = KTUserManager().loginUserInfo()
         (delegate as! KTSettingsViewModelDelegate).reloadTable()
         KTUserManager().fetchUserInfoFromServer { _ in
-            
+            self.reloadData()
         }
     }
     

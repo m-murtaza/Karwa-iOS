@@ -849,12 +849,19 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     {
       setConfirmPickupFlowDone(isConfirmPickupFlowDone: true)
     }
-    
-    txtPickAddress.text = pick
+      
+      print("***************** pickup text ********************", pick)
+      
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+          self.txtPickAddress.text = pick
+      }
+      
   }
   
   func setDropOff(drop: String) {
-    txtDropAddress.text = drop
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+          self.txtDropAddress.text = drop
+      }
   }
   
   // MARK: - TableView Delegates

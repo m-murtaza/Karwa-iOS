@@ -474,6 +474,7 @@ struct Constants {
         static let Login = "user/login"
         static let Logout = "user/logout"
         static let GetUserInfo = "user/"
+        static let VersionCheck = "app/version?DeviceType=1"
         static let SignUp = "user/"
         static let Otp = "user/otp"
         static let ResendOtp = "user/resendotp"

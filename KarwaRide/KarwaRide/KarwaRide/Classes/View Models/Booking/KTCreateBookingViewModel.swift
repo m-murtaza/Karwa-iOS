@@ -212,11 +212,16 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func setPickAddress(pAddress : KTGeoLocation) {
         booking.pickupLocationId = pAddress.locationId
         
-        if pAddress.favoriteName == "" {
-            booking.pickupAddress = pAddress.name
-        } else {
-            booking.pickupAddress = pAddress.favoriteName
+        if pAddress.geolocationToBookmark != nil && pAddress.name != nil {
+            booking.favoritePickAddressName = pAddress.geolocationToBookmark!.name!.capitalizingFirstLetter()
         }
+        else if pAddress.favoriteName.count > 0 {
+            booking.favoritePickAddressName = pAddress.favoriteName
+        }
+        else if pAddress.name != nil {
+            booking.pickupAddress = pAddress.name!
+        }
+        
         
         pickUpAddressGeoLocation = pAddress
         booking.pickupAddress = pAddress.name
@@ -227,10 +232,15 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func setDropAddress(dAddress : KTGeoLocation) {
         booking.dropOffLocationId = dAddress.locationId
         dropOffAddressGeoLocation = dAddress
-        if dAddress.favoriteName == "" {
-            booking.dropOffAddress = dAddress.name
-        } else {
-            booking.dropOffAddress = dAddress.favoriteName
+        
+        if dAddress.geolocationToBookmark != nil && dAddress.name != nil {
+            booking.favoriteDropAddressName = dAddress.geolocationToBookmark!.name!.capitalizingFirstLetter()
+        }
+        else if dAddress.favoriteName.count > 0 {
+            booking.favoriteDropAddressName = dAddress.favoriteName
+        }
+        else if dAddress.name != nil {
+            booking.dropOffAddress = dAddress.name!
         }
         
         booking.dropOffAddress = dAddress.name
@@ -298,12 +308,20 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         AnalyticsUtil.trackBehavior(event: "rebook")
         currentBookingStep = BookingStep.step3
         if isPickAvailable() {
-            (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)
+            if let fPick = booking.favoritePickAddressName, fPick != "" {
+                (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.favoritePickAddressName!)
+            } else {
+                (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)
+            }
         }
         
         if isDropAvailable()
         {
-            (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: booking.dropOffAddress!)
+            if let fPick = booking.favoriteDropAddressName, fPick != "" {
+                (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: booking.favoriteDropAddressName!)
+            } else {
+                (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: booking.dropOffAddress!)
+            }
         }
         else
         {
@@ -420,14 +438,22 @@ class KTCreateBookingViewModel: KTBaseViewModel {
     func step3SelectRideService() {
         currentBookingStep = BookingStep.step3
         if booking.pickupAddress != nil || booking.pickupAddress != "" {
-            (delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress)
+            if let fPick = booking.favoritePickAddressName, fPick != "" {
+                (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.favoritePickAddressName!)
+            } else {
+                (self.delegate as! KTCreateBookingViewModelDelegate).setPickUp(pick: booking.pickupAddress!)
+            }
             //        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
             //            (self.delegate as! KTCreateBookingViewModelDelegate).restoreCustomerServiceSelection()
             //        })
         }
         
         if(booking.dropOffAddress != nil && booking.dropOffAddress != "") {
-            (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: booking.dropOffAddress)
+            if let fPick = booking.favoriteDropAddressName, fPick != "" {
+                (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: booking.favoriteDropAddressName!)
+            } else {
+                (self.delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: booking.dropOffAddress!)
+            }
         }
         else {
             (delegate as! KTCreateBookingViewModelDelegate).setDropOff(drop: dropOffBtnText)
