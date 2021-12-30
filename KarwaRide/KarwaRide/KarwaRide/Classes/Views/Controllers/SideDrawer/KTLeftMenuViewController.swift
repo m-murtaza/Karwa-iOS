@@ -8,6 +8,7 @@
 
 import UIKit
 import BarcodeScanner
+import SideMenuSwift
 
 var lastSelectedIndexPath = IndexPath.init(row: 0, section: 0)
 
@@ -88,6 +89,8 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         sideMenuController?.cache(viewControllerGenerator: {
             self.getVC(storyboard: .MAIN, vcIdentifier: "UnderConstructionNavigationController")
         }, with: "9")
+        
+        sideMenuController?.delegate = self
     }
     
     func reloadTable()
@@ -321,6 +324,38 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
 //
 //        return false
 //    }
+}
+
+extension KTLeftMenuViewController: SideMenuControllerDelegate {
+    func sideMenuController(_ sideMenuController: SideMenuController,
+                            animationControllerFrom fromVC: UIViewController,
+                            to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return BasicTransitionAnimator(options: .transitionCrossDissolve, duration: 0.6)
+    }
+    
+    func sideMenuController(_ sideMenuController: SideMenuController, willShow viewController: UIViewController, animated: Bool) {
+        print("[Example] View controller will show [\(viewController)]")
+    }
+    
+    func sideMenuController(_ sideMenuController: SideMenuController, didShow viewController: UIViewController, animated: Bool) {
+        print("[Example] View controller did show [\(viewController)]")
+    }
+    
+    func sideMenuControllerWillHideMenu(_ sideMenuController: SideMenuController) {
+        print("[Example] Menu will hide")
+    }
+    
+    func sideMenuControllerDidHideMenu(_ sideMenuController: SideMenuController) {
+        print("[Example] Menu did hide.")
+    }
+    
+    func sideMenuControllerWillRevealMenu(_ sideMenuController: SideMenuController) {
+        print("[Example] Menu will reveal.")
+    }
+    
+    func sideMenuControllerDidRevealMenu(_ sideMenuController: SideMenuController) {
+        print("[Example] Menu did reveal.")
+    }
 }
 
 extension UILabel {

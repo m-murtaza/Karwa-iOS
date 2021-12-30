@@ -635,6 +635,14 @@ class KTCreateBookingViewController:
         }, completion: nil)
     }
     
+    func rebookNavigation() {
+        if booking != nil {
+            vModel?.booking = booking!
+            (viewModel as! KTCreateBookingViewModel).setRemoveBookingOnReset(removeBookingOnReset: removeBookingOnReset)
+            (viewModel as! KTCreateBookingViewModel).rebookFlow()
+        }
+    }
+    
   override func viewWillAppear(_ animated: Bool)
   {
     super.viewWillAppear(false)

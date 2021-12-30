@@ -139,6 +139,11 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         del?.hidePickDropoffParentContainer()
         del?.hideRideServicesContainer()
         
+        resetPromo()
+        resetPromoOrBaseFare()
+    }
+    
+    func rebookFlow() {
         if booking.bookingId != nil && booking.bookingId != "" {
             rebook = true
             updateForRebook()
@@ -147,9 +152,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         } else {
             PreviousSelectedPayment.shared.rebook = false
         }
-        
-        resetPromo()
-        resetPromoOrBaseFare()
     }
     
     override func viewWillAppear() {
