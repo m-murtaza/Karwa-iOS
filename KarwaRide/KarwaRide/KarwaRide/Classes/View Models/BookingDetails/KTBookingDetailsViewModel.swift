@@ -96,7 +96,7 @@ enum BottomBarBtnTag : Int {
 class KTBookingDetailsViewModel: KTBaseViewModel {
     
     var booking : KTBooking?
-    var del : KTBookingDetailsViewModelDelegate?
+    weak var del : KTBookingDetailsViewModelDelegate?
     
     private var timerVechicleTrack : Timer? = Timer()
     private var timerBookingFreshness : Timer? = Timer()

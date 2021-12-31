@@ -630,8 +630,17 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func moveToBooking()
     {
+//        guard let contentViewController = self.getVC(storyboard: .MAIN, vcIdentifier: "BookingNavigationViewController") as? UINavigationController else {return}
+//        guard let tabController = contentViewController.topViewController as? TabViewController else {return}
+//        let createBooking : KTCreateBookingViewController = tabController.viewControllers![0] as! KTCreateBookingViewController
+//        createBooking.booking = vModel?.booking
+//        createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
+//        let menuViewController = self.getVC(storyboard: .MAIN, vcIdentifier: "LeftMenuViewController")
+//        let sideMenuController = SideMenuController(contentViewController: contentViewController, menuViewController: menuViewController)
+//        UIApplication.shared.keyWindow?.rootViewController = sideMenuController
+        
+        sideMenuController?.setContentViewController(with: "0", animated: true)
         if let navController = self.navigationController {
-            sideMenuController?.setContentViewController(with: "0", animated: true)
             navController.popViewController(animated: true)
         }
     }
