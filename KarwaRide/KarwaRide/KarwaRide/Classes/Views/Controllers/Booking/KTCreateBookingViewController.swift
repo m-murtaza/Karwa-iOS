@@ -11,6 +11,7 @@ import Spring
 import Lottie
 //import UBottomSheet
 import FittedSheets
+import SideMenuSwift
 
 public class PreviousSelectedPayment: NSObject {
     static let shared = PreviousSelectedPayment()
@@ -508,6 +509,8 @@ class KTCreateBookingViewController:
         
         self.ivPickup.image = UIImage(named: "arrow_right copy_2")?.imageFlippedForRightToLeftLayoutDirection()
         self.ivDropoff.image = UIImage(named: "arrow_right copy_2")?.imageFlippedForRightToLeftLayoutDirection()
+        
+        sideMenuController?.delegate = self
   }
     
     private func setupVehicleDetailBottomSheet() {
@@ -1144,8 +1147,8 @@ class KTCreateBookingViewController:
     }
   }
   func moveToDetailView() {
-    
-    self.performSegue(withIdentifier: "segueBookingListForDetails", sender: self)
+      sideMenuController?.setContentViewController(with: "1", animated: true)
+//    self.performSegue(withIdentifier: "segueBookingListForDetails", sender: self)
   }
   
   //MARK:- Locations
@@ -1270,4 +1273,19 @@ extension UICollectionViewFlowLayout {
         return true
     }
 
+}
+
+extension KTCreateBookingViewController: SideMenuControllerDelegate {
+    func sideMenuController(_ sideMenuController: SideMenuController,
+                            animationControllerFrom fromVC: UIViewController,
+                            to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return BasicTransitionAnimator(options: .transitionCrossDissolve, duration: 0.6)
+    }
+    
+    func sideMenuController(_ sideMenuController: SideMenuController, willShow viewController: UIViewController, animated: Bool) {
+        if let navVC : UINavigationController = viewController as? UINavigationController {
+            guard let destinationVC = navVC.topViewController as? KTMyTripsViewController else {return}
+            destinationVC.setBooking(booking: (viewModel as! KTCreateBookingViewModel).booking)
+        }
+    }
 }

@@ -630,16 +630,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func moveToBooking()
     {
-//        guard let contentViewController = self.getVC(storyboard: .MAIN, vcIdentifier: "BookingNavigationViewController") as? UINavigationController else {return}
-//        guard let tabController = contentViewController.topViewController as? TabViewController else {return}
-//        let createBooking : KTCreateBookingViewController = tabController.viewControllers![0] as! KTCreateBookingViewController
-//        createBooking.booking = vModel?.booking
-//        createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
-//        let menuViewController = self.getVC(storyboard: .MAIN, vcIdentifier: "LeftMenuViewController")
-//        let sideMenuController = SideMenuController(contentViewController: contentViewController, menuViewController: menuViewController)
-//        UIApplication.shared.keyWindow?.rootViewController = sideMenuController
-        
         sideMenuController?.setContentViewController(with: "0", animated: true)
+        lastSelectedIndexPath = IndexPath.init(row: 0, section: 0)
         if let navController = self.navigationController {
             navController.popViewController(animated: true)
         }
@@ -827,7 +819,6 @@ extension KTBookingDetailsViewController: SideMenuControllerDelegate {
     }
     
     func sideMenuController(_ sideMenuController: SideMenuController, willShow viewController: UIViewController, animated: Bool) {
-        print("[Example] View controller will show [\(viewController)]")
         if let navVC : UINavigationController = viewController as? UINavigationController {
             guard let tabController = navVC.topViewController as? TabViewController else {return}
             let createBooking : KTCreateBookingViewController = tabController.viewControllers![0] as! KTCreateBookingViewController
@@ -835,25 +826,5 @@ extension KTBookingDetailsViewController: SideMenuControllerDelegate {
             createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
             createBooking.rebookNavigation()
         }
-    }
-    
-    func sideMenuController(_ sideMenuController: SideMenuController, didShow viewController: UIViewController, animated: Bool) {
-        print("[Example] View controller did show [\(viewController)]")
-    }
-    
-    func sideMenuControllerWillHideMenu(_ sideMenuController: SideMenuController) {
-        print("[Example] Menu will hide")
-    }
-    
-    func sideMenuControllerDidHideMenu(_ sideMenuController: SideMenuController) {
-        print("[Example] Menu did hide.")
-    }
-    
-    func sideMenuControllerWillRevealMenu(_ sideMenuController: SideMenuController) {
-        print("[Example] Menu will reveal.")
-    }
-    
-    func sideMenuControllerDidRevealMenu(_ sideMenuController: SideMenuController) {
-        print("[Example] Menu did reveal.")
     }
 }
