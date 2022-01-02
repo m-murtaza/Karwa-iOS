@@ -328,6 +328,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         
         logoutAlt.addAction(UIAlertAction(title: "str_yes".localized(), style: UIAlertActionStyle.destructive, handler: { (action) in
             UserDefaults.standard.removeObject(forKey: "OTPEnabled")
+            UserDefaults.standard.removeObject(forKey: SharedPrefUtil.PROMOTION_TOOLTIP_COUNT)
             (self.viewModel as! KTSettingsViewModel).logout()
         }))
         

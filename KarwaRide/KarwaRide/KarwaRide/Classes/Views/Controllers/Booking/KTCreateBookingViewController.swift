@@ -179,6 +179,10 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
         return 5
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColor(hexString: "#F1FBFA")
+    }
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1.0
     }
@@ -431,7 +435,7 @@ class KTCreateBookingViewController:
     tableView.delegate = self
     tableView.dataSource = self
     tableView.backgroundColor = .clear
-    tableView.isScrollEnabled = false
+    tableView.isScrollEnabled = true
 //    let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:)))
     
 //    rideServicesContainer.addGestureRecognizer(gesture)

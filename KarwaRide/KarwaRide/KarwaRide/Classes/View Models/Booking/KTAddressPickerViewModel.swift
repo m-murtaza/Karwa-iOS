@@ -457,8 +457,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
             if locations[idx.row].geolocationToBookmark != nil && locations[idx.row].name != nil {
               area = locations[idx.row].name!
             }
-            else if locations[idx.row].area != nil {
-              area = locations[idx.row].area!
+            else if let locationArea = locations[idx.row].area, !locationArea.isEmpty {
+              area = locationArea
+            }
+            else if let locationName = locations[idx.row].name, !locationName.isEmpty {
+              area = locationName
             }
 
             (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: area)
@@ -505,8 +508,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
             if locations[idx.row].geolocationToBookmark != nil && locations[idx.row].name != nil {
               area = locations[idx.row].name!
             }
-            else if locations[idx.row].area != nil {
-              area = locations[idx.row].area!
+            else if let locationArea = locations[idx.row].area, !locationArea.isEmpty {
+              area = locationArea
+            }
+            else if let locationName = locations[idx.row].name, !locationName.isEmpty {
+              area = locationName
             }
 
             (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: area)

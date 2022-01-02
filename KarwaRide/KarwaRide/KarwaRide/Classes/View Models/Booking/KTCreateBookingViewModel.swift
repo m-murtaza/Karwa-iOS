@@ -529,6 +529,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             params.dropoffLat = booking.dropOffLat
             params.dropoffLong = booking.dropOffLon
         }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss a"
+        let date = dateFormatter.string(from: selectedPickupDateTime)
+        params.dateTime = date
         
         return params
     }
