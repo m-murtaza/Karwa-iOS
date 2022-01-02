@@ -52,7 +52,11 @@ class KTPromotionCell: UITableViewCell {
         self.lblSubHeading.text = data.description
         self.lblDetail.text = data.moreInfo
         let url = URL(string: data.icon!)!
-        self.imgPromotion.kf.setImage(with: url)
+        ImageDownloader.default.downloadImage(with: url, retrieveImageTask: nil, options: [], progressBlock: nil) { (image, error, url, data) in
+            if let image = image, let _ = url {
+                self.imgPromotion.image = image
+            }
+        }
     }
     
     func configPromoBottomSheetCell(data: PromotionModel, isApplied: Bool) {
@@ -68,7 +72,11 @@ class KTPromotionCell: UITableViewCell {
         self.lblSubHeading.text = data.description
         self.lblDetail.text = data.moreInfo
         let url = URL(string: data.icon!)!
-        self.imgPromotion.kf.setImage(with: url)
+        ImageDownloader.default.downloadImage(with: url, retrieveImageTask: nil, options: [], progressBlock: nil) { (image, error, url, data) in
+            if let image = image, let _ = url {
+                self.imgPromotion.image = image
+            }
+        }
     }
     
     func setupShowMoreGesture() {

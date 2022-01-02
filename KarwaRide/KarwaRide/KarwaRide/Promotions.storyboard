@@ -91,7 +91,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bC0-bu-8jO">
-                                <rect key="frame" x="0.0" y="75" width="414" height="737"/>
+                                <rect key="frame" x="0.0" y="75" width="414" height="727"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="EdT-y9-A7P" id="GCO-Ku-exi"/>
@@ -99,7 +99,7 @@
                                 </connections>
                             </tableView>
                             <button hidden="YES" opaque="NO" alpha="0.75" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCn-f2-CAG">
-                                <rect key="frame" x="0.0" y="752" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="742" width="414" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="GFv-oP-iDO"/>
@@ -112,7 +112,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c24-ig-35D">
-                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="802" width="414" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Uc-zL-Qjl" customClass="SpringView" customModule="Spring">
                                         <rect key="frame" x="12" y="10" width="390" height="40"/>
@@ -193,7 +193,7 @@
                             <constraint firstItem="bC0-bu-8jO" firstAttribute="leading" secondItem="E8e-CK-st2" secondAttribute="leading" id="TuK-pJ-09e"/>
                             <constraint firstItem="c24-ig-35D" firstAttribute="trailing" secondItem="E8e-CK-st2" secondAttribute="trailing" id="dqB-d2-gAJ"/>
                             <constraint firstItem="yCn-f2-CAG" firstAttribute="leading" secondItem="E8e-CK-st2" secondAttribute="leading" id="fR5-OG-ash"/>
-                            <constraint firstItem="c24-ig-35D" firstAttribute="bottom" secondItem="E8e-CK-st2" secondAttribute="bottom" id="le4-rp-HcB"/>
+                            <constraint firstItem="c24-ig-35D" firstAttribute="bottom" secondItem="E8e-CK-st2" secondAttribute="bottom" constant="-10" id="le4-rp-HcB"/>
                             <constraint firstItem="3OD-p2-Xh0" firstAttribute="leading" secondItem="E8e-CK-st2" secondAttribute="leading" constant="18" id="nek-29-8BU"/>
                             <constraint firstItem="E8e-CK-st2" firstAttribute="trailing" secondItem="yCn-f2-CAG" secondAttribute="trailing" id="nuF-ji-egH"/>
                             <constraint firstItem="c24-ig-35D" firstAttribute="leading" secondItem="E8e-CK-st2" secondAttribute="leading" id="oEZ-Ar-JfC"/>
