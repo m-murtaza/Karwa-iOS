@@ -152,7 +152,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         {
             if((tfPromoCode.text?.trimmingCharacters(in: .whitespacesAndNewlines).length)! > 3)
             {
-                if let promo = previousPromo, !promo.isEmpty {
+                if let promo = previousPromo, !promo.isEmpty, promo == tfPromoCode.text!.trimmingCharacters(in: .whitespacesAndNewlines) {
                     previousView?.removePromoTapped()
                 }
                 else {
