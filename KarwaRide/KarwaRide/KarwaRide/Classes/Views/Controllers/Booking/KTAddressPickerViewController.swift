@@ -252,7 +252,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     @objc func keyboardWillShow(notification: NSNotification) {
         // read the CGRect from the notification (if any)
         if let newFrame = (notification.userInfo?[ UIKeyboardFrameEndUserInfoKey ] as? NSValue)?.cgRectValue {
-            let insets = UIEdgeInsetsMake( 0, 0, 300, 0 )
+            let insets = UIEdgeInsetsMake( 0, 0, 325, 0 )
             tblView.contentInset = insets
             tblView.scrollIndicatorInsets = insets
             
