@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol KTCancelReasonCellDelegate {
+protocol KTCancelReasonCellDelegate: AnyObject {
     func optionSelected(atIdx idx: Int)
 }
 
 class KTCancelReasonTableViewCell: UITableViewCell {
     
-    var delegate : KTCancelReasonCellDelegate?
+    weak var delegate : KTCancelReasonCellDelegate?
     
     @IBOutlet var lblReason: UILabel?
     @IBOutlet var btnSelection : UIButton?

@@ -57,7 +57,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     @IBOutlet weak var btnRecenter: UIButton!
 
     private var vModel : KTBookingDetailsViewModel?
-    private var cancelPopup : KTCancelViewController?
+    private weak var cancelPopup : KTCancelViewController?
     private var ebillPopup : KTFarePopupViewController?
     private var ratingPopup : KTRatingViewController?
 
@@ -140,6 +140,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         self.navigationController?.navigationBar.backIndicatorImage = nil
         
         sideMenuController?.delegate = self
+        lastSelectedIndexPath = IndexPath.init(row: 1, section: 0)
         // Do any additional setup after loading the view.
     }
     

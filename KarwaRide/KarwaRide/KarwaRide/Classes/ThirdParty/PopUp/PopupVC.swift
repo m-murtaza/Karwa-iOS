@@ -29,6 +29,10 @@ class PopupVC: KTBaseViewController {
     @IBAction private func btnGoDrivingPressed(btnSender: UIButton) {
         self.hideViewWithAnimation()
     }
+    
+    deinit{
+        print("PopupVC->deinit")
+    }
  
     //MARK: - Animation Method
     
@@ -37,25 +41,25 @@ class PopupVC: KTBaseViewController {
         self.view.alpha = 0
 //        self.viewPopupUI.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.3) { [weak self] in
 //            self.viewPopupUI.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-            self.view.alpha = 1
+            self?.view.alpha = 1
         }
         
     }
     
     func hideViewWithAnimation() {
         
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
             
 //            self.viewPopupUI.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-            self.view.alpha = 0
+            self?.view.alpha = 0
             
-        }, completion: {
+        }, completion: { [weak self]
             (value: Bool) in
             
-            self.removeFromParentViewController()
-            self.view.removeFromSuperview()
+            self?.removeFromParentViewController()
+            self?.view.removeFromSuperview()
         })
     }
 

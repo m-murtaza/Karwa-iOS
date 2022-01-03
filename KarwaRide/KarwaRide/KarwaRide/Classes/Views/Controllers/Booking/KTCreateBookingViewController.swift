@@ -826,6 +826,7 @@ class KTCreateBookingViewController:
     }
     self.previousPromoCode = ""
     removeBookingOnReset = true
+    booking = nil
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
 //    collapseRideList()

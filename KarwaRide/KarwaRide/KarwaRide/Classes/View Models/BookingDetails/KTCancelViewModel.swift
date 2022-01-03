@@ -17,7 +17,7 @@ protocol KTCancelViewModelDelegate : KTViewModelDelegate {
 
 class KTCancelViewModel: KTBaseViewModel {
 
-    var del : KTCancelViewModelDelegate?
+    weak var del : KTCancelViewModelDelegate?
     var reasons : [KTCancelReason] = []
     
     override func viewDidLoad() {

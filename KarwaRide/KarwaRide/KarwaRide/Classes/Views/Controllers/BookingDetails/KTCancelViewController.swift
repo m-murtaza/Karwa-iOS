@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol KTCancelViewDelegate {
+protocol KTCancelViewDelegate: AnyObject {
     func closeCancel()
     func cancelDoneSuccess()
 }
@@ -20,7 +20,7 @@ class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCe
     
     var showCancelCharges = false
     
-    var delegate : KTCancelViewDelegate?
+    weak var delegate : KTCancelViewDelegate?
     
     var bookingStatii : Int32 = 0
     var bookingId : String = ""
@@ -51,6 +51,9 @@ class KTCancelViewController: PopupVC,KTCancelViewModelDelegate,KTCancelReasonCe
         // Dispose of any resources that can be recreated.
     }
     
+    deinit{
+        print("KTCancelViewController->deinit")
+    }
 
     /*
     // MARK: - Navigation
