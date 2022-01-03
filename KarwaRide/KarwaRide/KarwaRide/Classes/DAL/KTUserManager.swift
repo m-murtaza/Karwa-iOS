@@ -8,6 +8,7 @@
 
 import UIKit
 import MagicalRecord
+import Alamofire
 
 class KTUserManager: KTDALManager {
 
@@ -184,10 +185,8 @@ class KTUserManager: KTDALManager {
     // Mark: API User Info
     func fetchUserInfoFromServer(completion:@escaping (Bool) -> Void) {
         KTWebClient.sharedInstance.get(uri: Constants.APIURL.GetUserInfo, param: nil, completion: { (status, response) in
-            if status != true
-            {
+            if status != true {
                 //Its web API status, Not API success
-                
                 completion(false)
             }
             else
@@ -209,4 +208,112 @@ class KTUserManager: KTDALManager {
             }
         })
     }
+    
+    func openAppStore() {
+        let appStoreLink = "https://itunes.apple.com/us/app/karwa-ride/id1050410517?mt=8"
+
+        /* First create a URL, then check whether there is an installed app that can
+         open it on the device. */
+        if let url = URL(string: appStoreLink), UIApplication.shared.canOpenURL(url) {
+            // Attempt to open the URL.
+            UIApplication.shared.open(url, options: [:], completionHandler: {(success: Bool) in
+                if success {
+                    print("Launching \(url) was successful")
+//                    AnalyticsUtil.trackBehavior(event: "Rate-App")
+                }})
+        }
+    }
+    
+    // Mark: API User Info
+    func fetchVersion() {
+        
+        KTWebClient.sharedInstance.get(uri: Constants.APIURL.VersionCheck, param: nil, completion: { (status, response) in
+            
+            print(response)
+            
+            print(response["D"] as? [String:[String:Any]])
+            
+            if let dataResponse = response["D"] as? [String:Any] {
+                
+                print("dataResponse version", dataResponse["Version"] as! Int)
+                
+                if let latestBuildNumber = dataResponse["Version"] as? Int {
+                    if let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+                        if latestBuildNumber > Int(build) ?? 0 {
+                            
+                            if let isCritical = dataResponse["IsCritical"] as? Bool, isCritical == true {
+                                let alertController = UIAlertController(title: "", message: "str_update_req".localized(), preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "str_update".localized(), style: .default) { (UIAlertAction) in
+                                    self.openAppStore()
+                                }
+                                alertController.addAction(okAction)
+                                let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                                appDelegate.showAlter(alertController: alertController)
+                                
+                            } else {
+                                
+                                if optionalUpdateCancelButtonPressed == false {
+                                    let alertController = UIAlertController(title: "", message: "str_update_req".localized(), preferredStyle: .alert)
+                                    
+                                    let okAction = UIAlertAction(title: "str_update".localized(), style: .default) { (UIAlertAction) in
+                                        self.openAppStore()
+                                    }
+                                    let cancelAction = UIAlertAction(title: "str_later".localized(), style: .default) { (UIAlertAction) in
+                                        optionalUpdateCancelButtonPressed = true
+                                    }
+                                    alertController.addAction(okAction)
+                                    alertController.addAction(cancelAction)
+                                    let appDelegate : AppDelegate = UIApplication.shared.delegate as! AppDelegate
+                                    appDelegate.showAlter(alertController: alertController)
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                }
+                
+                
+            }
+            
+           
+        })
+    }
+}
+
+
+class VersionCheck {
+  
+  public static let shared = VersionCheck()
+  
+  func isUpdateAvailable(callback: @escaping (Bool)->Void) {
+    let bundleId = Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
+      
+      print("bundleId", bundleId)
+      
+    Alamofire.request("https://itunes.apple.com/lookup?bundleId=\(bundleId)").responseJSON { response in
+      if let json = response.result.value as? NSDictionary, let results = json["results"] as? NSArray, let entry = results.firstObject as? NSDictionary, let versionStore = entry["version"] as? String, let versionLocal = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+          
+          print(json)
+          
+        let arrayStore = versionStore.split(separator: ".").compactMap { Int($0) }
+        let arrayLocal = versionLocal.split(separator: ".").compactMap { Int($0) }
+
+        if arrayLocal.count != arrayStore.count {
+          callback(true) // different versioning system
+          return
+        }
+
+        // check each segment of the version
+        for (localSegment, storeSegment) in zip(arrayLocal, arrayStore) {
+          if localSegment < storeSegment {
+            callback(true)
+            return
+          }
+        }
+      }
+      callback(false) // no new version or failed to fetch app store version
+    }
+  }
+  
 }

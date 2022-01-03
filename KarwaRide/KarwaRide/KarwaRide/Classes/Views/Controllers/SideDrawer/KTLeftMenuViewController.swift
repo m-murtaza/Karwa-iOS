@@ -168,6 +168,7 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         ///
         
 //
+//        KTUserManager().fetchVersion()
         if(indexPath.row != 4) {
             lastSelectedIndexPath  = indexPath
         } else {

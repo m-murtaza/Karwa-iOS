@@ -10,6 +10,7 @@ import UIKit
 import UBottomSheet
 import FittedSheets
 import Spring
+import Kingfisher
 
 class KTPromotionsBottomSheetVC: KTBaseViewController {
     
@@ -49,6 +50,19 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         btnShowMore.setImage(UIImage(named: "ic_bottom_arrow_stack"), for: .highlighted)
         
         tfPromoCode.delegate = self
+        tfPromoCode.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if textField.text?.isEmpty ?? false {
+            if let promo = previousPromo, !promo.isEmpty {
+                let title = NSAttributedString(
+                    string: "promo_apply".localized(),
+                    attributes: [.font: UIFont(name: "MuseoSans-900", size: 12.0)!, .foregroundColor: UIColor.white]
+                )
+                btnApply.setAttributedTitle(title, for: .normal)
+            }
+        }
     }
     
     func setupKeyboardNotifications(){
@@ -60,11 +74,15 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         let isShowing = notification.name == .UIKeyboardWillShow
         if isShowing {
             self.tableView.isHidden = true
+            self.lblHeading.isHidden = true
             self.btnShowMore.isHidden = true
+            self.resizeSheetOnKeyboardNotify(isKeyboardActive: true)
         }
         else {
             self.tableView.isHidden = false
+            self.lblHeading.isHidden = false
             self.btnShowMore.isHidden = (self.viewModel as! KTPromotionsViewModel).numberOfRows() > 3 ? false : true
+            self.resizeSheetOnKeyboardNotify(isKeyboardActive: false)
         }
     }
     
@@ -77,11 +95,9 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         var btnText = "promo_apply".localized()
         if let promo = previousPromo, !promo.isEmpty {
             btnText = "str_remove".localized()
-            tfPromoCode.isUserInteractionEnabled = false
             lblHeading.text = "str_applied_promo".localized() + " (\(promo))"
         } else {
             btnText = "promo_apply".localized()
-            tfPromoCode.isUserInteractionEnabled = true
             lblHeading.text = "str_promo_codes".localized()
         }
         let title = NSAttributedString(
@@ -94,6 +110,8 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupPromoState()
+        ImageCache.default.clearMemoryCache()
+        ImageCache.default.clearDiskCache()
         vModel!.fetchPromotions(params: self.pickupDropoff!)
     }
     
@@ -116,6 +134,10 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         }
     }
     
+    private func resizeSheetOnKeyboardNotify(isKeyboardActive: Bool) {
+        sheet?.resize(to: isKeyboardActive ? .percent(0.30) : .percent(0.70), duration: 0.2, options: .curveEaseIn, animated: true)
+    }
+    
     @IBAction func btnApplyTouchDown(_ sender: SpringButton){
         springAnimateButtonTapIn(button: btnApply)
     }
@@ -130,7 +152,7 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         {
             if((tfPromoCode.text?.trimmingCharacters(in: .whitespacesAndNewlines).length)! > 3)
             {
-                if let promo = previousPromo, !promo.isEmpty {
+                if let promo = previousPromo, !promo.isEmpty, promo == tfPromoCode.text!.trimmingCharacters(in: .whitespacesAndNewlines) {
                     previousView?.removePromoTapped()
                 }
                 else {

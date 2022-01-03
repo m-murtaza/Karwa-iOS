@@ -8,27 +8,53 @@
 
 import Foundation
 import GoogleMaps
+import CoreLocation
 
 extension KTCreateBookingViewController: GMSMapViewDelegate {
   
-    fileprivate func setHintLabelText() {
-        let distanceInMeters = KTLocationManager.sharedInstance.currentLocation.distance(from: KTLocationManager.sharedInstance.baseLocation) // result is in meters
-        
+    func setHintLabelText() {
+
         print(KTLocationManager.sharedInstance.currentLocation)
         print(KTLocationManager.sharedInstance.baseLocation)
+        
+        let currentLocationLatitude = Double(round(100000 * KTLocationManager.sharedInstance.currentLocation.coordinate.latitude) / 100000)
+        let currentLocationLongitude = Double(round(100000 * KTLocationManager.sharedInstance.currentLocation.coordinate.longitude) / 100000)
+        
+        let baseLocationLatitude = Double(round(100000 * KTLocationManager.sharedInstance.baseLocation.coordinate.latitude) / 100000)
+        let baseLocationLongitude = Double(round(100000 * KTLocationManager.sharedInstance.baseLocation.coordinate.longitude) / 100000)
+        
+        let newCurrentLocation = CLLocationCoordinate2D(latitude: currentLocationLatitude, longitude: currentLocationLongitude)
+        let newBaseLocation = CLLocationCoordinate2D(latitude: baseLocationLatitude, longitude: baseLocationLongitude)
+        
+        let distanceInMeters = newCurrentLocation.distance(from: newBaseLocation) // result is in meters
+
+
+        print("self.mapView.camera.target.latitude", self.mapView.camera.target.latitude)
+        print("self.mapView.camera.target.longitude", self.mapView.camera.target.longitude)
 
         print("distanceInMeters", distanceInMeters)
         
-        if distanceInMeters <= 10 {
+        
+        print("Roundoffcurrent", newCurrentLocation)
+        print("RoundOffBaseLocation", newBaseLocation)
+        
+        if newCurrentLocation.latitude == newBaseLocation.latitude && newBaseLocation.latitude == newBaseLocation.longitude {
             self.hintLabel.text = "txt_gesture".localized()
         } else {
             self.hintLabel.text = "Pick up location is not your current location"
         }
+        
+        
+        
     }
     
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         if gesture {
             self.showCurrentLocationButton()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                // your code here
+                self.setHintLabelText()
+            }
         }
         
     }
@@ -36,7 +62,7 @@ extension KTCreateBookingViewController: GMSMapViewDelegate {
     
   
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-       // setHintLabelText()
+//        setHintLabelText()
     }
     
   func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
@@ -57,7 +83,6 @@ extension KTCreateBookingViewController: GMSMapViewDelegate {
         //addMarkerOnMap(location: mapView.camera.target, image: UIImage(named: "BookingMapDirectionPickup")!)
         let name = "LocationManagerNotificationIdentifier"
         NotificationCenter.default.post(name: Notification.Name(name), object: nil, userInfo: ["location": location as Any, "updateMap" : false])
-        
         KTLocationManager.sharedInstance.setCurrentLocation(location: location)
     }
   }

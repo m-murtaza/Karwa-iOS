@@ -52,5 +52,4 @@ extension UIViewController {
         statusBar?.backgroundColor = color
     }
   }
-  
 }
