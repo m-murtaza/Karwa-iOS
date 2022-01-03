@@ -8,6 +8,7 @@
 
 import UIKit
 import CDAlertView
+import Kingfisher
 
 class KTPromotionsViewController: KTBaseViewController {
     
@@ -39,6 +40,9 @@ class KTPromotionsViewController: KTBaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        ImageCache.default.clearMemoryCache()
+        ImageCache.default.clearDiskCache()
+
         self.fetchPromotions()
     }
     

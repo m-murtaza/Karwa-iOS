@@ -10,6 +10,7 @@ import UIKit
 import UBottomSheet
 import FittedSheets
 import Spring
+import Kingfisher
 
 class KTPromotionsBottomSheetVC: KTBaseViewController {
     
@@ -109,6 +110,8 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setupPromoState()
+        ImageCache.default.clearMemoryCache()
+        ImageCache.default.clearDiskCache()
         vModel!.fetchPromotions(params: self.pickupDropoff!)
     }
     
