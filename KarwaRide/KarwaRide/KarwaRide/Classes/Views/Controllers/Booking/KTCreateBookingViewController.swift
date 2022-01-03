@@ -682,6 +682,7 @@ class KTCreateBookingViewController:
   
   @IBAction func currentLocationButtonAction(_ sender: Any) {
     (viewModel as! KTCreateBookingViewModel).setupCurrentLocaiton()
+      self.hintLabel.text = "txt_gesture".localized()
 //    hideCurrentLocationButton()
   }
   

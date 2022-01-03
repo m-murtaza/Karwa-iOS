@@ -172,7 +172,7 @@ class TabViewController: UITabBarController {
                             // access to item subviews : imageview and label
                             if viewTabBar.subviews.count == 2 {
                                 let label = viewTabBar.subviews[1]as? UILabel
-                                label?.frame = CGRect(x: 0, y: 0, width: 100, height: 12)
+                                label?.frame = CGRect(x: 17, y: 35, width: 100, height: 12)
                                 // here is the customization for my label 2 lines
                                 label?.numberOfLines = 2
                                 label?.textAlignment = .center
