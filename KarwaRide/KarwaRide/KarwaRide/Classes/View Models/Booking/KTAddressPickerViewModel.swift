@@ -668,30 +668,38 @@ class KTAddressPickerViewModel: KTBaseViewModel {
             
             if indexPath.section == 1 {
                 if indexPath.row >= bookmarks.count && ((indexPath.row - bookmarks.count) >=  0) && ((indexPath.row - bookmarks.count) < favoriteMetroStation.count)  {
-                    let title = favoriteMetroStation[indexPath.row - bookmarks.count].name ?? ""
-                      (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
-                    pickUpAddress = favoriteMetroStation[indexPath.row - bookmarks.count]
+                    if fromActionSheet == false {
+                        let title = favoriteMetroStation[indexPath.row - bookmarks.count].name ?? ""
+                          (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+                        pickUpAddress = favoriteMetroStation[indexPath.row - bookmarks.count]
+                    }
                     return favoriteMetroStation[indexPath.row - bookmarks.count]
                 } else {
-                    if !bookmarks[indexPath.row].favoriteName.isEmpty {
-                      let title = bookmarks[indexPath.row].favoriteName
-                        (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
-                    } else {
-                        let title = bookmarks[indexPath.row].name!
-                          (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+                    if fromActionSheet == false {
+                        if !bookmarks[indexPath.row].favoriteName.isEmpty {
+                          let title = bookmarks[indexPath.row].favoriteName
+                            (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+                        } else {
+                            let title = bookmarks[indexPath.row].name!
+                              (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+                        }
+                        pickUpAddress = bookmarks[indexPath.row]
                     }
-                    pickUpAddress = bookmarks[indexPath.row]
                     return bookmarks[indexPath.row]
                 }
             } else if indexPath.section == 0 {
-                let title = locations[indexPath.row].name!
-                  (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
-                pickUpAddress = locations[indexPath.row]
+                if fromActionSheet == false {
+                    let title = locations[indexPath.row].name!
+                      (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+                    pickUpAddress = locations[indexPath.row]
+                }
                 return locations[indexPath.row]
             } else {
-                let title = metroStations[indexPath.row].name ?? ""
-                (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
-                pickUpAddress = metroStations[indexPath.row]
+                if fromActionSheet == false {
+                    let title = metroStations[indexPath.row].name ?? ""
+                    (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: title)
+                    pickUpAddress = metroStations[indexPath.row]
+                }
                 return metroStations[indexPath.row]
             }
         
@@ -714,30 +722,38 @@ class KTAddressPickerViewModel: KTBaseViewModel {
             
             if indexPath.section == 1 {
                 if indexPath.row >= bookmarks.count && ((indexPath.row - bookmarks.count) >=  0) && ((indexPath.row - bookmarks.count) < favoriteMetroStation.count)  {
-                    let title = favoriteMetroStation[indexPath.row - bookmarks.count].name ?? ""
-                    (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
-                    dropOffAddress = favoriteMetroStation[indexPath.row - bookmarks.count]
+                    if fromActionSheet == false {
+                        let title = favoriteMetroStation[indexPath.row - bookmarks.count].name ?? ""
+                        (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+                        dropOffAddress = favoriteMetroStation[indexPath.row - bookmarks.count]
+                    }
                     return favoriteMetroStation[indexPath.row - bookmarks.count]
                 } else {
-                    if !bookmarks[indexPath.row].favoriteName.isEmpty {
-                        let title = bookmarks[indexPath.row].favoriteName
-                        (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
-                    } else {
-                        let title = bookmarks[indexPath.row].name!
-                        (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+                    if fromActionSheet == false {
+                        if !bookmarks[indexPath.row].favoriteName.isEmpty {
+                            let title = bookmarks[indexPath.row].favoriteName
+                            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+                        } else {
+                            let title = bookmarks[indexPath.row].name!
+                            (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+                        }
                     }
                     dropOffAddress = bookmarks[indexPath.row]
                     return bookmarks[indexPath.row]
                 }
             } else if indexPath.section == 0 {
-                let title = locations[indexPath.row].name!
-                (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
-                dropOffAddress = locations[indexPath.row]
+                if fromActionSheet == false {
+                    let title = locations[indexPath.row].name!
+                    (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+                    dropOffAddress = locations[indexPath.row]
+                }
                 return locations[indexPath.row]
             } else {
-                let title = metroStations[indexPath.row].name ?? ""
-                (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
-                dropOffAddress = metroStations[indexPath.row]
+                if fromActionSheet == false {
+                    let title = metroStations[indexPath.row].name ?? ""
+                    (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: title)
+                    dropOffAddress = metroStations[indexPath.row]
+                }
                 return metroStations[indexPath.row]
             }
                         
