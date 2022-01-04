@@ -180,63 +180,6 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         }
         sideMenuController?.setContentViewController(with: "\(indexPath.row)", animated: true)
         sideMenuController?.hideMenu()
-        
-//        switch indexPath.row {
-//        case 0:
-//            xpressRebookSelected = false
-//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-//            sideMenuController?.hideMenu()
-//            break
-//
-//        case 1:
-//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
-//            sideMenuController?.hideMenu()
-//            break
-//
-//        case 2:
-//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTWalletNavigationController")
-//            sideMenuController?.hideMenu()
-//            break
-//
-//        case 3:
-//            sideMenuController?.contentViewController = self.getVC(storyboard: .PROMOTIONS, vcIdentifier: "KTPromotionsNavigationController")
-//            sideMenuController?.hideMenu()
-//            break
-//
-//        case 4:
-//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "PaymentNavigationController")
-//            sideMenuController?.hideMenu()
-//            break
-//
-//        case 5:
-//            let contentView : UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation") as! UINavigationController
-//            let detailView : KTFareHTMLViewController = (contentView.viewControllers)[0] as! KTFareHTMLViewController
-//            detailView.isFeedback = true
-//            sideMenuController?.contentViewController = contentView
-//            sideMenuController?.hideMenu()
-//            break
-//
-//        case 6:
-//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "NotificationNavigationController")
-//            sideMenuController?.hideMenu()
-//            break
-//
-//        case 7:
-//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "KTFareNavigation")
-//            sideMenuController?.hideMenu()
-//            break
-//
-//        case 8:
-//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "SettingsNavigationController")
-//            sideMenuController?.hideMenu()
-//            break
-//
-//        default:
-//            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "UnderConstructionNavigationController")
-//            sideMenuController?.hideMenu()
-//            break
-//        }
-
     }
     
 //    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {

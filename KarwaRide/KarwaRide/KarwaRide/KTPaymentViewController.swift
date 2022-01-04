@@ -145,9 +145,11 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         if(isCrossButtonPressed)
         {
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuController?.setContentViewController(with: "0", animated: true)
             sideMenuController?.hideMenu()
+            lastSelectedIndexPath = IndexPath.init(row: 0, section: 0)
             isCrossButtonPressed = !isCrossButtonPressed
+            isShowBarcodeRequired = !isShowBarcodeRequired
             
             return
         }
@@ -563,8 +565,9 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "RSBookingNavigationViewController")
             sideMenuController?.hideMenu()
         } else {
-            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+            sideMenuController?.setContentViewController(with: "0", animated: true)
             sideMenuController?.hideMenu()
+            lastSelectedIndexPath = IndexPath.init(row: 0, section: 0)
         }
         
         
