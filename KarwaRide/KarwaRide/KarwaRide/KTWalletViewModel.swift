@@ -109,8 +109,10 @@ class KTWalletViewModel: KTBaseViewModel {
         
         if paymentMethods[idx].balance != nil && paymentMethods[idx].balance != ""{
             return ""
-        } else {
+        } else if paymentMethods[idx].expiry_month != nil {
             return "EXP. " + paymentMethods[idx].expiry_month! + "/" + paymentMethods[idx].expiry_year!
+        } else {
+            return ""
         }
     }
     
