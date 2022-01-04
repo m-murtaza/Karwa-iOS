@@ -1006,6 +1006,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         isAdvanceBooking = true
         initialDateSetUp = false
         setPickupDate(date: date)
+        getPromotions()
         
         if promo != ""{
             fetchEstimateForPromo(promo)
@@ -1025,7 +1026,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         
         selectedPickupDateTime = date
         updateUI(forDate: selectedPickupDateTime)
-        getPromotions()
     }
     
     func updateUI(forDate date: Date)
