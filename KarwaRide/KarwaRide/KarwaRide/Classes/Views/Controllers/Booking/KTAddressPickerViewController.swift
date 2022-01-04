@@ -234,12 +234,13 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
           initializeMap()
 
           if (self.txtPickAddress.text?.count ?? 0) > 0 && (self.txtDropAddress.text?.count ?? 0) > 0{
-              
-              if selectedTxtField == SelectedTextField.DropoffAddress {
-                  toggleToMapView(forPickup: false)
-              }
-              else {
-                  toggleToMapView(forPickup: true)
+              if (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil {
+                  if selectedTxtField == SelectedTextField.DropoffAddress {
+                      toggleToMapView(forPickup: false)
+                  }
+                  else {
+                      toggleToMapView(forPickup: true)
+                  }
               }
               
           }
@@ -528,7 +529,6 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
               self.dismiss(animated: true, completion: nil)
           }
       }
-      
       
       
   }

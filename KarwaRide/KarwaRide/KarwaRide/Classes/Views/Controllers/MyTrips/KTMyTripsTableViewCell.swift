@@ -26,12 +26,29 @@ class KTMyTripsTableViewCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code
+      self.selectionStyle = .none
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
-    
+      if selected {
+          self.outerContainer.backgroundColor = UIColor.groupTableViewBackground
+          self.innerContainer.backgroundColor = .groupTableViewBackground
+      } else {
+          self.outerContainer.backgroundColor = .white
+          self.innerContainer.backgroundColor = .white
+      }
     // Configure the view for the selected state
   }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        if highlighted {
+            self.outerContainer.backgroundColor = .groupTableViewBackground
+            self.innerContainer.backgroundColor = .groupTableViewBackground
+        } else {
+            self.outerContainer.backgroundColor = .white
+            self.innerContainer.backgroundColor = .white
+        }
+    }
   
 }
