@@ -852,7 +852,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       
       print("***************** pickup text ********************", pick)
       
-      if pick != "str_loading" {
+      if pick != "str_loading".localized() {
           DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
               self.txtPickAddress.text = pick
           }
@@ -860,7 +860,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       
   }
   
-  func setDropOff(drop: String) {
+    func setDropOff(drop: String) {
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
           self.txtDropAddress.text = drop
       }
