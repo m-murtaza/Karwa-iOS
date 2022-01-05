@@ -844,18 +844,14 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   func dropOffTxt() -> String {
     return self.txtDropAddress.text!
   }
+    
   func setPickUp(pick: String) {
     if(selectedInputMechanism == SelectedInputMechanism.MapView)
     {
       setConfirmPickupFlowDone(isConfirmPickupFlowDone: true)
     }
-      
-      print("***************** pickup text ********************", pick)
-      
       if pick != "str_loading".localized() {
-          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-              self.txtPickAddress.text = pick
-          }
+          self.txtPickAddress.text = pick
       }
       
   }
@@ -998,12 +994,12 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   }
   
   func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    if selectedTxtField == SelectedTextField.PickupAddress && (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil {
-        textField.text = getAddressName(location: (viewModel as! KTAddressPickerViewModel).pickUpAddress)
-    }
-    else if selectedTxtField == SelectedTextField.DropoffAddress && (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil {
-        textField.text = getAddressName(location: (viewModel as! KTAddressPickerViewModel).dropOffAddress)
-    }
+//    if selectedTxtField == SelectedTextField.PickupAddress && (viewModel as! KTAddressPickerViewModel).pickUpAddress != nil {
+//        textField.text = getAddressName(location: (viewModel as! KTAddressPickerViewModel).pickUpAddress)
+//    }
+//    else if selectedTxtField == SelectedTextField.DropoffAddress && (viewModel as! KTAddressPickerViewModel).dropOffAddress != nil {
+//        textField.text = getAddressName(location: (viewModel as! KTAddressPickerViewModel).dropOffAddress)
+//    }
     
     textField.superview?.removeExternalBorders()
     textField.superview?.backgroundColor = UIColor.clear
