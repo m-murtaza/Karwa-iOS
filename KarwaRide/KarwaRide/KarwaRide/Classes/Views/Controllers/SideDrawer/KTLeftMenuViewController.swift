@@ -11,6 +11,11 @@ import BarcodeScanner
 import SideMenuSwift
 
 var lastSelectedIndexPath = IndexPath.init(row: 0, section: 0)
+enum NotifySideMenu {
+    case rebook
+    case bookingDetail
+    case none
+}
 
 class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITableViewDataSource,KTLeftMenuDelegate {
     
@@ -20,6 +25,10 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
 
     var DrawerOption = [String]()
     var lastSelectedCell:LeftMenuTableViewCell?
+    
+    var notifySideMenu: NotifySideMenu = .none
+    var bookingData: KTBooking?
+    
     override func viewDidLoad() {
         
         //view.backgroundColor = UIColor.clear
@@ -27,7 +36,26 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         super.viewDidLoad()
         self.setupSideMenu()
      
+        self.setupNotificationObservers()
+    }
+    
+    private func setupNotificationObservers() {
+        NotificationCenter.default.removeObserver(self)
         NotificationCenter.default.addObserver(self, selector: (#selector(updateUI)), name:NSNotification.Name(rawValue: "TimeToUpdateTheUINotificaiton"), object: nil)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "NotifySideMenu"), object: nil, queue: .main) { [weak self] (notification) in
+            guard let `self` = self else { return }
+            if let notify = notification.userInfo?["Notify"] as? NotifySideMenu {
+                self.notifySideMenu = notify
+                switch notify {
+                case .rebook, .bookingDetail:
+                    if let data = notification.userInfo?["Data"] as? KTBooking {
+                        self.bookingData = data
+                    }
+                case .none:
+                    break
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,6 +117,8 @@ class KTLeftMenuViewController: KTBaseViewController, UITableViewDelegate,UITabl
         sideMenuController?.cache(viewControllerGenerator: {
             self.getVC(storyboard: .MAIN, vcIdentifier: "UnderConstructionNavigationController")
         }, with: "9")
+        
+        sideMenuController?.delegate = self
     }
     
     func reloadTable()
@@ -278,6 +308,34 @@ extension UILabel {
             let attributedString = NSMutableAttributedString(string: textString)
             attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
             attributedText = attributedString
+        }
+    }
+}
+
+extension KTLeftMenuViewController: SideMenuControllerDelegate {
+    func sideMenuController(_ sideMenuController: SideMenuController,
+                            animationControllerFrom fromVC: UIViewController,
+                            to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return BasicTransitionAnimator(options: .transitionCrossDissolve, duration: 0.6)
+    }
+    
+    func sideMenuController(_ sideMenuController: SideMenuController, willShow viewController: UIViewController, animated: Bool) {
+        if let navVC : UINavigationController = viewController as? UINavigationController {
+            if let tabController = navVC.topViewController as? TabViewController, self.notifySideMenu == .rebook {
+                self.notifySideMenu = .none
+                let createBooking : KTCreateBookingViewController = tabController.viewControllers![0] as! KTCreateBookingViewController
+                createBooking.booking = self.bookingData
+                createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
+                createBooking.rebookNavigation()
+                self.bookingData = nil
+            }
+            else if let destinationVC = navVC.topViewController as? KTMyTripsViewController, self.notifySideMenu == .bookingDetail {
+                self.notifySideMenu = .none
+                if let data = self.bookingData {
+                    destinationVC.setBooking(booking: data)
+                    self.bookingData = nil
+                }
+            }
         }
     }
 }

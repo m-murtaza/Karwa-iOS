@@ -100,11 +100,11 @@ extension KTBookingManager
                 geolocations.append(self.saveGeoLocation(location:location as! [AnyHashable : Any],context: localContext))
             }
             
-            try NSManagedObjectContext.mr_default().save()
+            try localContext.save()
             completion(true,geolocations)
         }
-        catch _{
-            
+        catch let error {
+            print("saveGeoLocations-> \(error.localizedDescription)")
             completion(false,[])
         }
     }

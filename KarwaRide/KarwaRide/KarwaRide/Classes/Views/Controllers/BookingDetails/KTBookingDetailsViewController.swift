@@ -139,7 +139,6 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         self.navigationItem.leftBarButtonItem = barButton
         self.navigationController?.navigationBar.backIndicatorImage = nil
         
-        sideMenuController?.delegate = self
         lastSelectedIndexPath = IndexPath.init(row: 1, section: 0)
         // Do any additional setup after loading the view.
     }
@@ -631,6 +630,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     
     func moveToBooking()
     {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NotifySideMenu"), object: nil, userInfo: ["Data": vModel?.booking, "Notify": NotifySideMenu.rebook])
         sideMenuController?.setContentViewController(with: "0", animated: true)
         lastSelectedIndexPath = IndexPath.init(row: 0, section: 0)
         if let navController = self.navigationController {
@@ -810,22 +810,4 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 extension UInt {
     /// SwiftExtensionKit
     var toInt: Int { return Int(self) }
-}
-
-extension KTBookingDetailsViewController: SideMenuControllerDelegate {
-    func sideMenuController(_ sideMenuController: SideMenuController,
-                            animationControllerFrom fromVC: UIViewController,
-                            to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return BasicTransitionAnimator(options: .transitionCrossDissolve, duration: 0.6)
-    }
-    
-    func sideMenuController(_ sideMenuController: SideMenuController, willShow viewController: UIViewController, animated: Bool) {
-        if let navVC : UINavigationController = viewController as? UINavigationController {
-            guard let tabController = navVC.topViewController as? TabViewController else {return}
-            let createBooking : KTCreateBookingViewController = tabController.viewControllers![0] as! KTCreateBookingViewController
-            createBooking.booking = vModel?.booking
-            createBooking.setRemoveBookingOnReset(removeBookingOnReset: false)
-            createBooking.rebookNavigation()
-        }
-    }
 }

@@ -254,14 +254,18 @@ extension KTCreateBookingViewController: UICollectionViewDataSource, UICollectio
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "homeAddressCell", for: indexPath) as! DashboardAddressCell
-    cell.destination = (viewModel as! KTCreateBookingViewModel).destinations[indexPath.item]
-    return cell
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "homeAddressCell", for: indexPath) as! DashboardAddressCell
+      if indexPath.item < (viewModel as! KTCreateBookingViewModel).destinations.count {
+          cell.destination = (viewModel as! KTCreateBookingViewModel).destinations[indexPath.item]
+      }
+      return cell
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let destination = (viewModel as! KTCreateBookingViewModel).destinations[indexPath.item]
-    (viewModel as! KTCreateBookingViewModel).destinationSelectedFromHomeScreen(location: destination)
+      if indexPath.item < (viewModel as! KTCreateBookingViewModel).destinations.count {
+          let destination = (viewModel as! KTCreateBookingViewModel).destinations[indexPath.item]
+          (viewModel as! KTCreateBookingViewModel).destinationSelectedFromHomeScreen(location: destination)
+      }
   }
   
   func reloadDestinations() {
@@ -830,7 +834,7 @@ class KTCreateBookingViewController:
     }
     self.previousPromoCode = ""
     removeBookingOnReset = true
-    booking = nil
+//    booking = KTBookingManager().booking()
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
 //    collapseRideList()
@@ -1152,7 +1156,8 @@ class KTCreateBookingViewController:
     }
   }
   func moveToDetailView() {
-      sideMenuController?.delegate = self
+      NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NotifySideMenu"), object: nil, userInfo: ["Data": (viewModel as! KTCreateBookingViewModel).booking, "Notify": NotifySideMenu.bookingDetail])
+//      self.btnCancelBtnTapped(UIButton())
       sideMenuController?.setContentViewController(with: "1", animated: true)
 //    self.performSegue(withIdentifier: "segueBookingListForDetails", sender: self)
   }
@@ -1279,20 +1284,4 @@ extension UICollectionViewFlowLayout {
         return true
     }
 
-}
-
-extension KTCreateBookingViewController: SideMenuControllerDelegate {
-    func sideMenuController(_ sideMenuController: SideMenuController,
-                            animationControllerFrom fromVC: UIViewController,
-                            to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return BasicTransitionAnimator(options: .transitionCrossDissolve, duration: 0.6)
-    }
-    
-    func sideMenuController(_ sideMenuController: SideMenuController, willShow viewController: UIViewController, animated: Bool) {
-        if let navVC : UINavigationController = viewController as? UINavigationController {
-            guard let destinationVC = navVC.topViewController as? KTMyTripsViewController else {return}
-            destinationVC.setBooking(booking: (viewModel as! KTCreateBookingViewModel).booking)
-            self.btnCancelBtnTapped(UIButton())
-        }
-    }
 }

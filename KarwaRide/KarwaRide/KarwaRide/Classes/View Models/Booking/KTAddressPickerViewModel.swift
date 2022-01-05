@@ -246,7 +246,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     fetchLocation(forGeoCoordinate: location , completion: {
       (reverseLocation) -> Void in
       
-      if (self.delegate as! KTAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.DropoffAddress
+        if (self.delegate as? KTAddressPickerViewModelDelegate)?.inFocusTextField() == SelectedTextField.DropoffAddress
       {
         self.dropOffAddress  = reverseLocation
         self.setNameToSelectedField(name: reverseLocation.name!)
@@ -263,13 +263,13 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   
   func setNameToSelectedField(name nameStr: String)
   {
-    if (self.delegate as! KTAddressPickerViewModelDelegate).inFocusTextField() == SelectedTextField.DropoffAddress
+    if (self.delegate as? KTAddressPickerViewModelDelegate)?.inFocusTextField() == SelectedTextField.DropoffAddress
     {
-      (self.delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: nameStr)
+      (self.delegate as? KTAddressPickerViewModelDelegate)?.setDropOff(drop: nameStr)
     }
     else
     {
-      (self.delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: nameStr)
+      (self.delegate as? KTAddressPickerViewModelDelegate)?.setPickUp(pick: nameStr)
     }
   }
   
