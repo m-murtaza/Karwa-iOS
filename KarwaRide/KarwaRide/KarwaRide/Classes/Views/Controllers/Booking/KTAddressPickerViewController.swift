@@ -852,8 +852,10 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       
       print("***************** pickup text ********************", pick)
       
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-          self.txtPickAddress.text = pick
+      if pick != "str_loading" {
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+              self.txtPickAddress.text = pick
+          }
       }
       
   }
