@@ -190,6 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //delegate device token success
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("deviceToken", deviceToken)
         apnsManager.deviceTokenReceived(deviceToken: deviceToken)
     }
     

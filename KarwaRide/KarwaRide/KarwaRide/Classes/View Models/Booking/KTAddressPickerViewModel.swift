@@ -555,29 +555,23 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     //            // start pickup confirmation from map flow
     //            (self.delegate as! KTAddressPickerViewModelDelegate).startConfirmPickupFlow()
     //        }
-    moveBackScreen(skipDestination: skipDestination)
+      self.moveBackScreen(skipDestination: skipDestination)
   }
   
-  private func moveBackScreen(skipDestination : Bool)
-  {
-    if pickUpAddress != nil  &&  !((delegate as! KTAddressPickerViewModelDelegate).pickUpTxt().isEmpty)
-    {
+  private func moveBackScreen(skipDestination : Bool) {
+    if pickUpAddress != nil  &&  !((delegate as! KTAddressPickerViewModelDelegate).pickUpTxt().isEmpty) {
         
-        if  (((skipDestination || dropOffAddress != nil || isSkippedPressed) && (dropOffAddress as? KTGeoLocation)?.latitude ?? 0 != 0) || (dropOffAddress as? Area)?.isActive ??  false == true)
-        {
+        if  (((skipDestination || dropOffAddress != nil || isSkippedPressed) && (dropOffAddress as? KTGeoLocation)?.latitude ?? 0 != 0) || (dropOffAddress as? Area)?.isActive ??  false == true) {
             
             if let pick = pickUpAddress as? KTGeoLocation, let dropoff = dropOffAddress as? KTGeoLocation {
-                if isSkippedPressed
-                {
+                if isSkippedPressed {
                     dropOffAddress = nil
                 }
             }
             
             if let pick = pickUpAddress as? Area, let dropoff = dropOffAddress as? Area {
-                if (pick.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() || (isSkippedPressed || dropoff.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt()))
-                {
-                    if isSkippedPressed
-                    {
+                if (pick.name == (delegate as! KTAddressPickerViewModelDelegate).pickUpTxt() || (isSkippedPressed || dropoff.name == (delegate as! KTAddressPickerViewModelDelegate).dropOffTxt())) {
+                    if isSkippedPressed {
                         dropOffAddress = nil
                     }
                 }

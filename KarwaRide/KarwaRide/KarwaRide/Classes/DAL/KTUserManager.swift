@@ -103,6 +103,8 @@ class KTUserManager: KTDALManager {
                 params[Constants.LoginParams.DeviceToken] = [KTAppSessionInfo.currentSession.pushToken]
             }
         }
+        
+        print(params)
 
         self.post(url: url!, param: params as! [String : Any], completion: completionBlock) { (response,  cBlock) in
             
