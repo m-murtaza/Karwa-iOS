@@ -183,7 +183,10 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        (viewModel as! KTMyTripsViewModel).rowSelected(forIdx: indexPath.row)
+//        let cell : KTMyTripsTableViewCell = tableView.cellForRow(at: indexPath) as! KTMyTripsTableViewCell
+        (self.viewModel as! KTMyTripsViewModel).rowSelected(forIdx: indexPath.row)
+
+       
     }
     
     func setBooking(booking : KTBooking) {
