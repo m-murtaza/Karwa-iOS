@@ -58,9 +58,10 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
                                      Constants.SyncParam.QUERY_PARAM_VEHICLE_TYPES: Constants.SyncParam.VEHICLE_TYPES_ALL]
         
         self.get(url: Constants.APIURL.initTariff, param: param, completion: completionBlock) { (response, cBlock) in
-            
-            self.saveInitTariff(response: response[Constants.ResponseAPIKey.Data] as! [Any])
-            self.updateSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
+            if let data = response[Constants.ResponseAPIKey.Data] as? [Any], data.count > 0 {
+                self.saveInitTariff(response: response[Constants.ResponseAPIKey.Data] as! [Any])
+                self.updateSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
+            }
             cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
     }
