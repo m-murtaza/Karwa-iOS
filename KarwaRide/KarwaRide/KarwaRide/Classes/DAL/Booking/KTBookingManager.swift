@@ -35,7 +35,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
                                     Constants.BookingParams.PickHint : job.pickupMessage!,
                                     Constants.BookingParams.VehicleType : job.vehicleType,
                                     Constants.BookingParams.CallerID : job.callerId!,
-                                    Constants.BookingParams.EstimateId : (estimate != nil) ? (estimate!.estimateId)! : 0,
+                                    Constants.BookingParams.EstimateId : (estimate != nil) ? (estimate!.estimateId)! : "default",
                                     Constants.BookingParams.PromoCode : promo]
         
         if job.paymentMethod?.count != 0 {
