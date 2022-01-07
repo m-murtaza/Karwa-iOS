@@ -14942,6 +14942,130 @@
             </objects>
             <point key="canvasLocation" x="-2829" y="518"/>
         </scene>
+        <!--Wallet-->
+        <scene sceneID="srw-5M-Cze">
+            <objects>
+                <viewController storyboardIdentifier="KTNewAddCreditCard" id="pdd-ed-9r8" customClass="KTNewAddCreditCard" customModule="KarwaRide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vNI-fC-zF8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oNg-rT-A6C">
+                                <rect key="frame" x="0.0" y="9" width="47" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="47" id="5uR-Xs-dci"/>
+                                    <constraint firstAttribute="height" constant="41" id="SsD-Ps-5uw"/>
+                                </constraints>
+                                <state key="normal" image="cross_icon"/>
+                                <connections>
+                                    <action selector="onCrossPressed:" destination="pdd-ed-9r8" eventType="touchUpInside" id="nY7-Xy-lcu"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nt0-Vf-hEr" customClass="LocalisableLabel" customModule="KarwaRide" customModuleProvider="target">
+                                <rect key="frame" x="47" y="19" width="273" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="coc-ML-i7m"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="MuseoSans-900" family="Museo Sans" pointSize="17"/>
+                                <color key="textColor" red="0.2741371393" green="0.727540195" blue="0.74513763190000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localisedKey" value="addCardDetailsText"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJO-l5-dwX" userLabel="containerBackground">
+                                <rect key="frame" x="0.0" y="50" width="320" height="518"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u7b-K8-tY4">
+                                <rect key="frame" x="0.0" y="50" width="320" height="518"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TO7-Vv-N7e" customClass="AnimationView" customModule="Lottie">
+                                <rect key="frame" x="85" y="209" width="150" height="150"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="jYH-ct-SnS"/>
+                                    <constraint firstAttribute="height" constant="150" id="niS-dy-qda"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="card_swiping"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSe-G1-ZEJ">
+                                <rect key="frame" x="160" y="379" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="10"/>
+                                <color key="textColor" red="0.59210234880000001" green="0.59611302610000005" blue="0.59992635250000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="genericLocalisedKey" value="str_verifying_card"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OUT-TO-YsB" customClass="AnimationView" customModule="Lottie">
+                                <rect key="frame" x="85" y="209" width="150" height="150"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="CJy-tk-mZn"/>
+                                    <constraint firstAttribute="height" constant="150" id="dvq-FN-1zF"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="payment_success"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gjo-Ii-4YL">
+                                <rect key="frame" x="160" y="365.5" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="MuseoSans-300" family="Museo Sans" pointSize="10"/>
+                                <color key="textColor" red="0.59210234880000001" green="0.59611302610000005" blue="0.59992635250000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="genericLocalisedKey" value="str_add_card_success"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4ie-Ib-bod"/>
+                        <color key="backgroundColor" red="0.8980392157" green="0.96078431369999995" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="iJO-l5-dwX" firstAttribute="leading" secondItem="4ie-Ib-bod" secondAttribute="leading" id="Bj1-8u-hDJ"/>
+                            <constraint firstItem="u7b-K8-tY4" firstAttribute="top" secondItem="oNg-rT-A6C" secondAttribute="bottom" id="Dx4-dn-aR0"/>
+                            <constraint firstItem="4ie-Ib-bod" firstAttribute="trailing" secondItem="iJO-l5-dwX" secondAttribute="trailing" id="Ha1-n7-vLi"/>
+                            <constraint firstItem="TO7-Vv-N7e" firstAttribute="centerX" secondItem="vNI-fC-zF8" secondAttribute="centerX" id="I1D-0q-hH3"/>
+                            <constraint firstItem="iJO-l5-dwX" firstAttribute="bottom" secondItem="4ie-Ib-bod" secondAttribute="bottom" id="Iec-QG-qJu"/>
+                            <constraint firstItem="nt0-Vf-hEr" firstAttribute="leading" secondItem="oNg-rT-A6C" secondAttribute="trailing" id="M2x-FG-blz"/>
+                            <constraint firstItem="u7b-K8-tY4" firstAttribute="bottom" secondItem="4ie-Ib-bod" secondAttribute="bottom" id="OmA-dR-muH"/>
+                            <constraint firstItem="VSe-G1-ZEJ" firstAttribute="centerX" secondItem="vNI-fC-zF8" secondAttribute="centerX" id="QID-8h-NWW"/>
+                            <constraint firstItem="nt0-Vf-hEr" firstAttribute="top" secondItem="vNI-fC-zF8" secondAttribute="topMargin" constant="19" id="S35-oF-pDW"/>
+                            <constraint firstItem="Gjo-Ii-4YL" firstAttribute="centerX" secondItem="vNI-fC-zF8" secondAttribute="centerX" id="Tmx-zD-Thy"/>
+                            <constraint firstItem="nt0-Vf-hEr" firstAttribute="centerY" secondItem="oNg-rT-A6C" secondAttribute="centerY" id="Txf-6Y-d5F"/>
+                            <constraint firstItem="iJO-l5-dwX" firstAttribute="top" secondItem="oNg-rT-A6C" secondAttribute="bottom" id="UqU-wA-BjC"/>
+                            <constraint firstItem="Gjo-Ii-4YL" firstAttribute="firstBaseline" secondItem="OUT-TO-YsB" secondAttribute="baseline" constant="16" symbolType="layoutAnchor" id="YQ5-qf-BQ4"/>
+                            <constraint firstItem="u7b-K8-tY4" firstAttribute="leading" secondItem="4ie-Ib-bod" secondAttribute="leading" id="dIV-IN-8LB"/>
+                            <constraint firstItem="u7b-K8-tY4" firstAttribute="trailing" secondItem="4ie-Ib-bod" secondAttribute="trailing" id="eHN-gn-Huc"/>
+                            <constraint firstItem="oNg-rT-A6C" firstAttribute="leading" secondItem="4ie-Ib-bod" secondAttribute="leading" id="gNo-v3-KkM"/>
+                            <constraint firstItem="TO7-Vv-N7e" firstAttribute="centerY" secondItem="vNI-fC-zF8" secondAttribute="centerY" id="iIM-PP-D7i"/>
+                            <constraint firstItem="OUT-TO-YsB" firstAttribute="centerY" secondItem="vNI-fC-zF8" secondAttribute="centerY" id="oAC-QQ-EWy"/>
+                            <constraint firstItem="VSe-G1-ZEJ" firstAttribute="bottom" secondItem="TO7-Vv-N7e" secondAttribute="bottom" constant="20" id="pHd-0O-a4L"/>
+                            <constraint firstItem="4ie-Ib-bod" firstAttribute="trailing" secondItem="nt0-Vf-hEr" secondAttribute="trailing" id="qG0-pK-cDP"/>
+                            <constraint firstItem="OUT-TO-YsB" firstAttribute="centerX" secondItem="vNI-fC-zF8" secondAttribute="centerX" id="vd8-It-txr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Wallet" id="cv5-2o-2mg"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="cardSuccessAnim" destination="OUT-TO-YsB" id="4w4-Nw-DNE"/>
+                        <outlet property="lblCardAddedSuccess" destination="Gjo-Ii-4YL" id="27n-Pf-ai5"/>
+                        <outlet property="lblVerifyingCardInfo" destination="VSe-G1-ZEJ" id="Pek-Fk-1Cz"/>
+                        <outlet property="swipCardAnim" destination="TO7-Vv-N7e" id="Q9d-gs-tyP"/>
+                        <outlet property="webView" destination="u7b-K8-tY4" id="mSL-W8-cAZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a01-uG-QSS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="12658" y="1052"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="0hF-e9-5FJ">
