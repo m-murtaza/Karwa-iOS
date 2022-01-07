@@ -112,7 +112,9 @@ class KTPromotionsBottomSheetVC: KTBaseViewController {
         setupPromoState()
         ImageCache.default.clearMemoryCache()
         ImageCache.default.clearDiskCache()
-        vModel!.fetchPromotions(params: self.pickupDropoff!)
+        if let pickupDropoff = self.pickupDropoff {
+            vModel!.fetchPromotions(params: pickupDropoff)
+        }
     }
     
     private func setSheetClosure() {

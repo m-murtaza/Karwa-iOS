@@ -834,7 +834,6 @@ class KTCreateBookingViewController:
     }
     self.previousPromoCode = ""
     removeBookingOnReset = true
-//    booking = KTBookingManager().booking()
     (viewModel as! KTCreateBookingViewModel).resetInProgressBooking()
     (viewModel as! KTCreateBookingViewModel).resetVehicleTypes()
 //    collapseRideList()
@@ -1157,9 +1156,8 @@ class KTCreateBookingViewController:
   }
   func moveToDetailView() {
       NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NotifySideMenu"), object: nil, userInfo: ["Data": (viewModel as! KTCreateBookingViewModel).booking, "Notify": NotifySideMenu.bookingDetail])
-//      self.btnCancelBtnTapped(UIButton())
       sideMenuController?.setContentViewController(with: "1", animated: true)
-//    self.performSegue(withIdentifier: "segueBookingListForDetails", sender: self)
+      self.btnCancelBtnTapped(UIButton())
   }
   
   //MARK:- Locations

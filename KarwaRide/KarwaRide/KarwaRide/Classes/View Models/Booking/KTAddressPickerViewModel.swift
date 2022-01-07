@@ -257,7 +257,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         self.setNameToSelectedField(name: reverseLocation.name!)
       }
       
-      (self.delegate as! KTAddressPickerViewModelDelegate).toggleConfirmBtn(enableBtn: true)
+      (self.delegate as? KTAddressPickerViewModelDelegate)?.toggleConfirmBtn(enableBtn: true)
     })
   }
   

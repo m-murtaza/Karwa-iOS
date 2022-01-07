@@ -1655,6 +1655,10 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 //                vEstimate?.fareestimateToBooking = booking
                 //                booking.estimatedFare = vEstimate?.estimatedFare
             }
+            else {
+                vEstimate = KTFareEstimate()
+                vEstimate.
+            }
             
             delegate?.showProgressHud(show: true, status: "please_dialog_msg_booking_creation".localized())
             bookManager.bookTaxi(job: booking,estimate: vEstimate, promo: promo) { (status, response) in
@@ -1923,7 +1927,7 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         if(removeBookingOnReset)
         {
             self.removeBookingOnReset = true
-            booking.mr_deleteEntity()
+//            booking.mr_deleteEntity()
         }
         
         booking = KTBookingManager().booking()
