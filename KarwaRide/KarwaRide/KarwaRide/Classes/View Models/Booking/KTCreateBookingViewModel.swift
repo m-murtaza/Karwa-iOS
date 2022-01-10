@@ -1641,13 +1641,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
             }
             
             booking.paymentMethod = selectedPaymentMethodId
-            var filterBaseFare = vehicleTypes?.filter( { (vtype: KTVehicleType) -> Bool in
-                return vtype.typeId == booking.vehicleType
-            })
-            
-            if filterBaseFare != nil && (filterBaseFare?.count)! > 0 {
-                booking.toKeyValueBody = (filterBaseFare![0]).toKeyValueBody
-            }
             
             if(isDropAvailable()) {
                 vEstimate = fetchEstimateId(forVehicleType: selectedVehicleType)
