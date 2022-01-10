@@ -60,7 +60,7 @@ class KTVehicleTypeManager: KTBaseFareEstimateManager {
         self.get(url: Constants.APIURL.initTariff, param: param, completion: completionBlock) { (response, cBlock) in
             if let data = response[Constants.ResponseAPIKey.Data] as? [Any], data.count > 0 {
                 self.saveInitTariff(response: response[Constants.ResponseAPIKey.Data] as! [Any])
-                self.resetSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
+                self.updateSyncTime(forKey: INIT_TARIFF_SYNC_TIME)
             }
             cBlock(Constants.APIResponseStatus.SUCCESS,response)
         }
