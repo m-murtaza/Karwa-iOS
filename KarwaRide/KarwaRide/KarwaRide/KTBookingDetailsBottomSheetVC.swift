@@ -551,6 +551,11 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
                     self.oneTimeSetSizeForBottomSheet = true
                 }
             }
+            
+            showDriverInfoBox()
+            self.shimmerView.isHidden = true
+            self.lblDriverName.stopShimmeringAnimation()
+            self.bottomStartRatingLabel.stopShimmeringAnimation()
                         
         }
         

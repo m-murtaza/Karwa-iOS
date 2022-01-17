@@ -175,12 +175,13 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     @IBAction func submitButtonPressed(sender: UIButton) {
         springAnimateButtonTapOut(button: setLocationButton)
         if sender.title(for: .normal) == "str_setpick".localized() {
-            callSetPickUpAction()
-//            if backToPickUpWithMessageSelected == true {
-//                backToPickUpWithMessageSelected = false
-//                callDropOffAction()
-//            } else {
-//            }
+            if backToPickUpWithMessageSelected == true {
+                backToPickUpWithMessageSelected = false
+                getDestinationForPickUp()
+                callDropOffAction()
+            } else {
+                callSetPickUpAction()
+            }
         } else if sender.title(for: .normal) == "str_dropoff".localized() {
             callDropOffAction()
         } else {
@@ -583,8 +584,6 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         destination.fromDropOff = pickUpSelected
         
         print(self.pickUpAddressLabel.text)
-        
-        
         
         if pickUpSelected == false {
             
