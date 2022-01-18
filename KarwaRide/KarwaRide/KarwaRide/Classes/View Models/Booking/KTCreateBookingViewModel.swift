@@ -1311,7 +1311,25 @@ class KTCreateBookingViewModel: KTBaseViewModel {
                 let estimate : KTFareEstimate? = self.estimate(forVehicleType: vType.typeId)
                 if estimate != nil
                 {
-                    isPromoApplied = estimate?.isPromoApplied ?? false
+                    if fromCarousel == true {
+                        isPromoApplied = estimate?.isPromoApplied ?? false
+                    } else {
+                        if typeId == VehicleType.KTStandardLimo.rawValue || typeId == VehicleType.KTBusinessLimo.rawValue || typeId == VehicleType.KTLuxuryLimo.rawValue {
+                            print("typeId", typeId)
+                                                        
+                            let estimate1 : KTFareEstimate? = self.estimate(forVehicleType: VehicleType.KTStandardLimo.rawValue)
+                            let estimate2 : KTFareEstimate? = self.estimate(forVehicleType: VehicleType.KTBusinessLimo.rawValue)
+                            let estimate3 : KTFareEstimate? = self.estimate(forVehicleType: VehicleType.KTLuxuryLimo.rawValue)
+
+                            if estimate1?.isPromoApplied ?? false || estimate2?.isPromoApplied ?? false || estimate3?.isPromoApplied ?? false {
+                                isPromoApplied = true
+                            }
+
+                        } else {
+                            isPromoApplied = estimate?.isPromoApplied ?? false
+                        }
+                    }
+                    
                 }
             }
         }
