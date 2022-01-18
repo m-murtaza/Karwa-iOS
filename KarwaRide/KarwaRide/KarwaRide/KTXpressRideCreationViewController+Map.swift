@@ -46,7 +46,7 @@ extension KTXpressRideCreationViewController
                 
         self.drawArcPolyline(startLocation: selectedRSPickUpCoordinate!, endLocation: selectedRSDropOffCoordinate!)
         
-        self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
+       // self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
 
         
     }
@@ -60,7 +60,6 @@ extension KTXpressRideCreationViewController
         
         var update : GMSCameraUpdate?
         update = GMSCameraUpdate.fit(bounds, withPadding: 50)
-
         
         CATransaction.begin()
         CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
@@ -206,7 +205,7 @@ extension KTXpressRideCreationViewController
             bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
             polyline.strokeColor = bgPolylineColor
             
-            let inset = UIEdgeInsets(top: 150, left: 100, bottom: self.view.frame.height/2, right: 100)
+            let inset = UIEdgeInsets(top: 150, left: 50, bottom: self.view.frame.height/2, right: 50)
             
             // focus to fit all the point including path, pick and destination in map camera
             self.focusMapToFitRoute(pointA: startLocation,
