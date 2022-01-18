@@ -24,7 +24,7 @@ class VehicleDetailCarouselCell: UICollectionViewCell {
     
     func config(vModel: KTCreateBookingViewModel, vehicle: KTVehicleType) {
         imgVehicleType.image = vModel.getTypeVehicleImage(typeId: vehicle.typeId)
-        let shouldHidePromoFare = !(vModel.isPromoFare(typeId: vehicle.typeId))
+        let shouldHidePromoFare = !(vModel.isPromoFare(typeId: vehicle.typeId, fromCarousel: true))
         self.uiPromo.isHidden = shouldHidePromoFare
         if vehicle.typeId == Int16(VehicleType.KTSpecialNeedTaxi.rawValue) {
             self.imgAccessibleUser.isHidden = false
