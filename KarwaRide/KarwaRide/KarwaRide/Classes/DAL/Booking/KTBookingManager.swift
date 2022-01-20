@@ -90,7 +90,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
     
     func syncBookings(completion completionBlock: @escaping KTDALCompletionBlock) {
         
-        let param : [String: Any] = [Constants.SyncParam.BookingList: syncTime(forKey:BOOKING_SYNC_TIME)]
+        let param : [String: Any] = [Constants.SyncParam.BookingList: 0 ] //syncTime(forKey:BOOKING_SYNC_TIME)
         
         self.get(url: Constants.APIURL.Booking, param: param, completion: completionBlock) { (response, cBlock) in
             

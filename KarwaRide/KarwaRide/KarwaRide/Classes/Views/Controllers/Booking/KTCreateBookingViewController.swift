@@ -158,9 +158,6 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     cell.setFare(fare: fare)
     cell.capacity.text = viewModel.getTypeCapacity(typeId: item!.typeId)
     let shouldHidePromoFare = !(viewModel.isPromoFare(typeId: item!.typeId, fromCarousel: false))
-      
-      print("shouldHidePromoFare", shouldHidePromoFare)
-      
     cell.promoBadge.isHidden = shouldHidePromoFare
     if(viewModel.isPremiumRide(typeId: item!.typeId)){
         cell.iconBackgroundAnim.isHidden = false

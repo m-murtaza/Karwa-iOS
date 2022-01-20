@@ -1430,6 +1430,7 @@ extension KTAddressPickerViewController {
                 case .PickupAddress:
                     txtPickAddress.becomeFirstResponder()
                     txtDropAddress.isUserInteractionEnabled = false
+                    pickupAddress = nil
                 case .DropoffAddress:
                     txtDropAddress.becomeFirstResponder()
                 }
