@@ -286,8 +286,12 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     func callSetPickUpAction() {
         pickUpSelected = true
         getDestinationForPickUp()
-        setDropOffViewUI()
-        setDropOffPolygon()
+        if destinationForPickUp.count > 0 {
+            setDropOffViewUI()
+            setDropOffPolygon()
+        } else {
+            
+        }
     }
     
     func callDropOffAction() {
