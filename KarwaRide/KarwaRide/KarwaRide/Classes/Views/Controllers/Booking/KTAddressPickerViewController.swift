@@ -466,10 +466,20 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     {
         print(self.pickUpTxt())
         self.txtPickAddress.becomeFirstResponder()
+        if self.txtPickAddress.text?.count ?? 0 == 0 {
+            clearButtonPickup.isHidden = true
+        } else {
+            clearButtonPickup.isHidden = false
+        }
     }
     else
     {
         self.txtDropAddress.becomeFirstResponder()
+        if self.txtDropAddress.text?.count ?? 0 == 0 {
+            clearButtonDestination.isHidden = true
+        } else {
+            clearButtonDestination.isHidden = false
+        }
     }
   }
   
@@ -514,11 +524,32 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
               self.txtDropAddress.tintColor = UIColor.primary
 
               self.setOnMapLabel.text = "txt_set_on_maps".localized()
+              
+              
+              if SelectedTextField.DropoffAddress == selectedTxtField {
+                  if self.txtDropAddress.text?.count ?? 0 > 0 {
+                      self.clearButtonDestination.isHidden = false
+                  } else {
+                      self.clearButtonDestination.isHidden = true
+
+                  }
+              }
+              
+              if SelectedTextField.PickupAddress == selectedTxtField {
+                  if self.txtDropAddress.text?.count ?? 0 > 0 {
+                      self.clearButtonPickup.isHidden = false
+                  } else {
+                      self.clearButtonPickup.isHidden = true
+
+                  }
+              }
+              
           } else {
               toggleToMapView()
               
               self.clearButtonPickup.isHidden = true
               self.clearButtonDestination.isHidden = true
+              
               self.setOnMapLabel.text = "str_show_list".localized()
           }
       } else {
@@ -603,6 +634,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   }
   
     func moveFocusToPickUp() {
+        txtDropAddress.resignFirstResponder()
       txtPickAddress.becomeFirstResponder()
     }
     
@@ -933,6 +965,8 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       clearButtonPickup.isHidden = true
         if textField.text?.count ?? 0 != 0 {
             clearButtonDestination.isHidden = false
+       } else {
+            clearButtonDestination.isHidden = true
         }
         if self.metroStations.count != 0 {
             self.getDestinationForPickUp()

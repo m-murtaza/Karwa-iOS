@@ -13,6 +13,8 @@ import Alamofire
 import SwiftyJSON
 import GoogleMaps
 
+var isFirstZoomDone = false
+
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
 {
     func updateLocationInMap(location:CLLocation)
@@ -1742,7 +1744,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return vehicleNearBy
     }
     
-    var isFirstZoomDone = false
     
     @objc func LocationManagerLocaitonUpdate(notification: Notification)
     {
