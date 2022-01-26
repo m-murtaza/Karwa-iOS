@@ -55,6 +55,7 @@ class KTFareServiceCell: UITableViewCell {
     
 }
 
+var creatingRide = false
 
 class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpressRideCreationViewModelDelegate {
         
@@ -116,6 +117,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     
     var selectedVehicleIndex = 0
     var fromRideHistory = false
+    var alert = CDAlertView()
     
     @IBOutlet weak var arrowImage: UIImageView!
     
@@ -213,15 +215,47 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         } else {
             // Fallback on earlier versions
         }
+        //Notification.Name("ProgressNotification")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.setProgressBarCurrentStatus(notification:)), name: Notification.Name("ProgressNotification"), object: nil)
+
+    }
+    
+    @objc func setProgressBarCurrentStatus(notification: Notification) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            if let currentSecondDifference = notification.userInfo!["seconds"] as? Int {
+                if currentSecondDifference > self.poseDuration {
+                    // reset the progress counter
+                        // your code here
+                        self.indexProgressBar = 0
+                        self.timer.invalidate()
+                        self.bookingProgress.isHidden = true
+                        self.showAlertForTimeOut()
+                    
+                } else {
+                    self.indexProgressBar = currentSecondDifference
+                    self.bookingProgress.setProgress(Float(self.indexProgressBar) / Float(self.poseDuration - 1), animated: true)
+                }
+                
+                print(currentSecondDifference)
+            }
+        }
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
+        creatingRide = false
     }
     
     func showHideNavigationBar(status: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if creatingRide == false {
+            creatingRide = true
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -331,6 +365,11 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
          } else {
             // update the display
             // use poseDuration - 1 so that you display 20 steps of the the progress bar, from 0...19
+             
+             print("actual duration", poseDuration)
+             if indexProgressBar == 0 {
+                 UserDefaults.standard.set(Date(), forKey: "progress_date")
+             }
            self.bookingProgress.setProgress(Float(indexProgressBar) / Float(poseDuration - 1), animated: true)
            self.bookingProgress.isHidden = false
             // increment the counter
@@ -356,7 +395,10 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
       }
     
     func showAlertForTimeOut() {
-        let alert = CDAlertView(title: "str_no_ride".localized(), message: "str_request_ride".localized(), type: .custom(image: UIImage(named:"icon-notifications")!))
+        
+       alert.hide(isPopupAnimated: false)
+        
+       alert = CDAlertView(title: "str_no_ride".localized(), message: "str_request_ride".localized(), type: .custom(image: UIImage(named:"icon-notifications")!))
         alert.hideAnimations = { (center, transform, alpha) in
             alpha = 0
         }
@@ -400,6 +442,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         }
         alert.add(action: yesAction)
         alert.show()
+        
     }
     
     func showAlertForFailedRide(message: String) {

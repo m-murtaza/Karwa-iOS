@@ -99,6 +99,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
                 (delegate as! KTXpressRideCreationViewModelDelegate).setPickup(pick: self.rideServicePickDropOffData?.pickUpStop?.name ?? "")
             }
         }
+        
     }
     
     private func fetchLocationName(forGeoCoordinate coordinate: CLLocationCoordinate2D, type: String) {
