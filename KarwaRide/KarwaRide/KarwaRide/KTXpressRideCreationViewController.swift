@@ -365,6 +365,9 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
             if self.fromRideHistory == false {
                 self.exploreDelegate?.showPickUpScreen()
             } else {
+                
+                bookingSuccessful = false
+                
                 if let navController = self.navigationController {
 
                     if let controller = navController.viewControllers.first(where: { $0 is KTXpressRideCreationViewController }) {

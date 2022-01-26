@@ -26,6 +26,9 @@ struct RideSerivceLocationData {
     var pickUpCoordinate: CLLocationCoordinate2D?
     var dropOffCoordinate: CLLocationCoordinate2D?
     
+    var pickUpZoneAddress: String?
+    var dropOffZoneAddress: String?
+    
     var passsengerCount: Int? = 1
 
 }

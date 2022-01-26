@@ -157,7 +157,7 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
         } else if rideData.pickUpStop != nil {
             pickAddress = rideData.pickUpStation?.name ?? ""
         }  else if rideData.pickUpZone != nil {
-            pickAddress = rideData.pickUpZone?.name ?? ""
+            pickAddress = rideData.pickUpZoneAddress ?? ""
         }
         
         if rideData.dropOffStop != nil {
@@ -165,7 +165,7 @@ class KTXpressBookingManager: KTBaseFareEstimateManager {
         } else if rideData.dropOfSftation != nil {
             dropAddress = rideData.dropOfSftation?.name ?? ""
         }  else if rideData.dropOffZone != nil {
-            dropAddress = rideData.dropOffZone?.name ?? ""
+            dropAddress = rideData.dropOffZoneAddress ?? ""
         }
         
         let pickUpLocationData = ["Location": ["Lat": "\(rideData.pickUpCoordinate?.latitude ?? 0.0)", "Lon": "\(rideData.pickUpCoordinate?.longitude ?? 0.0)"], "Zone": rideData.pickUpZone?.code ?? "", "Station": rideData.pickUpStation?.code ?? "", "Stop": rideData.pickUpStop?.code ?? "", "Name": pickAddress] as [String : Any]

@@ -121,9 +121,11 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
                 self.passengerLabel.text = "str_1pass".localized()
             }
         } else {
-            self.passengerLabel.text = "str_1pass".localized()
-            plusBtn.layer.opacity = 1
-            minuBtn.layer.opacity = 0.5
+            if bookingSuccessful == true {
+                self.passengerLabel.text = "str_1pass".localized()
+                plusBtn.layer.opacity = 1
+                minuBtn.layer.opacity = 0.5
+            }
         }
     }
     
@@ -289,9 +291,7 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         if destinationForPickUp.count > 0 {
             setDropOffViewUI()
             setDropOffPolygon()
-        } else {
-            
-        }
+        } 
     }
     
     func callDropOffAction() {
