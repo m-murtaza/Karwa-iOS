@@ -40,10 +40,10 @@ class TabViewController: UITabBarController {
         tabBar.contentMode = .scaleAspectFill
         tabBar.backgroundColor = .white
         
-//        tabBar.customShadowRadius = 3
-//        tabBar.customShadowOpacity = 1
-//        tabBar.customShadowOffset = CGSize(width: 1, height: 0)
-//        tabBar.customShadowColor = UIColor.black.withAlphaComponent(0.7)
+//       tabBar.customShadowRadius = 3
+//       tabBar.customShadowOpacity = 1
+//       tabBar.customShadowOffset = CGSize(width: 1, height: 0)
+//       tabBar.customShadowColor = UIColor.black.withAlphaComponent(0.7)
         
         if bookingSuccessful {
             bookingSuccessful = false
@@ -58,23 +58,21 @@ class TabViewController: UITabBarController {
 
         items[0].title = "str_book_karwa".localized()
         items[1].title = "metroexpress"//.localized()
-        items[2].title = "action_settings".localized()
-        
+        items[2].title = "str_bus".localized()
+
         items[0].image = UIImage(named: "Tabbar1")
         items[1].image = UIImage(named: "kmetroexpress")
-        items[2].image = UIImage(named: "settings_ico_idle")
-        
+        items[2].image = UIImage(named: "BusTabIcon")
+
         items[0].selectedImage = UIImage(named: "Tabbar1")
         items[1].selectedImage = UIImage(named: "kmetroexpress")
-        items[2].selectedImage = UIImage(named: "settings_ico_active")
-        
+        items[2].selectedImage = UIImage(named: "BusTabIcon")
+
         for item in items {
             var normal: [NSAttributedString.Key: AnyObject] =
             [NSAttributedString.Key.font:UIFont(name: "MuseoSans-500", size: 11.0)!]
             normal[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
             item.setTitleTextAttributes(normal, for: .normal)
-            
-            
         }
         
         var normal: [NSAttributedString.Key: AnyObject] =
@@ -111,27 +109,6 @@ class TabViewController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        if #available(iOS 13.0, *) {
-//            let appearance = UITabBarAppearance()
-//            appearance.configureWithOpaqueBackground()
-//            appearance.backgroundColor = .white
-//            tabBar.standardAppearance = appearance
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//
-//
-//        if #available(iOS 15.0, *) {
-//            let appearance = UITabBarAppearance()
-//            appearance.configureWithOpaqueBackground()
-//            appearance.backgroundColor = .white
-//            tabBar.standardAppearance = appearance
-//            //tabBar.scrollEdgeAppearance = tabBar.standardAppearance
-//        }
-
-        
-    
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -172,7 +149,7 @@ class TabViewController: UITabBarController {
                             // access to item subviews : imageview and label
                             if viewTabBar.subviews.count == 2 {
                                 let label = viewTabBar.subviews[1]as? UILabel
-                                label?.frame = CGRect(x: 17, y: 35, width: 100, height: 12)
+                                label?.frame = CGRect(x: 0, y: 35, width: 100, height: 12)
                                 // here is the customization for my label 2 lines
                                 label?.numberOfLines = 2
                                 label?.textAlignment = .center
@@ -187,12 +164,10 @@ class TabViewController: UITabBarController {
                     }
 
                 } else if !(viewController.isKind(of: KTXpressPickUpViewController.self)) {
-
                     var normal: [NSAttributedString.Key: AnyObject] =
                     [NSAttributedString.Key.font:UIFont(name: "MuseoSans-500", size: 11.0)!]
                     normal[NSAttributedString.Key.foregroundColor] = UIColor(hexString: "#006170")
                     viewController.tabBarItem.setTitleTextAttributes(normal, for: .normal)
-
                 }
             }
         }
@@ -202,7 +177,6 @@ class TabViewController: UITabBarController {
 }
 
 extension TabViewController: UITabBarControllerDelegate {
-
     func tabBarController(_ tabBarController: UITabBarController, animationControllerForTransitionFrom fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return MyTransition(viewControllers: tabBarController.viewControllers)
     }
@@ -289,3 +263,4 @@ class CustomTabBar : UITabBar {
         return sizeThatFits
     }
 }
+
