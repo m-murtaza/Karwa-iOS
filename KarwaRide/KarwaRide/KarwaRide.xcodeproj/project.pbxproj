@@ -176,6 +176,7 @@
 		185209482062411C00BD5FCD /* MyTripHired@3x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 185209452062411C00BD5FCD /* MyTripHired@3x.gif */; };
 		185209492062411C00BD5FCD /* MyTripHired.gif in Resources */ = {isa = PBXBuildFile; fileRef = 185209462062411C00BD5FCD /* MyTripHired.gif */; };
 		1852094D2063C91C00BD5FCD /* RoundedLable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852094C2063C91C00BD5FCD /* RoundedLable.swift */; };
+		18573B4627A69AD500777CB2 /* KTKarwaBusPlanTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18573B4527A69AD500777CB2 /* KTKarwaBusPlanTripViewController.swift */; };
 		1860676127252BC500EFDF25 /* KTXpressLocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860676027252BC500EFDF25 /* KTXpressLocationPickerViewController.swift */; };
 		186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KTBaseViewController.swift */; };
 		186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KTLoginViewController.swift */; };
@@ -243,6 +244,8 @@
 		18C24B1820062722002D4B88 /* ViewWithRoundCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */; };
 		18C448482292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C448472292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift */; };
 		18C4484A2292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C448492292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift */; };
+		18C73BDE27A8DE3100C5E387 /* KTKarwaPlanTripViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C73BDD27A8DE3000C5E387 /* KTKarwaPlanTripViewmodel.swift */; };
+		18C73BE027A913DD00C5E387 /* BusStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C73BDF27A913DC00C5E387 /* BusStoryBoard.storyboard */; };
 		18D3BC1422841DC3008096B2 /* GenericInputVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D3BC1322841DC3008096B2 /* GenericInputVC.swift */; };
 		18DC95B62289D33400EB000D /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DC95B52289D33400EB000D /* CircularProgress.swift */; };
 		18DEC618272E7FB9006D560A /* KTXpressLocationSetUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DEC617272E7FB8006D560A /* KTXpressLocationSetUpViewModel.swift */; };
@@ -470,6 +473,7 @@
 		185209452062411C00BD5FCD /* MyTripHired@3x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "MyTripHired@3x.gif"; path = "Resources/Images/MyTripHired@3x.gif"; sourceTree = "<group>"; };
 		185209462062411C00BD5FCD /* MyTripHired.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = MyTripHired.gif; path = Resources/Images/MyTripHired.gif; sourceTree = "<group>"; };
 		1852094C2063C91C00BD5FCD /* RoundedLable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoundedLable.swift; path = Classes/Common/Extensions/RoundedLable.swift; sourceTree = "<group>"; };
+		18573B4527A69AD500777CB2 /* KTKarwaBusPlanTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTKarwaBusPlanTripViewController.swift; sourceTree = "<group>"; };
 		1860676027252BC500EFDF25 /* KTXpressLocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressLocationPickerViewController.swift; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
@@ -538,6 +542,8 @@
 		18C24B1720062722002D4B88 /* ViewWithRoundCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewWithRoundCorner.swift; path = Classes/ThirdParty/UIElements/ViewWithRoundCorner.swift; sourceTree = "<group>"; };
 		18C448472292A9BC004932F0 /* KTMaskedEmailConfirmationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTMaskedEmailConfirmationVC.swift; sourceTree = "<group>"; };
 		18C448492292AC29004932F0 /* KTMasedEmailConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTMasedEmailConfirmationViewModel.swift; sourceTree = "<group>"; };
+		18C73BDD27A8DE3000C5E387 /* KTKarwaPlanTripViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTKarwaPlanTripViewmodel.swift; sourceTree = "<group>"; };
+		18C73BDF27A913DC00C5E387 /* BusStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BusStoryBoard.storyboard; sourceTree = "<group>"; };
 		18D3BC1322841DC3008096B2 /* GenericInputVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericInputVC.swift; sourceTree = "<group>"; };
 		18DC95B52289D33400EB000D /* CircularProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgress.swift; sourceTree = "<group>"; };
 		18DEC617272E7FB8006D560A /* KTXpressLocationSetUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressLocationSetUpViewModel.swift; sourceTree = "<group>"; };
@@ -1227,6 +1233,16 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		18573B4427A69AB300777CB2 /* Bus */ = {
+			isa = PBXGroup;
+			children = (
+				18021AAA27A26D29009D00AF /* KTKarwaBusViewController.swift */,
+				18021AA927A26D29009D00AF /* KTKarwaBusViewController+Map.swift */,
+				18573B4527A69AD500777CB2 /* KTKarwaBusPlanTripViewController.swift */,
+			);
+			name = Bus;
+			sourceTree = "<group>";
+		};
 		1864871E1F0A357C00DDB003 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1239,8 +1255,7 @@
 		1864871F1F0A358600DDB003 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				18021AAA27A26D29009D00AF /* KTKarwaBusViewController.swift */,
-				18021AA927A26D29009D00AF /* KTKarwaBusViewController+Map.swift */,
+				18573B4427A69AB300777CB2 /* Bus */,
 				0DBCBD3F276758030068C973 /* AddCard */,
 				B7ADBC0D274526BF000B9073 /* Promotions */,
 				1811AE2526AD19DA002C991E /* Xpress */,
@@ -1273,6 +1288,7 @@
 			isa = PBXGroup;
 			children = (
 				18021AA727A26D0D009D00AF /* KTKarwaBusViewModel.swift */,
+				18C73BDD27A8DE3000C5E387 /* KTKarwaPlanTripViewmodel.swift */,
 				0DBCBD4227675E040068C973 /* AddCard */,
 				B7ADBC132745318C000B9073 /* Promotions */,
 				1811AE3B26AD1A39002C991E /* KTXpressDropoffViewModel.swift */,
@@ -1658,6 +1674,7 @@
 			children = (
 				1813449D1EF68671006E734A /* Main.storyboard */,
 				B7ADBC1127452CDE000B9073 /* Promotions.storyboard */,
+				18C73BDF27A913DC00C5E387 /* BusStoryBoard.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -1829,6 +1846,7 @@
 				B7B89B9C271D741500F9D97D /* VehicleDetailBottomSheetVC.xib in Resources */,
 				44EBB8CE254861FC000257EE /* Localizable.strings in Resources */,
 				18C24B032004E269002D4B88 /* MuseoSans-100Italic.otf in Resources */,
+				18C73BE027A913DD00C5E387 /* BusStoryBoard.storyboard in Resources */,
 				1886187E207B47DF000806D3 /* InitRatingReasons.JSON in Resources */,
 				185209482062411C00BD5FCD /* MyTripHired@3x.gif in Resources */,
 				18C24B022004E269002D4B88 /* MuseoSans-100.otf in Resources */,
@@ -2197,6 +2215,7 @@
 				0DE28EAD25075831000E27E4 /* APIPinning.swift in Sources */,
 				B7ADBC1727461DBD000B9073 /* KTPromotionCell.swift in Sources */,
 				18391114204540AE002EDE1A /* KTSettingsImgTextTableViewCell.swift in Sources */,
+				18C73BDE27A8DE3100C5E387 /* KTKarwaPlanTripViewmodel.swift in Sources */,
 				1811AE3226AD19FD002C991E /* KTXpressRideCreationViewController+Map.swift in Sources */,
 				181AB8512074E6F80048D7AF /* KTCancelBookingManager.swift in Sources */,
 				0D1A4B52216CA0A900279AA6 /* ComplaintCategoryModel.swift in Sources */,
@@ -2204,6 +2223,7 @@
 				0D685A86218CB1F200DB2CDB /* MAKHash.swift in Sources */,
 				1845FCD226C220D400A1AA75 /* KTXpressMyTripsViewModel.swift in Sources */,
 				18B907682022F64A000F45FE /* PopupVC.swift in Sources */,
+				18573B4627A69AD500777CB2 /* KTKarwaBusPlanTripViewController.swift in Sources */,
 				441D114D254FED49005E1B66 /* UIView + Extension.swift in Sources */,
 				0DC4A9172591E9EB007974BF /* LocalisableTextField.swift in Sources */,
 				186ECFD120A80EDB002CF81E /* KTFirstViewModel.swift in Sources */,
@@ -2465,8 +2485,8 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = KarwaRide/KarwaRide.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Karwa Integrated Solutions and Services (2U24J4Z466)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 315;
 				DEVELOPMENT_TEAM = 2U24J4Z466;
@@ -2483,7 +2503,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mowasalat.karwa.taxiapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "sam-s-prov-cert-25-jan";
+				PROVISIONING_PROFILE_SPECIFIER = "KarwaAppStoreProvisionProfile-25Oct2021";
 				SWIFT_OBJC_BRIDGING_HEADER = "KarwaRide/KarwaRide-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
