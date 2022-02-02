@@ -121,9 +121,11 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
                 self.passengerLabel.text = "str_1pass".localized()
             }
         } else {
-            self.passengerLabel.text = "str_1pass".localized()
-            plusBtn.layer.opacity = 1
-            minuBtn.layer.opacity = 0.5
+            if bookingSuccessful == true {
+                self.passengerLabel.text = "str_1pass".localized()
+                plusBtn.layer.opacity = 1
+                minuBtn.layer.opacity = 0.5
+            }
         }
     }
     
@@ -175,12 +177,13 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     @IBAction func submitButtonPressed(sender: UIButton) {
         springAnimateButtonTapOut(button: setLocationButton)
         if sender.title(for: .normal) == "str_setpick".localized() {
-            callSetPickUpAction()
-//            if backToPickUpWithMessageSelected == true {
-//                backToPickUpWithMessageSelected = false
-//                callDropOffAction()
-//            } else {
-//            }
+            if backToPickUpWithMessageSelected == true {
+                backToPickUpWithMessageSelected = false
+                getDestinationForPickUp()
+                callDropOffAction()
+            } else {
+                callSetPickUpAction()
+            }
         } else if sender.title(for: .normal) == "str_dropoff".localized() {
             callDropOffAction()
         } else {
@@ -285,8 +288,10 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     func callSetPickUpAction() {
         pickUpSelected = true
         getDestinationForPickUp()
-        setDropOffViewUI()
-        setDropOffPolygon()
+        if destinationForPickUp.count > 0 {
+            setDropOffViewUI()
+            setDropOffPolygon()
+        } 
     }
     
     func callDropOffAction() {
@@ -583,8 +588,6 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         destination.fromDropOff = pickUpSelected
         
         print(self.pickUpAddressLabel.text)
-        
-        
         
         if pickUpSelected == false {
             

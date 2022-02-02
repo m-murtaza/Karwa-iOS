@@ -592,13 +592,12 @@ class KTAddressPickerViewModel: KTBaseViewModel {
               self.del?.moveFocusToDestination()
           }
           
-        //self.delegate?.showError!(title: "Error", message: "Dropoff address cann't be empty")
       }
     }
     else
     {
-        self.delegate?.showError!(title: "error_sr".localized(), message: "txt_pick_up".localized())
         self.del?.moveFocusToPickUp()
+//        self.delegate?.showError!(title: "error_sr".localized(), message: "txt_pick_up".localized())
     }
   }
   

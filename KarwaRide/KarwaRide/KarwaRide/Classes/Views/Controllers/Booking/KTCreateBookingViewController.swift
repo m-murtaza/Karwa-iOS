@@ -157,7 +157,7 @@ extension KTCreateBookingViewController: UITableViewDataSource, UITableViewDeleg
     let fare = viewModel.getTypeBaseFareOrEstimate(typeId: item!.typeId)
     cell.setFare(fare: fare)
     cell.capacity.text = viewModel.getTypeCapacity(typeId: item!.typeId)
-    let shouldHidePromoFare = !(viewModel.isPromoFare(typeId: item!.typeId))
+    let shouldHidePromoFare = !(viewModel.isPromoFare(typeId: item!.typeId, fromCarousel: false))
     cell.promoBadge.isHidden = shouldHidePromoFare
     if(viewModel.isPremiumRide(typeId: item!.typeId)){
         cell.iconBackgroundAnim.isHidden = false
@@ -470,14 +470,15 @@ class KTCreateBookingViewController:
         btnRecenterLocationConstraint.constant = 15
     }
     
-    if vModel?.rebook == false {
-        setUpPreviousPaymentMethod()
-    } else {
-        (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
-        self.paymentTypeLabel.text = "str_cash".localized()
-        self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
-    }
+//    if vModel?.rebook == false {
+//    } else {
+//        (viewModel as! KTCreateBookingViewModel).selectedPaymentMethodId = ""
+//        self.paymentTypeLabel.text = "str_cash".localized()
+//        self.paymentTypeIcon.image = UIImage(named: ImageUtil.getImage("Cash"))
+//    }
     
+        setUpPreviousPaymentMethod()
+
         if UIDevice().userInterfaceIdiom == .phone {
                 switch UIScreen.main.nativeBounds.height {
                 case 1136:

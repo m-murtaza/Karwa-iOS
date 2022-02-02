@@ -60,7 +60,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     private var ebillPopup : KTFarePopupViewController?
     private var ratingPopup : KTRatingViewController?
 
-    weak var bottomSheetVC : KTBookingDetailsBottomSheetVC?
+//    weak var bottomSheetVC : KTBookingDetailsBottomSheetVC?
 
     var isOpenFromNotification : Bool = false
 
@@ -69,6 +69,13 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
     var haltAutoZooming = false
     var showCancelCharges = false
     var manualMoveBegins: Bool = false
+    
+    lazy var bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTBookingDetailsBottomSheetVC") as? KTBookingDetailsBottomSheetVC
+    
+    lazy var sheet = SheetViewController(
+        controller: bottomSheetVC!,
+        sizes: [.percent(0.25), .intrinsic],
+        options: SheetOptions(useInlineMode: true))
     
     lazy var scheduleTimeTitleLable: UILabel = {
         let view = UILabel()
@@ -88,11 +95,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
 //        sheetCoordinator = UBottomSheetCoordinator(parent: self)
 //        sheetCoordinator.dataSource = self
 //
-        bottomSheetVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "KTBookingDetailsBottomSheetVC") as? KTBookingDetailsBottomSheetVC
-        let sheet = SheetViewController(
-            controller: bottomSheetVC!,
-            sizes: [.percent(0.25), .intrinsic],
-            options: SheetOptions(useInlineMode: true))
+        
         bottomSheetVC?.sheet = sheet
         bottomSheetVC?.vModel = viewModel as? KTBookingDetailsViewModel
 //        sheetCoordinator.addSheet(bottomSheetVC, to: self)
@@ -113,11 +116,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         sheet.contentViewController.view.layer.shadowRadius = 10
         sheet.allowGestureThroughOverlay = true
         
-        if let view = view {
-            sheet.animateIn(to: view, in: self)
-        } else {
-            self.present(sheet, animated: true, completion: nil)
-        }
+//        if let view = view {
+//            sheet.animateIn(to: view, in: self)
+//        } else {
+//            self.present(sheet, animated: true, completion: nil)
+//        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3)
         {
@@ -140,6 +143,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         // Do any additional setup after loading the view.
     }
+    
+    
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition)
     {
@@ -172,6 +177,11 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         self.navigationController?.interactivePopGestureRecognizer?.delaysTouchesBegan = false
         self.mapView.settings.rotateGestures = false
         self.mapView.settings.tiltGestures = false
+        if let view = view {
+            sheet.animateIn(to: view, in: self)
+        } else {
+            self.present(sheet, animated: true, completion: nil)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -103,12 +103,12 @@ class KTBookingManager: KTBaseFareEstimateManager {
     
     func syncXpressBookings(orderId: String, completion completionBlock: @escaping KTDALCompletionBlock) {
         
-        let param : [String: Any] = [Constants.SyncParam.BookingList: syncTime(forKey:XPRESS_BOOKING_SYNC_TIME)]
-        
+        let param : [String: Any] = [Constants.SyncParam.BookingList: syncTime(forKey:BOOKING_SYNC_TIME)]
+
         self.get(url: Constants.APIURL.Booking + "/\(orderId)", param: param, completion: completionBlock) { (response, cBlock) in
             
             let bookings = self.saveBookingInDB(booking: response )
-            self.updateSyncTime(forKey: XPRESS_BOOKING_SYNC_TIME)
+            self.updateSyncTime(forKey: BOOKING_SYNC_TIME)
             
             cBlock(Constants.APIResponseStatus.SUCCESS,[Constants.ResponseAPIKey.Data: bookings])
         }

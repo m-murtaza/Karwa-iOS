@@ -477,7 +477,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             msg = "str_searching_ride".localized()
             break
         case BookingStatus.CONFIRMED.rawValue:
-            msg = "txt_enjoy_ride".localized()
+            msg = "str_confirmed".localized()
             break
         case BookingStatus.ARRIVED.rawValue:
             msg = "str_arrived".localized()

@@ -18,14 +18,9 @@ extension KTXpressRideCreationViewController
 {
     internal func addMap() {
         
-        let camera = GMSCameraPosition.camera(withLatitude: selectedRSPickUpCoordinate!.latitude, longitude: selectedRSPickUpCoordinate!.longitude, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
+        pickUpLocationMarker = addAndGetMarkerOnMap(location: selectedRSPickUpCoordinate!, image: #imageLiteral(resourceName: "BookingMapDirectionPickup"))
         
-        showCurrentLocationDot(show: true)
-        self.mapView.camera = camera;
-        
-        pickUpLocationMarker = addAndGetMarkerOnMap(location: selectedRSPickUpCoordinate!, image: #imageLiteral(resourceName: "pickup_address_ico"))
-        
-        dropOffLocationMarker = self.addAndGetMarkerOnMap(location: selectedRSDropOffCoordinate!, image: #imageLiteral(resourceName: "dropoff_pin"))
+        dropOffLocationMarker = self.addAndGetMarkerOnMap(location: selectedRSDropOffCoordinate!, image: #imageLiteral(resourceName: "BookingMapDirectionDropOff"))
 
         let padding = UIEdgeInsets(top: 100, left: 20, bottom: 100, right: 100)
         mapView.padding = padding
@@ -46,9 +41,24 @@ extension KTXpressRideCreationViewController
                 
         self.drawArcPolyline(startLocation: selectedRSPickUpCoordinate!, endLocation: selectedRSDropOffCoordinate!)
         
-        self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
-
         
+        pickUpLocationMarker = GMSMarker()
+        pickUpLocationMarker.position = selectedRSPickUpCoordinate!
+        pickUpLocationMarker.icon = UIImage(named: "BookingMapDirectionPickup")!
+        pickUpLocationMarker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        
+        dropOffLocationMarker = GMSMarker()
+        dropOffLocationMarker.position = selectedRSDropOffCoordinate!
+        dropOffLocationMarker.icon = UIImage(named: "BookingMapDirectionDropOff")!
+        dropOffLocationMarker.groundAnchor = CGPoint(x:0.5,y:0.5)
+        
+        gmsMarker = [pickUpLocationMarker,dropOffLocationMarker]
+        
+        self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
+        mapView.animate(toZoom: 15)
+        
+        showCurrentLocationDot(show: true)
+                
     }
     
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
@@ -60,7 +70,6 @@ extension KTXpressRideCreationViewController
         
         var update : GMSCameraUpdate?
         update = GMSCameraUpdate.fit(bounds, withPadding: 50)
-
         
         CATransaction.begin()
         CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
@@ -206,7 +215,7 @@ extension KTXpressRideCreationViewController
             bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
             polyline.strokeColor = bgPolylineColor
             
-            let inset = UIEdgeInsets(top: 150, left: 100, bottom: self.view.frame.height/2, right: 100)
+            let inset = UIEdgeInsets(top: 150, left: 50, bottom: self.view.frame.height/2, right: 50)
             
             // focus to fit all the point including path, pick and destination in map camera
             self.focusMapToFitRoute(pointA: startLocation,

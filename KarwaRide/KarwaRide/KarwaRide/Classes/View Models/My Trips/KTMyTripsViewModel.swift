@@ -32,7 +32,6 @@ class KTMyTripsViewModel: KTBaseViewModel {
             showBooking(selectedBooking!)
             selectedBooking = nil;
         }
-        KTPaymentManager().fetchPaymentsFromServer{(status, response) in}
         (delegate as? KTMyTripsViewModelDelegate)?.showNavigationController()
 
     }
@@ -40,8 +39,6 @@ class KTMyTripsViewModel: KTBaseViewModel {
     func fetchBookings()  {
         delegate?.showProgressHud(show: true)
         KTBookingManager().syncBookings { (status, response) in
-            //if status == Constants.APIResponseStatus.SUCCESS {
-                
             self.fetchBookingsFromDB()
             self.delegate?.hideProgressHud()
 

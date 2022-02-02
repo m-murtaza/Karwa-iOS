@@ -13,6 +13,8 @@ import Alamofire
 import SwiftyJSON
 import GoogleMaps
 
+var isFirstZoomDone = false
+
 protocol KTCreateBookingViewModelDelegate: KTViewModelDelegate
 {
     func updateLocationInMap(location:CLLocation)
@@ -1283,19 +1285,53 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return vehicle.toKeyValueBody?.array as? [KTKeyValue]
     }
     
-    func isPromoFare(typeId: Int16) -> Bool{
+    func isPromoFare(typeId: Int16, fromCarousel: Bool) -> Bool{
         var isPromoApplied = false
         if let vType : KTVehicleType = vehicleTypes?.first(where: {$0.typeId == typeId}) {
-            if estimates == nil || estimates?.count == 0
-            {
-                isPromoApplied = vType.isPromoApplied
+            if estimates == nil || estimates?.count == 0 {
+                if fromCarousel == true {
+                    isPromoApplied = vType.isPromoApplied
+                } else {
+                    if typeId == VehicleType.KTStandardLimo.rawValue || typeId == VehicleType.KTBusinessLimo.rawValue || typeId == VehicleType.KTLuxuryLimo.rawValue {
+                        print("typeId", typeId)
+                        
+                        let v1Type : KTVehicleType = (vehicleTypes?.first(where: {$0.typeId == VehicleType.KTStandardLimo.rawValue})!)!
+                        let v2Type : KTVehicleType = (vehicleTypes?.first(where: {$0.typeId == VehicleType.KTBusinessLimo.rawValue})!)!
+                        let v3Type : KTVehicleType = (vehicleTypes?.first(where: {$0.typeId == VehicleType.KTLuxuryLimo.rawValue})!)!
+                        if v1Type.isPromoApplied || v2Type.isPromoApplied || v3Type.isPromoApplied {
+                            isPromoApplied = true
+                        }
+
+                    } else {
+                        isPromoApplied = vType.isPromoApplied
+                    }
+                }
+                            
             }
             else
             {
                 let estimate : KTFareEstimate? = self.estimate(forVehicleType: vType.typeId)
                 if estimate != nil
                 {
-                    isPromoApplied = estimate?.isPromoApplied ?? false
+                    if fromCarousel == true {
+                        isPromoApplied = estimate?.isPromoApplied ?? false
+                    } else {
+                        if typeId == VehicleType.KTStandardLimo.rawValue || typeId == VehicleType.KTBusinessLimo.rawValue || typeId == VehicleType.KTLuxuryLimo.rawValue {
+                            print("typeId", typeId)
+                                                        
+                            let estimate1 : KTFareEstimate? = self.estimate(forVehicleType: VehicleType.KTStandardLimo.rawValue)
+                            let estimate2 : KTFareEstimate? = self.estimate(forVehicleType: VehicleType.KTBusinessLimo.rawValue)
+                            let estimate3 : KTFareEstimate? = self.estimate(forVehicleType: VehicleType.KTLuxuryLimo.rawValue)
+
+                            if estimate1?.isPromoApplied ?? false || estimate2?.isPromoApplied ?? false || estimate3?.isPromoApplied ?? false {
+                                isPromoApplied = true
+                            }
+
+                        } else {
+                            isPromoApplied = estimate?.isPromoApplied ?? false
+                        }
+                    }
+                    
                 }
             }
         }
@@ -1708,7 +1744,6 @@ class KTCreateBookingViewModel: KTBaseViewModel {
         return vehicleNearBy
     }
     
-    var isFirstZoomDone = false
     
     @objc func LocationManagerLocaitonUpdate(notification: Notification)
     {
