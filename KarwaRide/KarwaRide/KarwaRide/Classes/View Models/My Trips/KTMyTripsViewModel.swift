@@ -32,7 +32,6 @@ class KTMyTripsViewModel: KTBaseViewModel {
             showBooking(selectedBooking!)
             selectedBooking = nil;
         }
-        KTPaymentManager().fetchPaymentsFromServer{(status, response) in}
         (delegate as? KTMyTripsViewModelDelegate)?.showNavigationController()
 
     }
