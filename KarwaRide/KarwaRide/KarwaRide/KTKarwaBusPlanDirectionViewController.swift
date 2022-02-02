@@ -157,7 +157,7 @@ class FilterPresentationController: UIPresentationController {
   
   // 1.
   override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
-      let blurEffect = UIBlurEffect(style: .extraLight)
+      let blurEffect = UIBlurEffect(style: .regular)
       blurEffectView = UIVisualEffectView(effect: blurEffect)
       super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
       tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissController))

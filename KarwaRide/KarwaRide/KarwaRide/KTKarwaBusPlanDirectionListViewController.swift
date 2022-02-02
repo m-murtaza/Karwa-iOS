@@ -33,11 +33,45 @@ class KTKarwaBusPlanDirectionListViewController: KTBaseViewController, UITableVi
     
     func setupViews() {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerAction))
-        self.topView.addGestureRecognizer(panGesture)
+        self.view.addGestureRecognizer(panGesture)
     }
     
+    func progressAlongAxis(_ pointOnAxis: CGFloat, _ axisLength: CGFloat) -> CGFloat {
+        let movementOnAxis = pointOnAxis / axisLength
+        let positiveMovementOnAxis = fmaxf(Float(movementOnAxis), 0.0)
+        let positiveMovementOnAxisPercent = fminf(positiveMovementOnAxis, 1.0)
+        return CGFloat(positiveMovementOnAxisPercent)
+    }
+
+    func ensureRange<T>(value: T, minimum: T, maximum: T) -> T where T: Comparable {
+        return min(max(value, minimum), maximum)
+    }
     
     @objc func panGestureRecognizerAction(sender: UIPanGestureRecognizer) {
+        
+//        let percentThreshold:CGFloat = 0.3
+//        let translation = sender.translation(in: view)
+//
+//        let newX = ensureRange(value: view.frame.minY + translation.y, minimum: 0, maximum: view.frame.maxY)
+//        let progress = progressAlongAxis(newX, view.bounds.height)
+//
+//        view.frame.origin.y = newX //Move view to new position
+//
+//        if sender.state == .ended {
+//            let velocity = sender.velocity(in: view)
+//
+//            print("velocity", velocity)
+//
+//            if velocity.y >= 1300 || progress > percentThreshold {
+//
+//                self.dismiss(animated: true) //Perform dismiss
+//            } else {
+//                UIView.animate(withDuration: 0.2, animations: {
+//                    self.view.frame.origin.y = 130 // Revert animation
+//                })
+//            }
+//        }
+        
         let translation = sender.translation(in: view)
         
         // Not allowing the user to drag the view upward
@@ -46,16 +80,17 @@ class KTKarwaBusPlanDirectionListViewController: KTBaseViewController, UITableVi
         // setting x as 0 because we don't want users to move the frame side ways!! Only want straight up or down
         view.frame.origin = CGPoint(x: 0, y: self.pointOrigin!.y + translation.y)
         
+        let dragVelocity = sender.velocity(in: self.view)
+        print("dragVelocity", dragVelocity)
+        
         if sender.state == .ended {
-            let dragVelocity = sender.velocity(in: self.view)
-            print("dragVelocity", dragVelocity)
             
             if  UIScreen.main.bounds.height/2 < view.frame.origin.y {
                 self.dismiss(animated: true, completion: nil)
             }
             if dragVelocity.y >= 1300 {
                 // Velocity fast enough to dismiss the uiview
-//                self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             } else {
                 // Set back to original position of the view controller
                 UIView.animate(withDuration: 0.3) {
