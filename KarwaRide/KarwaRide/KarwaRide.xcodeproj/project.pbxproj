@@ -195,6 +195,7 @@
 		186ECFCB20A410CE002CF81E /* KTSpringImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186ECFCA20A410CE002CF81E /* KTSpringImageView.swift */; };
 		186ECFCE20A80E2B002CF81E /* KTFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186ECFCD20A80E2B002CF81E /* KTFirstViewController.swift */; };
 		186ECFD120A80EDB002CF81E /* KTFirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186ECFD020A80EDB002CF81E /* KTFirstViewModel.swift */; };
+		187304D727AAF13A002F37C5 /* KTKarwaBusPlanDirectionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187304D627AAF13A002F37C5 /* KTKarwaBusPlanDirectionListViewController.swift */; };
 		1876E33E279DB4E700989768 /* location_qatar_second.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 1876E33D279DB4E700989768 /* location_qatar_second.gpx */; };
 		187E71112083790300E66A55 /* KTRatingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E71102083790300E66A55 /* KTRatingManager.swift */; };
 		187E71132084935100E66A55 /* KTRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E71122084935100E66A55 /* KTRatingViewController.swift */; };
@@ -493,6 +494,7 @@
 		186ECFCA20A410CE002CF81E /* KTSpringImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTSpringImageView.swift; path = Classes/Views/Controllers/OnBoarding/KTSpringImageView.swift; sourceTree = "<group>"; };
 		186ECFCD20A80E2B002CF81E /* KTFirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFirstViewController.swift; path = Classes/Views/Controllers/FirstViewController/KTFirstViewController.swift; sourceTree = "<group>"; };
 		186ECFD020A80EDB002CF81E /* KTFirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFirstViewModel.swift; path = "Classes/View Models/FirstView/KTFirstViewModel.swift"; sourceTree = "<group>"; };
+		187304D627AAF13A002F37C5 /* KTKarwaBusPlanDirectionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTKarwaBusPlanDirectionListViewController.swift; sourceTree = "<group>"; };
 		1876E33D279DB4E700989768 /* location_qatar_second.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = location_qatar_second.gpx; sourceTree = "<group>"; };
 		187E71102083790300E66A55 /* KTRatingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingManager.swift; path = Classes/DAL/Rating/KTRatingManager.swift; sourceTree = "<group>"; };
 		187E71122084935100E66A55 /* KTRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTRatingViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTRatingViewController.swift; sourceTree = "<group>"; };
@@ -1242,6 +1244,7 @@
 				18021AA927A26D29009D00AF /* KTKarwaBusViewController+Map.swift */,
 				18573B4527A69AD500777CB2 /* KTKarwaBusPlanTripViewController.swift */,
 				1806E0C827A9B231001F5F47 /* KTKarwaBusPlanDirectionViewController.swift */,
+				187304D627AAF13A002F37C5 /* KTKarwaBusPlanDirectionListViewController.swift */,
 			);
 			name = Bus;
 			sourceTree = "<group>";
@@ -2179,6 +2182,7 @@
 				1811AE3326AD19FD002C991E /* KTXpressDropOffViewController+Map.swift in Sources */,
 				1811AE3426AD19FD002C991E /* KTXpressPickUpViewController+Map.swift in Sources */,
 				F03DB000261B1346002B3C44 /* KTWalletViewModel.swift in Sources */,
+				187304D727AAF13A002F37C5 /* KTKarwaBusPlanDirectionListViewController.swift in Sources */,
 				1833CA7F200DC74300AD885B /* KTCreateBookingViewController.swift in Sources */,
 				1813449A1EF68671006E734A /* AppDelegate.swift in Sources */,
 				18F2B2762044135200600966 /* KTMyTripsViewController.swift in Sources */,
