@@ -84,6 +84,7 @@
 		18021AAC27A26D29009D00AF /* KTKarwaBusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18021AAA27A26D29009D00AF /* KTKarwaBusViewController.swift */; };
 		18021AAE27A271E1009D00AF /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18021AAD27A271E1009D00AF /* SegmentControl.swift */; };
 		18021AB027A282F1009D00AF /* MockRoutePlanner.JSON in Resources */ = {isa = PBXBuildFile; fileRef = 18021AAF27A282C3009D00AF /* MockRoutePlanner.JSON */; };
+		1806E0C927A9B231001F5F47 /* KTKarwaBusPlanDirectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1806E0C827A9B231001F5F47 /* KTKarwaBusPlanDirectionViewController.swift */; };
 		1808F46126D2787700D10F64 /* KTXpressFavoriteAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18819BCA26CE097F00FA0E27 /* KTXpressFavoriteAddressViewController.xib */; };
 		1810C0C01FC4078C008E8D91 /* KTAPNSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */; };
 		1810C0D51FC5A60A008E8D91 /* KTBaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810C0D41FC5A60A008E8D91 /* KTBaseTableViewController.swift */; };
@@ -378,6 +379,7 @@
 		18021AAA27A26D29009D00AF /* KTKarwaBusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KTKarwaBusViewController.swift; sourceTree = "<group>"; };
 		18021AAD27A271E1009D00AF /* SegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControl.swift; sourceTree = "<group>"; };
 		18021AAF27A282C3009D00AF /* MockRoutePlanner.JSON */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockRoutePlanner.JSON; sourceTree = "<group>"; };
+		1806E0C827A9B231001F5F47 /* KTKarwaBusPlanDirectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTKarwaBusPlanDirectionViewController.swift; sourceTree = "<group>"; };
 		1810C0B91FC40086008E8D91 /* KarwaRide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KarwaRide.entitlements; sourceTree = "<group>"; };
 		1810C0BF1FC4078C008E8D91 /* KTAPNSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAPNSManager.swift; path = Classes/HelperClasses/APNS/KTAPNSManager.swift; sourceTree = "<group>"; };
 		1810C0CA1FC59BCE008E8D91 /* KarwaRide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KarwaRide-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1239,6 +1241,7 @@
 				18021AAA27A26D29009D00AF /* KTKarwaBusViewController.swift */,
 				18021AA927A26D29009D00AF /* KTKarwaBusViewController+Map.swift */,
 				18573B4527A69AD500777CB2 /* KTKarwaBusPlanTripViewController.swift */,
+				1806E0C827A9B231001F5F47 /* KTKarwaBusPlanDirectionViewController.swift */,
 			);
 			name = Bus;
 			sourceTree = "<group>";
@@ -2069,6 +2072,7 @@
 				18B9076A2022F89C000F45FE /* BookingConfermationPopupVC.swift in Sources */,
 				182A74CB208714EB0025B6C7 /* CALayer+Utils.swift in Sources */,
 				18C24ADA2004A420002D4B88 /* VPMOTPView.swift in Sources */,
+				1806E0C927A9B231001F5F47 /* KTKarwaBusPlanDirectionViewController.swift in Sources */,
 				1886187420761B14000806D3 /* KTCancelViewController.swift in Sources */,
 				0DB2224522BA30CA00C41D00 /* Country.swift in Sources */,
 				18861882207CBC71000806D3 /* KTFarePopupTableViewCell.swift in Sources */,

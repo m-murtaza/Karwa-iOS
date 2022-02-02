@@ -153,12 +153,18 @@ class KTKarwaBusPlanTripViewController: KTBaseViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : KarwaPlanTripTableViewCell = tableView.dequeueReusableCell(withIdentifier: "KarwaPlanTripTableViewCell") as! KarwaPlanTripTableViewCell
         cell.selectionStyle = .none
-        
         cell.legsScrollView.isUserInteractionEnabled = false
         cell.contentView.addGestureRecognizer(cell.legsScrollView.panGestureRecognizer)
-        
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tblView.deselectRow(at: indexPath, animated: true)
+        let busStoryboard = UIStoryboard(name: "BusStoryBoard", bundle: .main)
+        let directionController = busStoryboard.instantiateViewController(withIdentifier: "KTKarwaBusPlanDirectionViewController")
+        self.navigationController?.pushViewController(directionController, animated: true)
+    }
+    
     
     
 }

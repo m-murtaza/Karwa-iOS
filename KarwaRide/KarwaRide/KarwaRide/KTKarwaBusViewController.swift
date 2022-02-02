@@ -31,6 +31,13 @@ class KTKarwaBusViewController: KTBaseCreateBookingController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
     
     @objc func segmentValueChanged(_ sender: KTSegmentedControl) {
         print("sender.selectedIndex", sender.selectedIndex)
