@@ -275,7 +275,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
+        update = GMSCameraUpdate.fit(bounds, withPadding: 100)
 
         
         CATransaction.begin()
