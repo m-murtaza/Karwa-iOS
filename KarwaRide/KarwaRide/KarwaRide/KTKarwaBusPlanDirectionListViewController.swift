@@ -160,3 +160,23 @@ extension KTKarwaBusPlanDirectionListViewController {
         return cell
     }
 }
+
+class KTKarwaDirectionTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var directionStackView: UIStackView!
+    @IBOutlet weak var topStackView: UIStackView!
+    @IBOutlet weak var middleStackView: UIStackView!
+    @IBOutlet weak var bottomStackView: UIStackView!
+    
+    @IBOutlet weak var directionStackViewImage1: UIImageView!
+    @IBOutlet weak var directionStackViewImage2: UIImageView!
+    @IBOutlet weak var directionStackViewImage3: UIImageView!
+    @IBOutlet weak var directionStackViewImage4: UIImageView!
+
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+}

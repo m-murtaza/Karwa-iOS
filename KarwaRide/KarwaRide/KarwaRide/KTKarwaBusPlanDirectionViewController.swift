@@ -7,19 +7,54 @@
 //
 
 import UIKit
+import UPCarouselFlowLayout
+import Spring
+import GoogleMaps
 
 class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
 
-    @IBOutlet weak var tblView: UITableView!
-    @IBOutlet weak var topAddressHeaderView: UIView!
     @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var draggableView: UIView!
+    @IBOutlet weak var bottomCarouselView: UIView!
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var mapView : GMSMapView!
 
+    var screenSize: CGRect!
+    var widthRatio = 0.8
+    
+    fileprivate var pageSize: CGSize {
+        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
+        var pageSize = layout.itemSize
+        if layout.scrollDirection == .horizontal {
+            pageSize.width += layout.minimumLineSpacing
+        } else {
+            pageSize.height += layout.minimumLineSpacing
+        }
+        return pageSize
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tblView.estimatedRowHeight = 80
-        tblView.rowHeight = UITableViewAutomaticDimension
         // Do any additional setup after loading the view.
+        self.setupCV()
+    }
+    
+    func setupCV(){
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(UINib(nibName: String(describing: RouteDetailCarouselCell.self), bundle:nil), forCellWithReuseIdentifier: String(describing: RouteDetailCarouselCell.self))
+        collectionView.register(UINib(nibName: String(describing: RouteKarwaBookCarouselCell.self), bundle:nil), forCellWithReuseIdentifier: String(describing: RouteKarwaBookCarouselCell.self))
+        let layout = UPCarouselFlowLayout()
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 2)
+        layout.sideItemScale = 0.8
+        layout.sideItemAlpha = 1.0
+        layout.itemSize = CGSize(width: collectionView.frame.width * widthRatio, height: collectionView.frame.height)
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        collectionView.collectionViewLayout = layout
+        self.pageControl.numberOfPages = 10
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,73 +116,64 @@ extension KTKarwaBusPlanDirectionViewController: UIViewControllerTransitioningDe
 }
 
 
-//extension KTKarwaBusPlanDirectionViewController {
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.row == 0 {
-//            return 100
-//        }
-//        return UITableViewAutomaticDimension
-//    }
-//
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.row == 0 {
-//            return 100
-//        }
-//        return UITableViewAutomaticDimension
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 10
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell : KTKarwaDirectionTableViewCell = tableView.dequeueReusableCell(withIdentifier: "KTKarwaDirectionTableViewCell") as! KTKarwaDirectionTableViewCell
-//        cell.selectionStyle = .none
-//        if indexPath.row == 0 {
-//            cell.directionStackViewImage1.isHidden = false
-//            cell.directionStackViewImage2.isHidden = false
-//            cell.directionStackViewImage3.isHidden = true
-//            cell.directionStackViewImage4.isHidden = true
-//            cell.topStackView.isHidden = false
-//            cell.middleStackView.isHidden = true
-//            cell.bottomStackView.isHidden = true
-//        } else {
-//            cell.directionStackViewImage1.isHidden = true
-//            cell.directionStackViewImage2.isHidden = false
-//            cell.directionStackViewImage3.isHidden = false
-//            cell.directionStackViewImage4.isHidden = false
-//            cell.topStackView.isHidden = false
-//            cell.middleStackView.isHidden = false
-//        }
-//        return cell
-//    }
-//}
+extension KTKarwaBusPlanDirectionViewController: UICollectionViewDataSource {
 
-class KTKarwaDirectionTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var directionStackView: UIStackView!
-    @IBOutlet weak var topStackView: UIStackView!
-    @IBOutlet weak var middleStackView: UIStackView!
-    @IBOutlet weak var bottomStackView: UIStackView!
-    
-    @IBOutlet weak var directionStackViewImage1: UIImageView!
-    @IBOutlet weak var directionStackViewImage2: UIImageView!
-    @IBOutlet weak var directionStackViewImage3: UIImageView!
-    @IBOutlet weak var directionStackViewImage4: UIImageView!
-
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
     }
-    
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if indexPath.row % 2 == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RouteDetailCarouselCell.self), for: indexPath) as! RouteDetailCarouselCell
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RouteKarwaBookCarouselCell.self), for: indexPath) as! RouteKarwaBookCarouselCell
+            return cell
+        }
+        
+        
+    }
 }
 
+extension KTKarwaBusPlanDirectionViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width * widthRatio, height: collectionView.frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                guard let `self` = self else {return}
+                self.animateVehicle(index: 0)
+            }
+        }
+    }
+    
+    // MARK: - UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
+        let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
+        let offset = (layout.scrollDirection == .horizontal) ? scrollView.contentOffset.x : scrollView.contentOffset.y
+        let currentItem = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+        self.pageControl.currentPage = currentItem
+//        if selectedVehicleIndex != currentItem {
+//            currentVehicle = currentItem
+//        }
+    }
+        
+    func animateVehicle(index: Int) {
+        if index < self.collectionView.numberOfItems(inSection: 0), let cell = self.collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? RouteDetailCarouselCell {
+            cell.imgLegTypeView.isHidden = false
+            cell.imgLegTypeView.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
+            cell.imgLegTypeView.animate()
+        }
+    }
+}
 
 class FilterPresentationController: UIPresentationController {
   // MARK: Properties
@@ -169,7 +195,7 @@ class FilterPresentationController: UIPresentationController {
   // 2.
   override var frameOfPresentedViewInContainerView: CGRect {
       CGRect(origin: CGPoint(x: 0, y: 130),
-             size: CGSize(width: self.containerView!.frame.width, height: self.containerView!.frame.height * 0.8))
+             size: CGSize(width: self.containerView!.frame.width, height: self.containerView!.frame.height - 130))
   }
 
   // 3.

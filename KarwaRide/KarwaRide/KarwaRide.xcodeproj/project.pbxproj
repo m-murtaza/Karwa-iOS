@@ -209,6 +209,11 @@
 		18861880207CA3EA000806D3 /* KTFarePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886187F207CA3EA000806D3 /* KTFarePopupViewController.swift */; };
 		18861882207CBC71000806D3 /* KTFarePopupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18861881207CBC71000806D3 /* KTFarePopupTableViewCell.swift */; };
 		18861884207CC977000806D3 /* KTFarePopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18861883207CC977000806D3 /* KTFarePopupViewModel.swift */; };
+		18867A5427ABCA2700DBCD88 /* RouteDetailCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18867A5127ABC81600DBCD88 /* RouteDetailCarouselCell.xib */; };
+		18867A5527ABCA3700DBCD88 /* RouteDetailCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18867A5227ABC81600DBCD88 /* RouteDetailCarouselCell.swift */; };
+		18867A5827ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18867A5627ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.swift */; };
+		18867A5927ABE01900DBCD88 /* RouteKarwaBookCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18867A5727ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.xib */; };
+		18867A5B27AD142500DBCD88 /* KTKarwaBusPlanDirectionViewController+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18867A5A27AD142400DBCD88 /* KTKarwaBusPlanDirectionViewController+Map.swift */; };
 		18A3948D20173EF1000FCE92 /* KTAddressPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */; };
 		18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */; };
 		18A3949120185458000FCE92 /* KTBookingManager+Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3949020185458000FCE92 /* KTBookingManager+Address.swift */; };
@@ -509,6 +514,11 @@
 		1886187F207CA3EA000806D3 /* KTFarePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFarePopupViewController.swift; path = Classes/Views/Controllers/BookingDetails/KTFarePopupViewController.swift; sourceTree = "<group>"; };
 		18861881207CBC71000806D3 /* KTFarePopupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFarePopupTableViewCell.swift; path = Classes/Views/Controllers/BookingDetails/KTFarePopupTableViewCell.swift; sourceTree = "<group>"; };
 		18861883207CC977000806D3 /* KTFarePopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFarePopupViewModel.swift; path = "Classes/View Models/BookingDetails/KTFarePopupViewModel.swift"; sourceTree = "<group>"; };
+		18867A5127ABC81600DBCD88 /* RouteDetailCarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteDetailCarouselCell.xib; sourceTree = "<group>"; };
+		18867A5227ABC81600DBCD88 /* RouteDetailCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailCarouselCell.swift; sourceTree = "<group>"; };
+		18867A5627ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteKarwaBookCarouselCell.swift; sourceTree = "<group>"; };
+		18867A5727ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteKarwaBookCarouselCell.xib; sourceTree = "<group>"; };
+		18867A5A27AD142400DBCD88 /* KTKarwaBusPlanDirectionViewController+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KTKarwaBusPlanDirectionViewController+Map.swift"; sourceTree = "<group>"; };
 		18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAddressPickerViewController.swift; path = Classes/Views/Controllers/Booking/KTAddressPickerViewController.swift; sourceTree = "<group>"; };
 		18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAddressPickerViewModel.swift; path = "Classes/View Models/Booking/KTAddressPickerViewModel.swift"; sourceTree = "<group>"; };
 		18A3949020185458000FCE92 /* KTBookingManager+Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "KTBookingManager+Address.swift"; path = "Classes/DAL/Booking/KTBookingManager+Address.swift"; sourceTree = "<group>"; };
@@ -1244,7 +1254,12 @@
 				18021AA927A26D29009D00AF /* KTKarwaBusViewController+Map.swift */,
 				18573B4527A69AD500777CB2 /* KTKarwaBusPlanTripViewController.swift */,
 				1806E0C827A9B231001F5F47 /* KTKarwaBusPlanDirectionViewController.swift */,
+				18867A5A27AD142400DBCD88 /* KTKarwaBusPlanDirectionViewController+Map.swift */,
 				187304D627AAF13A002F37C5 /* KTKarwaBusPlanDirectionListViewController.swift */,
+				18867A5627ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.swift */,
+				18867A5227ABC81600DBCD88 /* RouteDetailCarouselCell.swift */,
+				18867A5727ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.xib */,
+				18867A5127ABC81600DBCD88 /* RouteDetailCarouselCell.xib */,
 			);
 			name = Bus;
 			sourceTree = "<group>";
@@ -1859,6 +1874,7 @@
 				0D489F9B276A05FC00562155 /* card_swiping.json in Resources */,
 				185209492062411C00BD5FCD /* MyTripHired.gif in Resources */,
 				B7ADBC1927461F38000B9073 /* KTPromotionCell.xib in Resources */,
+				18867A5927ABE01900DBCD88 /* RouteKarwaBookCarouselCell.xib in Resources */,
 				0D489F9C276A05FC00562155 /* payment_success.json in Resources */,
 				181AB8562075EDED0048D7AF /* InitTariff.JSON in Resources */,
 				18C24B042004E269002D4B88 /* MuseoSans-300.otf in Resources */,
@@ -1867,6 +1883,7 @@
 				18021AB027A282F1009D00AF /* MockRoutePlanner.JSON in Resources */,
 				18C24B0B2004E26A002D4B88 /* MuseoSans-900Italic.otf in Resources */,
 				18C24B092004E269002D4B88 /* MuseoSans-700Italic.otf in Resources */,
+				18867A5427ABCA2700DBCD88 /* RouteDetailCarouselCell.xib in Resources */,
 				B7ADBC1227452CDE000B9073 /* Promotions.storyboard in Resources */,
 				1886187D207B47DF000806D3 /* InitCancelReasons.JSON in Resources */,
 				181344A41EF68671006E734A /* LaunchScreen.storyboard in Resources */,
@@ -2275,12 +2292,15 @@
 				0D5EAA8620EB58BE0016E1F6 /* KTCoachmarkOneViewController.swift in Sources */,
 				0DCE48CA2423589E0018E3F0 /* MerchantAPI.swift in Sources */,
 				0DE6A745218B141200125507 /* Coding.swift in Sources */,
+				18867A5527ABCA3700DBCD88 /* RouteDetailCarouselCell.swift in Sources */,
 				0DE6A749218B141200125507 /* GatewayResult.swift in Sources */,
 				187E71152084B53400E66A55 /* KTRatingViewModel.swift in Sources */,
 				0DFFA829218F5F8D00F9EFE2 /* MAKHashGenerator.swift in Sources */,
 				1811E4D8204EB09D00C3C47F /* KTChangePasswordViewController.swift in Sources */,
+				18867A5827ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.swift in Sources */,
 				182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */,
 				0DE28EB325077385000E27E4 /* Int_ex.swift in Sources */,
+				18867A5B27AD142500DBCD88 /* KTKarwaBusPlanDirectionViewController+Map.swift in Sources */,
 				18391110204517FB002EDE1A /* KTSettingsViewModel.swift in Sources */,
 				185021F126BADA07008A9990 /* KTXpressLeftMenuViewController.swift in Sources */,
 				441D116D25503A93005E1B66 /* KTAddressFavoriteViewModel.swift in Sources */,
