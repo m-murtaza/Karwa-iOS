@@ -211,8 +211,8 @@
 		18861884207CC977000806D3 /* KTFarePopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18861883207CC977000806D3 /* KTFarePopupViewModel.swift */; };
 		18867A5427ABCA2700DBCD88 /* RouteDetailCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18867A5127ABC81600DBCD88 /* RouteDetailCarouselCell.xib */; };
 		18867A5527ABCA3700DBCD88 /* RouteDetailCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18867A5227ABC81600DBCD88 /* RouteDetailCarouselCell.swift */; };
-		18867A5827ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18867A5627ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.swift */; };
-		18867A5927ABE01900DBCD88 /* RouteKarwaBookCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18867A5727ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.xib */; };
+		18867A5827ABDF1200DBCD88 /* RouteWalkCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18867A5627ABDF1200DBCD88 /* RouteWalkCarouselCell.swift */; };
+		18867A5927ABE01900DBCD88 /* RouteWalkCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18867A5727ABDF1200DBCD88 /* RouteWalkCarouselCell.xib */; };
 		18867A5B27AD142500DBCD88 /* KTKarwaBusPlanDirectionViewController+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18867A5A27AD142400DBCD88 /* KTKarwaBusPlanDirectionViewController+Map.swift */; };
 		18A3948D20173EF1000FCE92 /* KTAddressPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */; };
 		18A3948F20184DF9000FCE92 /* KTAddressPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */; };
@@ -221,6 +221,8 @@
 		18A7232726BA3C3000CC60BF /* KTXpressRideTrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7232626BA3C3000CC60BF /* KTXpressRideTrackingViewModel.swift */; };
 		18B5EA4D2014741300D9B1D1 /* VehicleTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5EA4C2014741300D9B1D1 /* VehicleTrack.swift */; };
 		18B5EA5E2017050800D9B1D1 /* KTVehicleTypeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5EA5D2017050800D9B1D1 /* KTVehicleTypeManager.swift */; };
+		18B89D7227AE5DF50007D7D0 /* RouteKarwaBookCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B89D7127AE5DF50007D7D0 /* RouteKarwaBookCarouselCell.swift */; };
+		18B89D7327AE5ED10007D7D0 /* RouteKarwaBookCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B89D7027AE5DF40007D7D0 /* RouteKarwaBookCarouselCell.xib */; };
 		18B9076220219533000F45FE /* KTTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B9076120219533000F45FE /* KTTimer.swift */; };
 		18B907652021C7D7000F45FE /* DatePickerDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B907642021C7D7000F45FE /* DatePickerDialog.swift */; };
 		18B907682022F64A000F45FE /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B907672022F64A000F45FE /* PopupVC.swift */; };
@@ -516,8 +518,8 @@
 		18861883207CC977000806D3 /* KTFarePopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTFarePopupViewModel.swift; path = "Classes/View Models/BookingDetails/KTFarePopupViewModel.swift"; sourceTree = "<group>"; };
 		18867A5127ABC81600DBCD88 /* RouteDetailCarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteDetailCarouselCell.xib; sourceTree = "<group>"; };
 		18867A5227ABC81600DBCD88 /* RouteDetailCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailCarouselCell.swift; sourceTree = "<group>"; };
-		18867A5627ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteKarwaBookCarouselCell.swift; sourceTree = "<group>"; };
-		18867A5727ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteKarwaBookCarouselCell.xib; sourceTree = "<group>"; };
+		18867A5627ABDF1200DBCD88 /* RouteWalkCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteWalkCarouselCell.swift; sourceTree = "<group>"; };
+		18867A5727ABDF1200DBCD88 /* RouteWalkCarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteWalkCarouselCell.xib; sourceTree = "<group>"; };
 		18867A5A27AD142400DBCD88 /* KTKarwaBusPlanDirectionViewController+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KTKarwaBusPlanDirectionViewController+Map.swift"; sourceTree = "<group>"; };
 		18A3948C20173EF1000FCE92 /* KTAddressPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAddressPickerViewController.swift; path = Classes/Views/Controllers/Booking/KTAddressPickerViewController.swift; sourceTree = "<group>"; };
 		18A3948E20184DF9000FCE92 /* KTAddressPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTAddressPickerViewModel.swift; path = "Classes/View Models/Booking/KTAddressPickerViewModel.swift"; sourceTree = "<group>"; };
@@ -526,6 +528,8 @@
 		18A7232626BA3C3000CC60BF /* KTXpressRideTrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressRideTrackingViewModel.swift; sourceTree = "<group>"; };
 		18B5EA4C2014741300D9B1D1 /* VehicleTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VehicleTrack.swift; path = Classes/Models/VehicleTrack.swift; sourceTree = "<group>"; };
 		18B5EA5D2017050800D9B1D1 /* KTVehicleTypeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTVehicleTypeManager.swift; path = Classes/DAL/VehicleType/KTVehicleTypeManager.swift; sourceTree = "<group>"; };
+		18B89D7027AE5DF40007D7D0 /* RouteKarwaBookCarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteKarwaBookCarouselCell.xib; sourceTree = "<group>"; };
+		18B89D7127AE5DF50007D7D0 /* RouteKarwaBookCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteKarwaBookCarouselCell.swift; sourceTree = "<group>"; };
 		18B9076120219533000F45FE /* KTTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KTTimer.swift; path = Classes/HelperClasses/Timer/KTTimer.swift; sourceTree = "<group>"; };
 		18B907642021C7D7000F45FE /* DatePickerDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatePickerDialog.swift; path = Classes/ThirdParty/DatePickerDialog/DatePickerDialog.swift; sourceTree = "<group>"; };
 		18B907672022F64A000F45FE /* PopupVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopupVC.swift; path = Classes/ThirdParty/PopUp/PopupVC.swift; sourceTree = "<group>"; };
@@ -1256,9 +1260,11 @@
 				1806E0C827A9B231001F5F47 /* KTKarwaBusPlanDirectionViewController.swift */,
 				18867A5A27AD142400DBCD88 /* KTKarwaBusPlanDirectionViewController+Map.swift */,
 				187304D627AAF13A002F37C5 /* KTKarwaBusPlanDirectionListViewController.swift */,
-				18867A5627ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.swift */,
+				18867A5627ABDF1200DBCD88 /* RouteWalkCarouselCell.swift */,
 				18867A5227ABC81600DBCD88 /* RouteDetailCarouselCell.swift */,
-				18867A5727ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.xib */,
+				18B89D7127AE5DF50007D7D0 /* RouteKarwaBookCarouselCell.swift */,
+				18867A5727ABDF1200DBCD88 /* RouteWalkCarouselCell.xib */,
+				18B89D7027AE5DF40007D7D0 /* RouteKarwaBookCarouselCell.xib */,
 				18867A5127ABC81600DBCD88 /* RouteDetailCarouselCell.xib */,
 			);
 			name = Bus;
@@ -1874,7 +1880,7 @@
 				0D489F9B276A05FC00562155 /* card_swiping.json in Resources */,
 				185209492062411C00BD5FCD /* MyTripHired.gif in Resources */,
 				B7ADBC1927461F38000B9073 /* KTPromotionCell.xib in Resources */,
-				18867A5927ABE01900DBCD88 /* RouteKarwaBookCarouselCell.xib in Resources */,
+				18867A5927ABE01900DBCD88 /* RouteWalkCarouselCell.xib in Resources */,
 				0D489F9C276A05FC00562155 /* payment_success.json in Resources */,
 				181AB8562075EDED0048D7AF /* InitTariff.JSON in Resources */,
 				18C24B042004E269002D4B88 /* MuseoSans-300.otf in Resources */,
@@ -1883,6 +1889,7 @@
 				18021AB027A282F1009D00AF /* MockRoutePlanner.JSON in Resources */,
 				18C24B0B2004E26A002D4B88 /* MuseoSans-900Italic.otf in Resources */,
 				18C24B092004E269002D4B88 /* MuseoSans-700Italic.otf in Resources */,
+				18B89D7327AE5ED10007D7D0 /* RouteKarwaBookCarouselCell.xib in Resources */,
 				18867A5427ABCA2700DBCD88 /* RouteDetailCarouselCell.xib in Resources */,
 				B7ADBC1227452CDE000B9073 /* Promotions.storyboard in Resources */,
 				1886187D207B47DF000806D3 /* InitCancelReasons.JSON in Resources */,
@@ -2188,6 +2195,7 @@
 				18FA45C12073572B000487C1 /* KTBaseFareEstimateManager.swift in Sources */,
 				182A74D42097093F0025B6C7 /* KTNotificationManager.swift in Sources */,
 				18FA45B720720C94000487C1 /* KTCreateBookingViewController+Map.swift in Sources */,
+				18B89D7227AE5DF50007D7D0 /* RouteKarwaBookCarouselCell.swift in Sources */,
 				0DE28EAB250757A0000E27E4 /* KPNetworkManager.swift in Sources */,
 				448DCC272549B4E8005A644D /* UIFont + Extension.swift in Sources */,
 				1845FCD026C21FE500A1AA75 /* KTXpressMyTripsViewController.swift in Sources */,
@@ -2297,7 +2305,7 @@
 				187E71152084B53400E66A55 /* KTRatingViewModel.swift in Sources */,
 				0DFFA829218F5F8D00F9EFE2 /* MAKHashGenerator.swift in Sources */,
 				1811E4D8204EB09D00C3C47F /* KTChangePasswordViewController.swift in Sources */,
-				18867A5827ABDF1200DBCD88 /* RouteKarwaBookCarouselCell.swift in Sources */,
+				18867A5827ABDF1200DBCD88 /* RouteWalkCarouselCell.swift in Sources */,
 				182A74DA2097306E0025B6C7 /* KTNotificationViewModel.swift in Sources */,
 				0DE28EB325077385000E27E4 /* Int_ex.swift in Sources */,
 				18867A5B27AD142500DBCD88 /* KTKarwaBusPlanDirectionViewController+Map.swift in Sources */,

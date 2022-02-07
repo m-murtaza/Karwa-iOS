@@ -14,14 +14,19 @@ import GoogleMaps
 class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
 
     @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var mapToggleBtn: SpringButton!
     @IBOutlet weak var bottomCarouselView: UIView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView : GMSMapView!
+    let busStoryboard = UIStoryboard(name: "BusStoryBoard", bundle: .main)
+    lazy var directionController = busStoryboard.instantiateViewController(withIdentifier: "KTKarwaBusPlanDirectionListViewController") as! KTKarwaBusPlanDirectionListViewController
 
     var screenSize: CGRect!
     var widthRatio = 0.8
-    
+    var selectedIndex = 0
+    var showList = true
+
     fileprivate var pageSize: CGSize {
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
         var pageSize = layout.itemSize
@@ -37,16 +42,21 @@ class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.setupCV()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.setupCV()
+        }
+        self.addMap()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.setMapView), name: Notification.Name(rawValue: "DismissDirectionList"), object: nil)
     }
-    
+        
     func setupCV(){
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: String(describing: RouteDetailCarouselCell.self), bundle:nil), forCellWithReuseIdentifier: String(describing: RouteDetailCarouselCell.self))
+        collectionView.register(UINib(nibName: String(describing: RouteWalkCarouselCell.self), bundle:nil), forCellWithReuseIdentifier: String(describing: RouteWalkCarouselCell.self))
         collectionView.register(UINib(nibName: String(describing: RouteKarwaBookCarouselCell.self), bundle:nil), forCellWithReuseIdentifier: String(describing: RouteKarwaBookCarouselCell.self))
         let layout = UPCarouselFlowLayout()
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 2)
+        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 10)
         layout.sideItemScale = 0.8
         layout.sideItemAlpha = 1.0
         layout.itemSize = CGSize(width: collectionView.frame.width * widthRatio, height: collectionView.frame.height)
@@ -58,14 +68,45 @@ class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let busStoryboard = UIStoryboard(name: "BusStoryBoard", bundle: .main)
-        let directionController = busStoryboard.instantiateViewController(withIdentifier: "KTKarwaBusPlanDirectionListViewController") as! KTKarwaBusPlanDirectionListViewController
-        //KTKarwaBusPlanDirectionListViewController()
+        showList = true
         directionController.modalPresentationStyle = .custom
         directionController.transitioningDelegate = self
         self.present(directionController, animated: true, completion: nil)
     }
     
+    
+    @objc func setMapView() {
+        if #available(iOS 13.0, *) {
+            mapToggleBtn.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
+        } else {
+            // Fallback on earlier versions
+        }
+        showList = true
+    }
+    
+    @IBAction func toggleDirectionView(_ sender: UIButton) {
+        
+        if showList == false {
+            if #available(iOS 13.0, *) {
+                sender.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
+            } else {
+                // Fallback on earlier versions
+            }
+            showList = true
+        } else {
+            showList = false
+            if #available(iOS 13.0, *) {
+                sender.setImage(UIImage(systemName: "list.triangle"), for: .normal)
+            } else {
+                // Fallback on earlier versions
+            }
+
+        }
+        
+        directionController.modalPresentationStyle = .custom
+        directionController.transitioningDelegate = self
+        self.present(directionController, animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation
@@ -127,7 +168,11 @@ extension KTKarwaBusPlanDirectionViewController: UICollectionViewDataSource {
         if indexPath.row % 2 == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RouteDetailCarouselCell.self), for: indexPath) as! RouteDetailCarouselCell
             return cell
-        } else {
+        } else if indexPath.row % 3 == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RouteWalkCarouselCell.self), for: indexPath) as! RouteWalkCarouselCell
+            return cell
+        }
+        else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RouteKarwaBookCarouselCell.self), for: indexPath) as! RouteKarwaBookCarouselCell
             return cell
         }
@@ -146,12 +191,7 @@ extension KTKarwaBusPlanDirectionViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-                guard let `self` = self else {return}
-                self.animateVehicle(index: 0)
-            }
-        }
+        self.animateLegType(index: indexPath.row)
     }
     
     // MARK: - UIScrollViewDelegate
@@ -161,16 +201,28 @@ extension KTKarwaBusPlanDirectionViewController: UICollectionViewDelegate {
         let offset = (layout.scrollDirection == .horizontal) ? scrollView.contentOffset.x : scrollView.contentOffset.y
         let currentItem = Int(floor((offset - pageSide / 2) / pageSide) + 1)
         self.pageControl.currentPage = currentItem
-//        if selectedVehicleIndex != currentItem {
-//            currentVehicle = currentItem
-//        }
+        if selectedIndex != currentItem {
+            selectedIndex = currentItem
+        }
     }
         
-    func animateVehicle(index: Int) {
-        if index < self.collectionView.numberOfItems(inSection: 0), let cell = self.collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? RouteDetailCarouselCell {
+    func animateLegType(index: Int) {
+        if index < self.collectionView.numberOfItems(inSection: 0), let cell = self.collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? RouteWalkCarouselCell {
             cell.imgLegTypeView.isHidden = false
             cell.imgLegTypeView.animation = (Locale.current.languageCode?.contains("ar"))! ? "slideLeft" : "slideRight"
             cell.imgLegTypeView.animate()
+        }
+    }
+    
+    @IBAction func onClickRightBtn(_ sender: UIButton) {
+        if selectedIndex < collectionView(collectionView, numberOfItemsInSection: 0) - 1 {
+            collectionView.scrollToItem(at: IndexPath(item: selectedIndex+1, section: 0), at: .centeredHorizontally, animated: true)
+        }
+    }
+    
+    @IBAction func onClickLeftBtn(_ sender: UIButton) {
+        if selectedIndex != 0 {
+            collectionView.scrollToItem(at: IndexPath(item: selectedIndex-1, section: 0), at: .centeredHorizontally, animated: true)
         }
     }
 }
@@ -203,7 +255,7 @@ class FilterPresentationController: UIPresentationController {
       self.blurEffectView.alpha = 0
       self.containerView?.addSubview(blurEffectView)
       self.presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
-          self.blurEffectView.alpha = 0.7
+          self.blurEffectView.alpha = 0.1
       }, completion: { (UIViewControllerTransitionCoordinatorContext) in })
   }
   
@@ -229,7 +281,8 @@ class FilterPresentationController: UIPresentationController {
   }
 
   // 7.
-  @objc func dismissController(){
+    @objc func dismissController(_ gesture: UIGestureRecognizer){
+      NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DismissDirectionList"), object: nil)
       self.presentedViewController.dismiss(animated: true, completion: nil)
   }
 }

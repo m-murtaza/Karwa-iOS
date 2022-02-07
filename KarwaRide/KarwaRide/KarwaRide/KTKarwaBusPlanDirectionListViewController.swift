@@ -90,6 +90,7 @@ class KTKarwaBusPlanDirectionListViewController: KTBaseViewController, UITableVi
             }
             if dragVelocity.y >= 1300 {
                 // Velocity fast enough to dismiss the uiview
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DismissDirectionList"), object: nil)
                 self.dismiss(animated: true, completion: nil)
             } else {
                 // Set back to original position of the view controller
