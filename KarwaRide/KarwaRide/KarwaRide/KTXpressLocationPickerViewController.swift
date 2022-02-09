@@ -203,13 +203,23 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     }
     
     @IBAction func backButtonTapped(sender: UIButton) {
+        selectedRSPickStop = nil
+        selectedRSPickStation = nil
+        selectedRSPickZone = nil
+        backToPreviousPickUp = true
         backToPickUp()
+        backToPreviousPickUp = false
     }
     
     @IBAction func closeButtonTapped(sender: UIButton) {
         closeButton.isHidden = true
         rideService?.remove()
+        selectedRSPickStop = nil
+        selectedRSPickStation = nil
+        selectedRSPickZone = nil
+        backToPreviousPickUp = true
         backToPickUp()
+        backToPreviousPickUp = false
     }
     
     func updateValidPickUpUI() {
@@ -246,7 +256,6 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         }
         self.setTabBar(hidden: false)
 //        self.tabBarController?.tabBar.isHidden = false
-        backToPreviousPickUp = true
         closeButton.isHidden = true
         setPickUpPolygon()
         let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(selectedRSPickUpCoordinate!, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
@@ -571,6 +580,7 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         alert.hideAnimations = { (center, transform, alpha) in
             alpha = 0
             self.backToPickUpWithMessageSelected = true
+            self.backToPreviousPickUp = true
             self.backToPickUp()
         }
         let doneAction = CDAlertViewAction(title: "str_ok".localized()) { value in
@@ -1017,10 +1027,10 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
         }
         print("stationsStop", stationsStop)
         
-        if stopOfStations.count > 1 && stationsStop.count == 0 {
+        if stopOfStations.count > 1 {
             self.showStopAlertViewController(stops: stopOfStations, selectedStation: selectedRSPickStation!)
         } else {
-            selectedRSPickStop = stationsStop.first!
+//            selectedRSPickStop = stationsStop.first!
             showAlertForStation(station: (marker.userData as! Area))
         }
     }
