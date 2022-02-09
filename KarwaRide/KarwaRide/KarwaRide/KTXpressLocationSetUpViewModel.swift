@@ -115,19 +115,24 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
                 destinations.removeAll()
 
                 if let totalDestinations = totalOperatingResponse["Destinations"] as? [[String:Any]] {
-
                     for item in totalDestinations {
-
                         let destination = Destination(source: (item["Source"] as? Int)!, destination: (item["Destination"] as? Int)!, isActive: (item["IsActive"] as? Bool)!)
-
                         destinations.append(destination)
-
                     }
-
                 }
 
-                for item in metroStations {
+                for item in stops {
+                    if let pickUpLocation = destinations.filter({$0.source! == item.code!}).first {
+                        if pickUpArea.contains(where: {$0.code! == pickUpLocation.source }) {
 
+                        } else {
+                            let station = areas.filter({$0.code == item.parent}).first!
+                            pickUpArea.append(station)
+                        }
+                    }
+                }
+                
+                for item in metroStations {
                     if let pickUpLocation = destinations.filter({$0.source! == item.code!}).first {
                         if pickUpArea.contains(where: {$0.code! == pickUpLocation.source }) {
 
@@ -135,7 +140,6 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
                             pickUpArea.append(item)
                         }
                     }
-
                 }
                 
 //                for item in metroStopsArea {
