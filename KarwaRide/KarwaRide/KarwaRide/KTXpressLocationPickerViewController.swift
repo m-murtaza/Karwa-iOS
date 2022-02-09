@@ -289,7 +289,10 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         setLocationButton.setTitle("str_dropoff".localized(), for: .normal)
         self.setLocationButton.backgroundColor = UIColor(hexString: "#4BA5A7")
         pickUpAddressHeaderLabel.text = "DROPOFFHEADER".localized()
-        markerIconImage.image = UIImage(named: "pin_dropoff_map")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.markerIconImage.image = UIImage(named: "pin_dropoff_map")
+            self.markerImage.image = UIImage(named: "pin_dropoff_map")
+        }
         backButton.isHidden = false
         closeButton.isHidden = true
     }
@@ -300,6 +303,8 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         if destinationForPickUp.count > 0 {
             setDropOffViewUI()
             setDropOffPolygon()
+            self.markerIconImage.image = UIImage(named: "pin_dropoff_map")
+            self.markerImage.image = UIImage(named: "pin_dropoff_map")
         } 
     }
     
@@ -380,6 +385,8 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
             }
             
             self.locateCountry(pathG: rect)
+            
+            self.markerIconImage.image = UIImage(named: "pin_dropoff_map")
 
         }
         
