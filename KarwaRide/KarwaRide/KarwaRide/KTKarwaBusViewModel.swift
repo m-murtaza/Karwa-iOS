@@ -9,6 +9,8 @@
 import Foundation
 import CoreLocation
 
+var suggestedRoutes = KarwaBusRoute()
+
 class KTKarwaBusViewModel: KTBaseViewModel {
 
     static var askedToTurnOnLocaiton : Bool = false
@@ -26,8 +28,8 @@ class KTKarwaBusViewModel: KTBaseViewModel {
                 
                 let jsonObjectData = Data(mockRoute.json.utf8)//mockRoute.json.data(using: .utf8)!
                 // Decode the json data to a Candidate struct
-                let route = try? JSONDecoder().decode(KarwaBusRoute.self, from: jsonObjectData)
-                print(route)
+                suggestedRoutes = try! JSONDecoder().decode(KarwaBusRoute.self, from: jsonObjectData)
+                print(suggestedRoutes)
                
             } catch {
                 print(error.localizedDescription)

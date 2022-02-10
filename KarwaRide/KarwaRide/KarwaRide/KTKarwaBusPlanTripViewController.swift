@@ -147,12 +147,13 @@ class KTKarwaBusPlanTripViewController: KTBaseViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return suggestedRoutes.plan?.itineraries?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : KarwaPlanTripTableViewCell = tableView.dequeueReusableCell(withIdentifier: "KarwaPlanTripTableViewCell") as! KarwaPlanTripTableViewCell
         cell.selectionStyle = .none
+        cell.legs = suggestedRoutes.plan?.itineraries?[indexPath.row].legs
         cell.legsScrollView.isUserInteractionEnabled = false
         cell.contentView.addGestureRecognizer(cell.legsScrollView.panGestureRecognizer)
         return cell
@@ -191,7 +192,9 @@ class KarwaPlanTripTableViewCell: UITableViewCell {
 
     func setUpUI() {
                 
-        for i in 0..<5 {
+        legsStackView.removeFullyAllArrangedSubviews()
+        
+        for i in 0..<(legs?.count ?? 0) {
             
             let imageView = UIImageView()
             imageView.heightAnchor.constraint(equalToConstant: 5.0).isActive = true
@@ -202,7 +205,20 @@ class KarwaPlanTripTableViewCell: UITableViewCell {
             //Text Label
             let textLabel = PaddingLabel()
             textLabel.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
-            textLabel.addLeading(image: UIImage(named: "BusListing")!, text: "20", imageOffsetY: -2)
+            
+            var modeIcon = UIImage()
+            var titleText = ""
+            
+            if let mode = legs?[i].mode{
+                if mode == "WALK" {
+                    modeIcon = UIImage(named: "walkplan")!
+                    titleText = legs?[i].realTime
+                } else if mode == "BUS" {
+                    modeIcon = UIImage(named: "BusListing")!
+                }
+            }
+            
+            textLabel.addLeading(image: modeIcon, text: legs?[i].routeShortName ?? "", imageOffsetY: -2)
             textLabel.textAlignment = .center
             textLabel.font =  UIFont(name: "MuseoSans-500", size: 12.0)
             textLabel.customBorderWidth = 1
@@ -213,7 +229,7 @@ class KarwaPlanTripTableViewCell: UITableViewCell {
             legsStackView.addArrangedSubview(imageView)
             legsScrollView.contentSize = CGSize(width: 5 * 100, height: 20.0)
 
-            if i == 4 {
+            if i == ((legs?.count ?? 0) - 1) {
                 imageView.isHidden = true
             }
 
