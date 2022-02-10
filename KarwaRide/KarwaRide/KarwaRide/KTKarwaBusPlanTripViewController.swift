@@ -153,7 +153,7 @@ class KTKarwaBusPlanTripViewController: KTBaseViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : KarwaPlanTripTableViewCell = tableView.dequeueReusableCell(withIdentifier: "KarwaPlanTripTableViewCell") as! KarwaPlanTripTableViewCell
         cell.selectionStyle = .none
-        cell.legs = suggestedRoutes.plan?.itineraries?[indexPath.row].legs
+        cell.itenary = suggestedRoutes.plan?.itineraries?[indexPath.row]
         cell.legsScrollView.isUserInteractionEnabled = false
         cell.contentView.addGestureRecognizer(cell.legsScrollView.panGestureRecognizer)
         return cell
@@ -178,7 +178,7 @@ class KarwaPlanTripTableViewCell: UITableViewCell {
     @IBOutlet weak var legsStackView: UIStackView!
     @IBOutlet weak var legsScrollView: UIScrollView!
     
-    var legs: [Leg]? {
+    var itenary: Itinerary? {
         didSet {
             setUpUI()
         }
@@ -193,8 +193,8 @@ class KarwaPlanTripTableViewCell: UITableViewCell {
     func setUpUI() {
                 
         legsStackView.removeFullyAllArrangedSubviews()
-        
-        for i in 0..<(legs?.count ?? 0) {
+        timeLabel.text = "\((itenary?.duration ?? 0)/60) min"
+        for i in 0..<(itenary?.legs?.count ?? 0) {
             
             let imageView = UIImageView()
             imageView.heightAnchor.constraint(equalToConstant: 5.0).isActive = true
@@ -209,16 +209,20 @@ class KarwaPlanTripTableViewCell: UITableViewCell {
             var modeIcon = UIImage()
             var titleText = ""
             
-            if let mode = legs?[i].mode{
+            if let mode = itenary?.legs?[i].mode{
                 if mode == "WALK" {
                     modeIcon = UIImage(named: "walkplan")!
-                    titleText = legs?[i].realTime
+                    titleText = "\((itenary?.legs?[i].duration ?? 0)/60) min"
                 } else if mode == "BUS" {
                     modeIcon = UIImage(named: "BusListing")!
+                    titleText = "\(itenary?.legs?[i].routeShortName ?? "")"
+                } else {
+                    modeIcon = UIImage()
                 }
             }
             
-            textLabel.addLeading(image: modeIcon, text: legs?[i].routeShortName ?? "", imageOffsetY: -2)
+            
+            textLabel.addLeading(image: modeIcon, text: titleText, imageOffsetY: -2)
             textLabel.textAlignment = .center
             textLabel.font =  UIFont(name: "MuseoSans-500", size: 12.0)
             textLabel.customBorderWidth = 1
@@ -229,7 +233,7 @@ class KarwaPlanTripTableViewCell: UITableViewCell {
             legsStackView.addArrangedSubview(imageView)
             legsScrollView.contentSize = CGSize(width: 5 * 100, height: 20.0)
 
-            if i == ((legs?.count ?? 0) - 1) {
+            if i == ((itenary?.legs?.count ?? 0) - 1) {
                 imageView.isHidden = true
             }
 
