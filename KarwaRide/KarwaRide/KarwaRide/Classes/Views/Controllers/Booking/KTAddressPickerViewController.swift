@@ -1610,21 +1610,37 @@ extension KTAddressPickerViewController {
             destinationForPickUp = [Area]()
             destinationForPickUp.removeAll()
             if selectedRSPickStation != nil {
+                
+                customDestinationsCode = destinations.filter{$0.source == selectedRSPickStation?.code!}.map{$0.destination!}
+                
                 if customDestinationsCode.count == 0 {
-                    customDestinationsCode = destinations.filter{$0.source == selectedRSPickStation?.code!}.map{$0.destination!}
+                    customDestinationsCode = destinations.filter{$0.source == selectedRSPickStop?.code!}.map{$0.destination!}
                 }
+                
                 for item in customDestinationsCode {
                     destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
                 }
-                print("destinationForPickUp", destinationForPickUp)
+                
             } else {
+                
                 if customDestinationsCode.count == 0 {
                     customDestinationsCode = destinations.filter{$0.source == selectedRSPickZone?.code!}.map{$0.destination!}
                 }
                 for item in customDestinationsCode {
-                    destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                    if let destination = areas.filter({$0.code! == item}).first {
+                        if destination.type == "MetroStop" || destination.type == "TramStop" {
+                            if let station = areas.filter({$0.code! == destination.parent}).first {
+                                destinationForPickUp.append(station)
+                                if customDestinationsCode.count == 1 {
+                                    selectedRSDropStation = station
+                                    selectedRSDropStop = destination
+                                }
+                            }
+                        } else {
+                            destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                        }
+                    }
                 }
-                print("destinationForPickUp", destinationForPickUp)
                             
             }
         
