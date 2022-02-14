@@ -20,7 +20,6 @@ class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView : GMSMapView!
     let busStoryboard = UIStoryboard(name: "BusStoryBoard", bundle: .main)
-    lazy var directionController = busStoryboard.instantiateViewController(withIdentifier: "KTKarwaBusPlanDirectionListViewController") as! KTKarwaBusPlanDirectionListViewController
 
     var screenSize: CGRect!
     var widthRatio = 0.8
@@ -46,7 +45,6 @@ class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
             self.setupCV()
         }
         self.addMap()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.setMapView), name: Notification.Name(rawValue: "DismissDirectionList"), object: nil)
     }
         
     func setupCV(){
@@ -69,11 +67,7 @@ class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         showList = true
-        directionController.modalPresentationStyle = .custom
-        directionController.transitioningDelegate = self
-        self.present(directionController, animated: true, completion: nil)
     }
-    
     
     @objc func setMapView() {
         if #available(iOS 13.0, *) {
@@ -85,27 +79,7 @@ class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
     }
     
     @IBAction func toggleDirectionView(_ sender: UIButton) {
-        
-        if showList == false {
-            if #available(iOS 13.0, *) {
-                sender.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
-            } else {
-                // Fallback on earlier versions
-            }
-            showList = true
-        } else {
-            showList = false
-            if #available(iOS 13.0, *) {
-                sender.setImage(UIImage(systemName: "list.triangle"), for: .normal)
-            } else {
-                // Fallback on earlier versions
-            }
-
-        }
-        
-        directionController.modalPresentationStyle = .custom
-        directionController.transitioningDelegate = self
-        self.present(directionController, animated: true, completion: nil)
+    
     }
 
     /*
@@ -282,7 +256,6 @@ class FilterPresentationController: UIPresentationController {
 
   // 7.
     @objc func dismissController(_ gesture: UIGestureRecognizer){
-      NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DismissDirectionList"), object: nil)
       self.presentedViewController.dismiss(animated: true, completion: nil)
   }
 }

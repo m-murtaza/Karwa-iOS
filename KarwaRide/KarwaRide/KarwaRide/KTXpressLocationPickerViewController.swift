@@ -517,8 +517,8 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
                 self.tapOnMarker = true
                 print("User click Approve button")
                 if self.pickUpSelected == true {
-                    self.getDestinationForPickUp()
                     selectedRSPickStop = item
+                    self.getDestinationForPickUp()
                     self.setDropOffViewUI()
                     self.setDropOffPolygon()
                     self.markerIconImage.image = UIImage(named: "pin_dropoff_map")

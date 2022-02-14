@@ -143,7 +143,7 @@ class KTKarwaBusPlanTripViewController: KTBaseViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return 106
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -151,19 +151,35 @@ class KTKarwaBusPlanTripViewController: KTBaseViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : KarwaPlanTripTableViewCell = tableView.dequeueReusableCell(withIdentifier: "KarwaPlanTripTableViewCell") as! KarwaPlanTripTableViewCell
-        cell.selectionStyle = .none
-        cell.itenary = suggestedRoutes.plan?.itineraries?[indexPath.row]
-        cell.legsScrollView.isUserInteractionEnabled = false
-        cell.contentView.addGestureRecognizer(cell.legsScrollView.panGestureRecognizer)
-        return cell
+        
+        if suggestedRoutes.plan?.itineraries?[indexPath.row].walkLimitExceeded == true {
+            let cell : KTBookKarwaTableViewCell = tableView.dequeueReusableCell(withIdentifier: "KTBookKarwaTableViewCell") as! KTBookKarwaTableViewCell
+            cell.selectionStyle = .none
+            return cell
+        } else {
+            let cell : KarwaPlanTripTableViewCell = tableView.dequeueReusableCell(withIdentifier: "KarwaPlanTripTableViewCell") as! KarwaPlanTripTableViewCell
+            cell.selectionStyle = .none
+            cell.itenary = suggestedRoutes.plan?.itineraries?[indexPath.row]
+            cell.legsScrollView.isUserInteractionEnabled = false
+            cell.contentView.addGestureRecognizer(cell.legsScrollView.panGestureRecognizer)
+            return cell
+        }
+        
+       
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tblView.deselectRow(at: indexPath, animated: true)
-        let busStoryboard = UIStoryboard(name: "BusStoryBoard", bundle: .main)
-        let directionController = busStoryboard.instantiateViewController(withIdentifier: "KTKarwaBusPlanDirectionViewController")
-        self.navigationController?.pushViewController(directionController, animated: true)
+        
+        if suggestedRoutes.plan?.itineraries?[indexPath.row].walkLimitExceeded == true {
+            
+        } else {
+            let busStoryboard = UIStoryboard(name: "BusStoryBoard", bundle: .main)
+            let directionController = busStoryboard.instantiateViewController(withIdentifier: "KTKarwaBusPlanDirectionListViewController") as? KTKarwaBusPlanDirectionListViewController
+            directionController?.itenary = suggestedRoutes.plan?.itineraries?[indexPath.row]
+            self.navigationController?.pushViewController(directionController!, animated: true)
+        }
+        
     }
     
     
@@ -191,6 +207,10 @@ class KarwaPlanTripTableViewCell: UITableViewCell {
     }
 
     func setUpUI() {
+        
+        print("duration: \((itenary?.duration ?? 0)/60) min")
+        
+        print(itenary?.duration ?? 0)
                 
         legsStackView.removeFullyAllArrangedSubviews()
         timeLabel.text = "\((itenary?.duration ?? 0)/60) min"
@@ -213,9 +233,11 @@ class KarwaPlanTripTableViewCell: UITableViewCell {
                 if mode == "WALK" {
                     modeIcon = UIImage(named: "walkplan")!
                     titleText = "\((itenary?.legs?[i].duration ?? 0)/60) min"
+                    textLabel.customBorderColor = UIColor.primary
                 } else if mode == "BUS" {
                     modeIcon = UIImage(named: "BusListing")!
                     titleText = "\(itenary?.legs?[i].routeShortName ?? "")"
+                    textLabel.customBorderColor = UIColor(hex: "\(itenary?.legs?[i].routeColor ?? "")")
                 } else {
                     modeIcon = UIImage()
                 }
@@ -225,8 +247,7 @@ class KarwaPlanTripTableViewCell: UITableViewCell {
             textLabel.addLeading(image: modeIcon, text: titleText, imageOffsetY: -2)
             textLabel.textAlignment = .center
             textLabel.font =  UIFont(name: "MuseoSans-500", size: 12.0)
-            textLabel.customBorderWidth = 1
-            textLabel.customBorderColor = .primary
+            textLabel.customBorderWidth = 1.5
             textLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
             textLabel.customCornerRadius = 3
             legsStackView.addArrangedSubview(textLabel)

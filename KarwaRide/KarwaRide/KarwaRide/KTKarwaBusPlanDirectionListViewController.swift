@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class KTKarwaBusPlanDirectionListViewController: KTBaseViewController, UITableViewDelegate, UITableViewDataSource  {
     
@@ -15,13 +16,30 @@ class KTKarwaBusPlanDirectionListViewController: KTBaseViewController, UITableVi
     
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var mapView : GMSMapView!
 
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var timeLabel: UIView!
+    @IBOutlet weak var earlierBtn: UIButton!
+    @IBOutlet weak var laterBtn: UIButton!
+    @IBOutlet weak var timeRangeLabel: UILabel!
+
+    var kTableHeaderHeight:CGFloat = 420.0
+    var headerView: UIView!
+    var itenary: Itinerary?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tblView.estimatedRowHeight = 80
         tblView.rowHeight = UITableViewAutomaticDimension
-        setupViews()
+        //setupViews()
         // Do any additional setup after loading the view.
+        headerView = tblView.tableHeaderView
+        tblView.tableHeaderView = nil
+        tblView.addSubview(headerView)
+        tblView.contentInset = UIEdgeInsets(top: kTableHeaderHeight, left: 0, bottom: 0, right: 0)
+        tblView.contentOffset = CGPoint(x: 0, y: -kTableHeaderHeight)
+        self.addMap()
     }
     
     override func viewDidLayoutSubviews() {
@@ -34,6 +52,19 @@ class KTKarwaBusPlanDirectionListViewController: KTBaseViewController, UITableVi
     func setupViews() {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerAction))
         self.view.addGestureRecognizer(panGesture)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateHeaderView()
+    }
+    
+    func updateHeaderView() {
+        var headerRect = CGRect(x: 0, y: -kTableHeaderHeight, width: tblView.bounds.width, height: kTableHeaderHeight)
+        if tblView.contentOffset.y < -kTableHeaderHeight {
+            headerRect.origin.y = tblView.contentOffset.y
+            headerRect.size.height = -tblView.contentOffset.y
+        }
+        headerView.frame = headerRect
     }
     
     func progressAlongAxis(_ pointOnAxis: CGFloat, _ axisLength: CGFloat) -> CGFloat {
@@ -90,7 +121,6 @@ class KTKarwaBusPlanDirectionListViewController: KTBaseViewController, UITableVi
             }
             if dragVelocity.y >= 1300 {
                 // Velocity fast enough to dismiss the uiview
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "DismissDirectionList"), object: nil)
                 self.dismiss(animated: true, completion: nil)
             } else {
                 // Set back to original position of the view controller
@@ -114,6 +144,44 @@ class KTKarwaBusPlanDirectionListViewController: KTBaseViewController, UITableVi
     
 }
 
+extension KTKarwaBusPlanDirectionListViewController: GMSMapViewDelegate{
+
+    internal func addMap() {
+
+        let camera = GMSCameraPosition.camera(withLatitude: 25.281308, longitude: 51.531917, zoom: 14.0)
+        
+//        showCurrentLocationDot(show: true)
+        self.mapView.camera = camera;
+        
+        let padding = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        mapView.padding = padding
+        
+        do {
+            // Set the map style by passing the URL of the local file.
+            if let styleURL = Bundle.main.url(forResource: "map_style_karwa", withExtension: "json") {
+                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            } else {
+                NSLog("Unable to find style.json")
+            }
+        } catch {
+            NSLog("One or more of the map styles failed to load. \(error)")
+        }
+      
+      mapView.delegate = self
+    
+      self.focusMapToCurrentLocation()
+        
+    }
+    
+    func focusMapToCurrentLocation() {
+        if(KTLocationManager.sharedInstance.isLocationAvailable && KTLocationManager.sharedInstance.currentLocation.coordinate.isZeroCoordinate == false) {
+            let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(KTLocationManager.sharedInstance.currentLocation.coordinate, zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+            mapView.animate(with: update)
+        }
+    }
+    
+}
+
 
 extension KTKarwaBusPlanDirectionListViewController {
     
@@ -121,6 +189,15 @@ extension KTKarwaBusPlanDirectionListViewController {
         if indexPath.row == 0 {
             return 100
         }
+        
+        if let leg = itenary?.legs?[indexPath.row - 1] {
+            if leg.mode == "WALK" {
+                return 120
+            } else if leg.mode == "BUS" {
+                return 220
+            }
+        }
+        
         return UITableViewAutomaticDimension
     }
     
@@ -136,7 +213,7 @@ extension KTKarwaBusPlanDirectionListViewController {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return (itenary?.legs?.count ?? 0) + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -150,15 +227,85 @@ extension KTKarwaBusPlanDirectionListViewController {
             cell.topStackView.isHidden = false
             cell.middleStackView.isHidden = true
             cell.bottomStackView.isHidden = true
+            cell.bgView.backgroundColor = UIColor(hex: "129793").withAlphaComponent(0.1)
+            cell.firstLbl.text = "Start from"
+            cell.secondLbl.text = suggestedRoutes.plan?.from?.name ?? ""
+            cell.amountLbl.isHidden = true
+            let date = Date(timeIntervalSince1970: TimeInterval(Double(suggestedRoutes.plan?.date ?? 0)))
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a dd MMM yyyy"
+            let dateString = dateFormatter.string(from: date)
+            cell.thirdLbl.text = "Departs at \(dateString)"
+            cell.directionStackViewImage1.image = #imageLiteral(resourceName: "SHWIconHome")
+            return cell
+
         } else {
+            
             cell.directionStackViewImage1.isHidden = true
             cell.directionStackViewImage2.isHidden = false
             cell.directionStackViewImage3.isHidden = false
             cell.directionStackViewImage4.isHidden = false
             cell.topStackView.isHidden = false
-            cell.middleStackView.isHidden = false
+            cell.bgView.backgroundColor = UIColor.white
+
+            if let leg = itenary?.legs?[indexPath.row - 1] {
+                
+                cell.directionStackViewImage1.isHidden = true
+                cell.directionStackViewImage2.isHidden = false
+                cell.directionStackViewImage3.isHidden = false
+                cell.directionStackViewImage4.isHidden = false
+                
+                if leg.mode! == "WALK" {
+                    cell.directionStackViewImage2.image = #imageLiteral(resourceName: "dotted_line")
+                    cell.directionStackViewImage3.image = #imageLiteral(resourceName: "walk_gray")
+                    cell.directionStackViewImage4.image = #imageLiteral(resourceName: "solid line")
+                    cell.amountLbl.isHidden = true
+                    cell.firstLbl.text = "Walk to"
+                    cell.secondLbl.text = leg.to?.name ?? ""
+                    cell.thirdLbl.text = "\(Int(leg.distance ?? 0)) m • \((leg.duration ?? 0)/60) min"
+                    cell.middleStackView.isHidden = true
+                    return cell
+
+                } else if leg.mode! == "BUS" {
+                    
+                    let cell : KTKarwaBusDirectionTableViewCell = tableView.dequeueReusableCell(withIdentifier: "KTKarwaBusDirectionTableViewCell") as! KTKarwaBusDirectionTableViewCell
+                    cell.selectionStyle = .none
+                    cell.busNumberLbl.addLeading(image: UIImage(named: "BusListing")!, text: leg.routeShortName ?? "", imageOffsetY: -2)
+                    cell.addressLbl.text = leg.from?.name ?? ""
+                    let date = Date(timeIntervalSince1970: TimeInterval(Double(suggestedRoutes.plan?.date ?? 0)))
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "h:mm a dd MMM yyyy"
+                    let dateString = dateFormatter.string(from: date)
+                    cell.timeLbl.text = "Departs at \(dateString)"
+                    
+                    let departTime = Date(timeIntervalSince1970: TimeInterval(Double(leg.from?.departure ?? 0)))
+                    let timeFormatter = DateFormatter()
+                    timeFormatter.dateFormat = "h:mm a dd/mm/yyyy"
+                    let timeString = timeFormatter.string(from: departTime)
+                    
+                    let arrivalTime = Date(timeIntervalSince1970: TimeInterval(Double(leg.from?.arrival ?? 0)))
+                    let arrivalTimeFormatter = DateFormatter()
+                    arrivalTimeFormatter.dateFormat = "h:mm a dd/mm/yyyy"
+                    let arrtimeString = arrivalTimeFormatter.string(from: arrivalTime)
+                    
+                    cell.timeLbl.text = "\(timeString) - \(arrtimeString)"
+                    
+                    cell.rideToAddressLbl.text = leg.to?.name ?? ""
+                    cell.rideToTimeLbl.text = "\(Int(leg.distance ?? 0)) m • \((leg.duration ?? 0)/60) min"
+
+                    cell.directionStackViewImage1.image = #imageLiteral(resourceName: "clock")
+                    cell.directionStackViewImage2.image = #imageLiteral(resourceName: "solid line")
+                    cell.directionStackViewImage3.image = #imageLiteral(resourceName: "BusListing")
+                    cell.directionStackViewImage2.image = #imageLiteral(resourceName: "solid line")
+                    return cell
+                }
+                
+            }
+            
+            
+            
         }
-        return cell
+        return UITableViewCell()
     }
 }
 
@@ -169,11 +316,44 @@ class KTKarwaDirectionTableViewCell: UITableViewCell {
     @IBOutlet weak var middleStackView: UIStackView!
     @IBOutlet weak var bottomStackView: UIStackView!
     
+    @IBOutlet weak var firstLbl: UILabel!
+    @IBOutlet weak var secondLbl: UILabel!
+    @IBOutlet weak var thirdLbl: UILabel!
+    @IBOutlet weak var amountLbl: UILabel!
+
     @IBOutlet weak var directionStackViewImage1: UIImageView!
     @IBOutlet weak var directionStackViewImage2: UIImageView!
     @IBOutlet weak var directionStackViewImage3: UIImageView!
     @IBOutlet weak var directionStackViewImage4: UIImageView!
 
+    @IBOutlet weak var bgView: UIView!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+}
+
+//KTKarwaBusDirectionTableViewCell
+
+class KTKarwaBusDirectionTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var directionStackView: UIStackView!
+    @IBOutlet weak var bottomStackView: UIStackView!
+    
+    @IBOutlet weak var busNumberLbl: UILabel!
+    @IBOutlet weak var addressLbl: UILabel!
+    @IBOutlet weak var timeLbl: UILabel!
+    @IBOutlet weak var rideToAddressLbl: UILabel!
+    @IBOutlet weak var rideToTimeLbl: UILabel!
+
+    @IBOutlet weak var directionStackViewImage1: UIImageView!
+    @IBOutlet weak var directionStackViewImage2: UIImageView!
+    @IBOutlet weak var directionStackViewImage3: UIImageView!
+    @IBOutlet weak var directionStackViewImage4: UIImageView!
+
+    @IBOutlet weak var bgView: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
