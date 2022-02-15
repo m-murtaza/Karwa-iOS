@@ -821,10 +821,9 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 //        } else {
 //        }
         
-        if  (viewModel as! KTXpresssBookingDetailsViewModel).booking?.bookingStatus ==  BookingStatus.CANCELLED.rawValue {
+        if  (viewModel as! KTXpresssBookingDetailsViewModel).booking?.bookingStatus ==  BookingStatus.CANCELLED.rawValue || (viewModel as! KTXpresssBookingDetailsViewModel).booking?.bookingStatus ==  BookingStatus.COMPLETED.rawValue {
             addMarkerOnMap(location: location, image: UIImage(named: "pin_pickup_map")!)
         }
-        
 
 //        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
     }
