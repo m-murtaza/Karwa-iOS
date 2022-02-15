@@ -416,7 +416,6 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue)
         {
             self.view.backgroundColor = UIColor.clear
-            showEtaView()
             showCancelBtn()
             showEtaView()
             showShareBtn()
@@ -469,7 +468,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         //MARK:- PICKUP BOOKING (Customer on-board)
         if(vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue)
         {
-            hideEtaView()
+            eta.isHidden = false
             hideCancelBtn()
             showShareBtn()
             showPhoneButton()
@@ -518,6 +517,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         //MARK:- COMPLETED BOOKING
         if(vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue)
         {
+            eta.isHidden = true
             hideEtaView()
             hideCancelBtn()
             hideShareBtn()
@@ -546,6 +546,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         //MARK:- SHECULED BOOKING
         if(vModel?.bookingStatii() == BookingStatus.PENDING.rawValue)
         {
+            eta.isHidden = true
             hideEtaView()
             showCancelBtn()
             hideShareBtn()
@@ -567,6 +568,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         //MARK:- CANCELLED BOOKING
         if(vModel?.bookingStatii() == BookingStatus.CANCELLED.rawValue)
         {
+            eta.isHidden = true
             hideEtaView()
             hideCancelBtn()
             hideShareBtn()
@@ -609,6 +611,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         //MARK:- NO RIDE FOUND BOOKING
         if(vModel?.bookingStatii() == BookingStatus.TAXI_NOT_FOUND.rawValue || vModel?.bookingStatii() == BookingStatus.NO_TAXI_ACCEPTED.rawValue)
         {
+            eta.isHidden = true
             hideEtaView()
             hideCancelBtn()
             hideShareBtn()

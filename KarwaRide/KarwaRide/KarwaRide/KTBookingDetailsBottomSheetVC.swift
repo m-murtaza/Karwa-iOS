@@ -512,7 +512,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         //MARK:- PICKUP BOOKING (Customer on-board)
         if(vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue)
         {
-            hideEtaView()
+            showEtaView()
             hideCancelBtn()
             showShareBtn()
             showPhoneButton()

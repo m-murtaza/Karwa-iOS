@@ -356,83 +356,82 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             
         }
         
-        let stationsOfPickupZone = zonalArea.filter{$0["zone"]?.first!.code == selectedPickupZone!.code}.first!["stations"]
-        
-        print(selectedPickupZone)
-        print(stationsOfPickupZone)
-        
-        for item in stationsOfPickupZone! {
-            
-            let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-            })!
-            
-            if  CLLocationCoordinate2D(latitude: xpressRebookPickUpCoordinates.latitude, longitude: xpressRebookPickUpCoordinates.longitude).contained(by: coordinates) {
-                selectedPickupStation = item
-                break
+        if let stationsOfPickupZone = zonalArea.filter{$0["zone"]?.first!.code == selectedPickupZone!.code}.first?["stations"] {
+            if stationsOfPickupZone.count == 0 {
+                for item in stops {
+                    let station = areas.filter({$0.code! == item.parent!}).first!
+                    let coordinates = (station.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                        return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                    })!
+                    
+                    if  CLLocationCoordinate2D(latitude: xpressRebookPickUpCoordinates.latitude, longitude: xpressRebookPickUpCoordinates.longitude).contained(by: coordinates) {
+                        selectedPickupStation = station
+                        selectedPickupStop = item
+                        break
+                    }
+                }
+            } else {
+                
+                for item in stationsOfPickupZone {
+                    
+                    let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                        return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                    })!
+                    
+                    if  CLLocationCoordinate2D(latitude: xpressRebookPickUpCoordinates.latitude, longitude: xpressRebookPickUpCoordinates.longitude).contained(by: coordinates) {
+                        selectedPickupStation = item
+                        break
+                    }
+                    
+                }
             }
-            
+
         }
         
+        print(selectedPickupZone)
+                        
         if selectedPickupStation != nil {
             print("it's inside station")
         } else {
             print("it's inside a zone")
         }
-                
-//        for item in stationsOfZone! {
-//            stopsOFStations.append(contentsOf: self.areas.filter{$0.parent! == item.code!})
-//
-//        }
         
         var customDestinationsCode = [Int]()
         
         if selectedPickupStation != nil {
-            
-            stopsOFPickupStations.append(contentsOf: areas.filter{$0.parent! == selectedPickupStation!.code!})
-            
-            let coordinates = (selectedPickupStation!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-            })!
-            
-//            xpressRebookPickUpCoordinates = coordinates.first!
-            
-//
-//            for stop in self.stopsOFStations {
-//                customDestinationsCode = self.destinations.filter{$0.source == stop.code!}.map{$0.destination!}
-//            }
-//
-            if customDestinationsCode.count == 0{
-                customDestinationsCode = destinations.filter{$0.source == selectedPickupStation?.code!}.map{$0.destination!}
+            if selectedPickupStop == nil {
+                stopsOFPickupStations.append(contentsOf: areas.filter{$0.parent! == selectedPickupStation!.code!})
+                _ = (selectedPickupStation!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                })!
+                if customDestinationsCode.count == 0{
+                    customDestinationsCode = destinations.filter{$0.source! == selectedPickupStation?.code!}.map{$0.destination!}
+                }
+                if customDestinationsCode.count == 0 {
+                    
+                    if stopsOFPickupStations.count > 1 {
+                        for item in stopsOFPickupStations {
+                            if destinations.filter({$0.source! == item.code!}).map({$0.destination!}).count != 0 {
+                                customDestinationsCode.append(contentsOf: destinations.filter{$0.source! == item.code!}.map{$0.destination!})
+                                selectedPickupStop = stopsOFPickupStations.first!
+                            }
+                        }
+                    } else {
+                        selectedPickupStop = stopsOFPickupStations.first!
+                    }
+                    
+                }
+                for item in customDestinationsCode {
+                    destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                }
+                print("destinationForPickUp", destinationForPickUp)
             }
-            
-            
-            for item in customDestinationsCode {
-                
-                destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
-                
-            }
-            
-            print("destinationForPickUp", destinationForPickUp)
-            
-            selectedPickupStop = stopsOFPickupStations.first!
-        
         } else {
-            
-//            let coordinates = (selectedZone!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-//                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-//            })!
-            
-//            selectedCoordinate = coordinates.first!
-            
             customDestinationsCode = destinations.filter{$0.source == selectedPickupZone?.code}.map{$0.destination!}
-            
             for item in customDestinationsCode {
                 destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
             }
-            
             print(destinationForPickUp)
-        
         }
         
     }
@@ -446,19 +445,35 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         let stations = destinationForPickUp.filter{$0.type != "Zone"}
 
         if stations.count == 1 {
-            selectedDropOfStation = stations.first!
+            if stations.first!.type == "MetroStop" || stations.first!.type == "TramStop" {
+                selectedDropOfStation = areas.filter({$0.code! == stations.first!.parent!}).first!
+                selectedDropOfStop = stations.first!
+            } else {
+                selectedDropOfStation = stations.first!
+            }
+            
         } else {
             for item in stations {
                 
-                    let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                if item.type == "MetroStop" || item.type == "TramStop" {
+                    let dropOfStation = areas.filter({$0.code! == item.parent!}).first!
+                    let coordinates = (dropOfStation.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
                         return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
                     })!
-                    
                     if  CLLocationCoordinate2D(latitude: xpressRebookDropOffCoordinates.latitude, longitude: xpressRebookDropOffCoordinates.longitude).contained(by: coordinates) {
-                        selectedDropOfStation = item
+                        selectedDropOfStation = dropOfStation
+                        selectedDropOfStop = item
                         break
                     }
-                
+                }
+
+                let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                })!
+                if  CLLocationCoordinate2D(latitude: xpressRebookDropOffCoordinates.latitude, longitude: xpressRebookDropOffCoordinates.longitude).contained(by: coordinates) {
+                    selectedDropOfStation = item
+                    break
+                }
             }
         }
         
@@ -498,7 +513,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
                         
         }
         
-        if selectedDropOfStation != nil {
+        if selectedDropOfStation != nil && selectedDropOfStop == nil {
             print("it's inside station")
             stopsOFDropOfStations.append(contentsOf: stops.filter{$0.parent! == selectedDropOfStation!.code!})
             if stopsOFDropOfStations.count == 1 {
