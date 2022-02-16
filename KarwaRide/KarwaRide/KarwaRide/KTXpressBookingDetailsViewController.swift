@@ -486,7 +486,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         }
 
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
+        update = GMSCameraUpdate.fit(bounds, withPadding: 50)
 
 
         CATransaction.begin()

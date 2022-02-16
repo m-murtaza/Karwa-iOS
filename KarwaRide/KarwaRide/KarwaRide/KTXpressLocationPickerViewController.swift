@@ -530,6 +530,10 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
             }))
         }
 
+        alert.addAction(UIAlertAction(title: "str_cancel".localized(), style: .cancel, handler: { alert in
+            
+        }))
+        
         self.present(alert, animated: true, completion: {
             print("completion block")
         })
