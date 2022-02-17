@@ -355,7 +355,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func updateBookingStatusOnCard(_ withAnimation: Bool)
     {
-        
+        updateBookingBottomSheet()
     }
     
     func showShareBtn()
@@ -700,6 +700,9 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     
             //MARK:- FARE DETAILS BREAKDOWN VIEW
     fileprivate func setUpfareBreakDownView() {
+        
+        fareBreakDownView.removeFullyAllArrangedSubviews()
+        
         setHeaderFooter("txt_fare_info_Upper_Case".localized(), value: "")
         
         for i in 0 ..< (vModel?.fareDetailsHeader()?.count ?? 0) {

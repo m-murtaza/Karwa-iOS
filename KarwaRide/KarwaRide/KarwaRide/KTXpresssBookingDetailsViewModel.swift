@@ -696,14 +696,15 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                     {
                         self.booking?.bookingStatus = BookingStatus.PICKUP.rawValue
                         self.isHiredShown = true
-                        self.del?.updateBookingStatusOnCard(true)
+                        self.del?.updateBookingCard()
 //                        self.del?.hideEtaView()
                     }
                     
                     if bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.pickupLat)!, destinationLong: (self.booking?.pickupLon)!)
-                        self.del?.updateBookingStatusOnCard(true)
+                        self.updateBookingCard()
+                        self.del?.updateBookingCard()
                     }
                     else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
                     {

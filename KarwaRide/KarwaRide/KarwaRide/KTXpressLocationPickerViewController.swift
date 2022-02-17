@@ -318,6 +318,10 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
             selectedRSDropStation = areas.filter({$0.code == selectedRSDropStop?.parent}).first!
         }
         
+        if selectedRSDropStop != nil {
+            selectedRSDropOffCoordinate = getCenterPointOfPolygon(bounds: selectedRSDropStop!.bound!)
+        }
+    
         let rideData = RideSerivceLocationData(pickUpZone: selectedRSPickZone, pickUpStation: selectedRSPickStation, pickUpStop: selectedRSPickStop, dropOffZone: selectedRSDropZone, dropOfSftation: selectedRSDropStation, dropOffStop: selectedRSDropStop, pickUpCoordinate: selectedRSPickUpCoordinate, dropOffCoordinate: selectedRSDropOffCoordinate, passsengerCount: countOfPassenger)
         print(rideData)
         (self.viewModel as! KTXpressLocationSetUpViewModel).rideLocationData = rideData
@@ -373,18 +377,28 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
                                                 
                     if item.type == "TramStation"{
                         self.addMarkerOnMap(markerData: item, location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "tram_ico_map"))
-                    } else{
+                        selectedRSDropOffCoordinate = xpressRebookSelected == true ? selectedRSDropOffCoordinate : getCenterPointOfPolygon(bounds: item.bound!)
+                        rect.append(self.polygon(bounds: item.bound!, type: ""))
+                        let camera = GMSCameraPosition.camera(withLatitude: selectedRSDropOffCoordinate!.latitude, longitude: selectedRSDropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
+                        self.mapView.animate(to: camera)
+                    } else if item.type == "MetroStation"{
                         self.addMarkerOnMap(markerData: item, location: getCenterPointOfPolygon(bounds: item.bound!), image: #imageLiteral(resourceName: "metro_ico_map"))
+                        selectedRSDropOffCoordinate = xpressRebookSelected == true ? selectedRSDropOffCoordinate : getCenterPointOfPolygon(bounds: item.bound!)
+                        rect.append(self.polygon(bounds: item.bound!, type: ""))
+                        let camera = GMSCameraPosition.camera(withLatitude: selectedRSDropOffCoordinate!.latitude, longitude: selectedRSDropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
+                        self.mapView.animate(to: camera)
+                    } else if item.type == "MetroStop" || item.type == "TramStop" {
+                        selectedRSDropOffCoordinate = xpressRebookSelected == true ? selectedRSDropOffCoordinate : getCenterPointOfPolygon(bounds: item.bound!)
+                        let camera = GMSCameraPosition.camera(withLatitude: selectedRSDropOffCoordinate!.latitude, longitude: selectedRSDropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
+                        self.mapView.animate(to: camera)
                     }
 
+                } else {
+                    selectedRSDropOffCoordinate = xpressRebookSelected == true ? selectedRSDropOffCoordinate : getCenterPointOfPolygon(bounds: item.bound!)
+                    rect.append(self.polygon(bounds: item.bound!, type: ""))
+                    let camera = GMSCameraPosition.camera(withLatitude: selectedRSDropOffCoordinate!.latitude, longitude: selectedRSDropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
+                    self.mapView.animate(to: camera)
                 }
-                
-                selectedRSDropOffCoordinate = xpressRebookSelected == true ? selectedRSDropOffCoordinate : getCenterPointOfPolygon(bounds: item.bound!)
-
-                let camera = GMSCameraPosition.camera(withLatitude: selectedRSDropOffCoordinate!.latitude, longitude: selectedRSDropOffCoordinate!.longitude, zoom: item.type! == "Zone" ? 15.5 : 19)
-                self.mapView.animate(to: camera)
-                
-                rect.append(self.polygon(bounds: item.bound!, type: ""))
                 
             }
             
@@ -517,13 +531,20 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
                 self.tapOnMarker = true
                 print("User click Approve button")
                 if self.pickUpSelected == true {
+                    selectedRSPickZone = areas.filter({$0.code == selectedStation.parent}).first!
+                    selectedRSPickStation = selectedStation
                     selectedRSPickStop = item
-                    self.getDestinationForPickUp()
+                    if selectedRSPickStop != nil {
+                        selectedRSPickUpCoordinate = getCenterPointOfPolygon(bounds: selectedRSPickStop!.bound!)
+                    }
+                    self.setDestinationsForSelectedLocation()
                     self.setDropOffViewUI()
                     self.setDropOffPolygon()
                     self.markerIconImage.image = UIImage(named: "pin_dropoff_map")
                     self.markerImage.image = UIImage(named: "pin_dropoff_map")
                 } else {
+                    selectedRSDropZone = areas.filter({$0.code == selectedStation.parent}).first!
+                    selectedRSDropStation = selectedStation
                     selectedRSDropStop = item
                     self.callDropOffAction()
                 }
@@ -549,7 +570,13 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
             let yesAction = CDAlertViewAction(title: pickUpSelected ? "SETPICKUP".localized() : "SETDROPOFF".localized()) { value in
                 self.tapOnMarker = true
                 if self.pickUpSelected {
-                    self.getDestinationForPickUp()
+                    selectedRSPickStation = station
+                    selectedRSPickZone = areas.filter({$0.code! == selectedRSPickStation?.parent!}).first!
+                    selectedRSPickStop = stops.filter({$0.parent! == selectedRSPickStation?.code!}).first!
+                    if selectedRSPickStop != nil {
+                        selectedRSPickUpCoordinate = getCenterPointOfPolygon(bounds: selectedRSPickStop!.bound!)
+                    }
+                    self.setDestinationsForSelectedLocation()
                     self.setDropOffViewUI()
                     self.setDropOffPolygon()
                     self.markerIconImage.image = UIImage(named: "pin_dropoff_map")
@@ -623,7 +650,6 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination : KTAddressPickerViewController = segue.destination as! KTAddressPickerViewController
         destination.delegateAddress = self
-        destination.metroStations =  pickUpSelected ? pickUpArea : destinationForPickUp
         destination.fromDropOff = pickUpSelected
         
         print(self.pickUpAddressLabel.text)
@@ -640,9 +666,12 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         } else {
             destination.pickupAddress =  KTBookingManager().geoLocaiton(forLocationId: Int32(Int.random(in: 1..<100000)), latitude: selectedRSPickUpCoordinate?.latitude ?? 0.0, longitude: selectedRSPickUpCoordinate?.longitude ?? 0.0, name: self.pickUpAddressLabel.text ?? "")
         }
+            
+        self.setPickUpLocations()
+        self.getDestinationForAddressScreen()
         
-        self.getDestinationForPickUp()
         destination.destinationForPickUp = destinationForPickUp
+        destination.metroStations =  pickUpSelected ? pickUpArea : destinationForPickUp
         if pickUpSelected == false {
             destination.selectedTxtField = SelectedTextField.DropoffAddress
         } else if pickUpSelected == true {
@@ -1114,24 +1143,19 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
                 })!
                 if  CLLocationCoordinate2D(latitude: selectedRSPickUpCoordinate?.latitude ?? 0.0, longitude: selectedRSPickUpCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
+                    if selectedRSPickZone != item {
+                        self.backToPickUpWithMessageSelected = false
+                    }
                     selectedRSPickZone = item
                     break
                 }
             }
         }
         
-        if selectedRSPickStation == nil {
-            if selectedRSPickZone != nil {
-                let stationsOfZone = zonalArea.filter{$0["zone"]?.first!.code == selectedRSPickZone!.code}.first!["stations"]
-                
-                var sourceStation = [Area]()
-                for item in stationsOfZone ?? [Area]() {
-                    if let destinationCode =  destinations.filter({$0.source == item.code!}).map({$0.source!}).first {
-                        sourceStation.append(contentsOf: (areas.filter{$0.code == destinationCode}))
-                    }
-                }
-                
-                for item in stationsOfZone ?? [Area]() {
+        if selectedRSPickZone != nil {
+            let stations = areas.filter({$0.parent! == selectedRSPickZone!.code!})
+            if stations.count > 0 {
+                for item in stations ?? [Area]() {
                     let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
                         return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
                     })!
@@ -1142,6 +1166,31 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                 }
             }
         }
+        
+        
+        
+//        if selectedRSPickStation == nil {
+//            if selectedRSPickZone != nil {
+//                let stationsOfZone = zonalArea.filter{$0["zone"]?.first!.code == selectedRSPickZone!.code}.first!["stations"]
+//
+//                var sourceStation = [Area]()
+//                for item in stationsOfZone ?? [Area]() {
+//                    if let destinationCode =  destinations.filter({$0.source == item.code!}).map({$0.source!}).first {
+//                        sourceStation.append(contentsOf: (areas.filter{$0.code == destinationCode}))
+//                    }
+//                }
+//
+//                for item in stationsOfZone ?? [Area]() {
+//                    let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+//                        return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+//                    })!
+//                    if  CLLocationCoordinate2D(latitude: selectedRSPickUpCoordinate?.latitude ?? 0.0, longitude: selectedRSPickUpCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
+//                        selectedRSPickStation = item
+//                        break
+//                    }
+//                }
+//            }
+//        }
         
         if selectedRSPickStation != nil {
             
@@ -1167,26 +1216,42 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
             
         } else {
             var sourceStop = [Area]()
-            for item in stops ?? [Area]() {
+            for item in stops {
                 if let destinationCode =  destinations.filter({$0.source == item.code!}).map({$0.source!}).first {
                     sourceStop.append(contentsOf: (areas.filter{$0.code == destinationCode}))
                 }
             }
-            
             for item in sourceStop {
-                let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                let station = areas.filter({$0.code == item.parent}).first!
+                let coordinates = (station.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
                     return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
                 })!
                 if  CLLocationCoordinate2D(latitude: selectedRSPickUpCoordinate?.latitude ?? 0.0, longitude: selectedRSPickUpCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
                     selectedRSPickStop = item
+                    selectedRSPickStation = station
+                    
+                    let stopOfStations = areas.filter{$0.parent == selectedRSPickStation?.code}
+                    selectedRSPickUpCoordinate = getCenterPointOfPolygon(bounds: selectedRSPickStation?.bound! ?? "")
+                    selectedRSPickZone = areas.filter{$0.code == selectedRSPickStation?.parent}.first!
+                    
+                    let new = destinations.filter({$0.source == selectedRSPickStop?.code})
+                    var stationsStop = [Area]()
+                    
+                    for item in new {
+                        stationsStop = stopOfStations.filter({$0.code! == item.source})
+                    }
+                    print("stationsStop", stationsStop)
+                    
+                    if stopOfStations.count > 1 {
+                        self.showStopAlertViewController(stops: stopOfStations, selectedStation: selectedRSPickStation!)
+                    } else {
+            //            selectedRSPickStop = stationsStop.first!
+                        showAlertForStation(station: selectedRSPickStation!)
+                    }
+                    
                     break
                 }
             }
-            
-            if selectedRSPickStop != nil {
-                selectedRSPickStation = areas.filter({$0.code == selectedRSPickStop?.parent}).first!
-            }
-            
         }
     }
     
@@ -1224,9 +1289,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     break
                 }
             }
-        }
-        
-        if selectedRSDropStation != nil {
+        } else if selectedRSDropStation != nil && selectedRSDropStop == nil {
             
             let stopOfStations = areas.filter{$0.parent == selectedRSDropStation?.code}
             selectedRSDropZone = areas.filter{$0.code == selectedRSDropStation?.parent}.first!
@@ -1262,6 +1325,92 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
         } else {
             setDropOff()
         }
+        
+        if selectedRSDropStation == nil && selectedRSDropZone != nil{
+            setDropOff()
+        }
+
+        
+    }
+    
+    func getDestinationForAddressScreen() {
+        
+        var customDestinationsCode = [Int]()
+        destinationForPickUp.removeAll()
+        if selectedRSPickStation != nil {
+            
+            customDestinationsCode = destinations.filter{$0.source == selectedRSPickStation?.code!}.map{$0.destination!}
+            
+            if customDestinationsCode.count == 0 {
+                customDestinationsCode = destinations.filter{$0.source == selectedRSPickStop?.code!}.map{$0.destination!}
+            }
+            
+            for item in customDestinationsCode {
+                destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+            }
+            
+            print("destinationForPickUp", destinationForPickUp)
+        } else {
+            if customDestinationsCode.count == 0 {
+                customDestinationsCode = destinations.filter{$0.source == selectedRSPickZone?.code!}.map{$0.destination!}
+            }
+            for item in customDestinationsCode {
+                if let destination = areas.filter({$0.code! == item}).first {
+                    if destination.type == "MetroStop" || destination.type == "TramStop" {
+                        if let station = areas.filter({$0.code! == destination.parent}).first {
+                            destinationForPickUp.append(station)
+                            destinationForPickUp.append(destination)
+                        }
+                    } else {
+                        destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                    }
+                }
+            }
+            
+            print("destinationForPickUp", destinationForPickUp)
+        }
+    }
+    
+    
+    func setDestinationsForSelectedLocation() {
+        var customDestinationsCode = [Int]()
+        destinationForPickUp.removeAll()
+        if selectedRSPickStation != nil {
+            
+            customDestinationsCode = destinations.filter{$0.source == selectedRSPickStation?.code!}.map{$0.destination!}
+            
+            if customDestinationsCode.count == 0 {
+                customDestinationsCode = destinations.filter{$0.source == selectedRSPickStop?.code!}.map{$0.destination!}
+            }
+            
+            for item in customDestinationsCode {
+                destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+            }
+            
+            print("destinationForPickUp", destinationForPickUp)
+        } else {
+            if customDestinationsCode.count == 0 {
+                customDestinationsCode = destinations.filter{$0.source == selectedRSPickZone?.code!}.map{$0.destination!}
+            }
+            for item in customDestinationsCode {
+                if let destination = areas.filter({$0.code! == item}).first {
+                    if destination.type == "MetroStop" || destination.type == "TramStop" {
+                        if let station = areas.filter({$0.code! == destination.parent}).first {
+                            destinationForPickUp.append(station)
+                            destinationForPickUp.append(destination)
+                            if customDestinationsCode.count == 1 {
+                                selectedRSDropStation = station
+                                selectedRSDropStop = destination
+                            }
+                        }
+                    } else {
+                        destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                    }
+                }
+            }
+            
+            print("destinationForPickUp", destinationForPickUp)
+        }
     }
     
     func getDestinationForPickUp() {
@@ -1271,52 +1420,10 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     setPickUpLocations()
                 }
             }
-            
             if backToPickUpWithMessageSelected == true {
                 setPickUpLocations()
             }
-            
-            if selectedRSPickStation != nil && tapOnMarker == false {
-                
-            }
-            
-            var customDestinationsCode = [Int]()
-            destinationForPickUp.removeAll()
-            if selectedRSPickStation != nil {
-                
-                customDestinationsCode = destinations.filter{$0.source == selectedRSPickStation?.code!}.map{$0.destination!}
-                
-                if customDestinationsCode.count == 0 {
-                    customDestinationsCode = destinations.filter{$0.source == selectedRSPickStop?.code!}.map{$0.destination!}
-                }
-                
-                for item in customDestinationsCode {
-                    destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
-                }
-                
-                print("destinationForPickUp", destinationForPickUp)
-            } else {
-                if customDestinationsCode.count == 0 {
-                    customDestinationsCode = destinations.filter{$0.source == selectedRSPickZone?.code!}.map{$0.destination!}
-                }
-                for item in customDestinationsCode {
-                    if let destination = areas.filter({$0.code! == item}).first {
-                        if destination.type == "MetroStop" || destination.type == "TramStop" {
-                            if let station = areas.filter({$0.code! == destination.parent}).first {
-                                destinationForPickUp.append(station)
-                                if customDestinationsCode.count == 1 {
-                                    selectedRSDropStation = station
-                                    selectedRSDropStop = destination
-                                }
-                            }
-                        } else {
-                            destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
-                        }
-                    }
-                }
-                
-                print("destinationForPickUp", destinationForPickUp)
-            }
+            setDestinationsForSelectedLocation()
         }
     }
     

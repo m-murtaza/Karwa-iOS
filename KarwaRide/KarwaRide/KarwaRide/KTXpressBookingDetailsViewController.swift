@@ -450,45 +450,43 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     @objc func animatePolylinePath() {
+        
+        if (self.i < self.path.count()) {
             
-            if (self.i < self.path.count()) {
-                
-                self.animationPath.add(self.path.coordinate(at: self.i))
-                self.animationPolyline?.path = self.animationPath
-                self.animationPolyline?.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
-                self.animationPolyline?.strokeWidth = 4
-                self.animationPolyline?.map = nil
-                self.animationPolyline?.map = self.mapView
-                self.i += 1
-            }
-            else if self.i == self.path.count() {
-                timer.invalidate()
-                self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
-                self.i += 1
-                
-                //self.i = 0
-                self.animationPath = GMSMutablePath()
-                self.animationPolyline?.map = nil
-                polyline.strokeColor = bgPolylineColor
-            }
-            else {
-                
-                self.i = 0
-                
-                timer.invalidate()
-            }
+            self.animationPath.add(self.path.coordinate(at: self.i))
+            self.animationPolyline?.path = self.animationPath
+            self.animationPolyline?.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+            self.animationPolyline?.strokeWidth = 4
+            self.animationPolyline?.map = nil
+            self.animationPolyline?.map = self.mapView
+            self.i += 1
         }
+        else if self.i == self.path.count() {
+            timer.invalidate()
+            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+            self.i += 1
+            
+            //self.i = 0
+            self.animationPath = GMSMutablePath()
+            self.animationPolyline?.map = nil
+            polyline.strokeColor = bgPolylineColor
+        }
+        else {
+            
+            self.i = 0
+            
+            timer.invalidate()
+        }
+    }
 
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
         var bounds = GMSCoordinateBounds()
         for marker: GMSMarker in gmsMarker {
             bounds = bounds.includingCoordinate(marker.position)
         }
-
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 50)
-
-
+        update = GMSCameraUpdate.fit(bounds,
+                                     with: UIEdgeInsets(top: 100, left: 50, bottom: 225, right: 50))
         CATransaction.begin()
         CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
         mapView.animate(with: update!)

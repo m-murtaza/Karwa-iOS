@@ -69,7 +69,7 @@ extension KTXpressRideCreationViewController
         }
         
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 50)
+        update = GMSCameraUpdate.fit(bounds, withPadding: 10)
         
         CATransaction.begin()
         CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
