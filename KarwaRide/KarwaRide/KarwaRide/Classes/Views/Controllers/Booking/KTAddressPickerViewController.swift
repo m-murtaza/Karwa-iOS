@@ -61,6 +61,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   public var dropoffAddress : KTGeoLocation?
   var delegateAddress: KTXpressAddressDelegate?
   var metroStations = [Area]()
+    var xpressLocation = false
     var keyboardShowing = false
   var destinationForPickUp = [Area]()
     var fromDropOff = true
@@ -175,7 +176,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   }
   
   private func toggleSkipButton() {
-    if metroStations.count == 0{
+    if xpressLocation == false {
         switch selectedTxtField {
         case .PickupAddress:
           skipButton.isHidden = true
@@ -229,7 +230,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     }
     
     
-      if metroStations.count == 0 {
+      if xpressLocation == false {
 
           initializeMap()
 
@@ -490,7 +491,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   
   @IBAction func btnMapViewTapped(_ sender: Any)
   {
-      if metroStations.count == 0 {
+      if xpressLocation == false {
           if mapSuperView.isHidden == false {
               self.tblView.isHidden = false
               self.mapSuperView.isHidden = true
@@ -554,9 +555,23 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
           }
       } else {
           if valueChanged == false {
+              if selectedTxtField == .DropoffAddress {
+                  if selectedRSDropZone == nil || (txtDropAddress.text?.count ?? 0) == 0{
+                      if selectedRSDropZone == nil {
+                          selectedRSDropStation = nil
+                          selectedRSDropStop = nil
+                      }
+                      self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+                  }
+              }
+              if selectedRSPickStation != nil && dropoffAddress != nil {
+                  print(selectedRSPickStation)
+                  self.delegateAddress?.setLocation(picklocation: selectedRSPickStation, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+              }
               self.dismiss(animated: true, completion: nil)
           } else {
-              self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+                  
+              self.delegateAddress?.setLocation(picklocation: selectedRSPickStation != nil ? selectedRSPickStation : pickupAddress, dropLocation: selectedRSDropOffCoordinate == nil ? nil : dropoffAddress, destinationForPickUp: destinationForPickUp)
               self.dismiss(animated: true, completion: nil)
           }
       }
@@ -688,7 +703,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     
     func navigateToPreviousView(pickup: Any?, dropOff: Any?) {
       
-      if metroStations.count == 0 {
+      if xpressLocation == false {
           if pickup != nil {
             previousView?.setPickAddress(pAddress: pickup as! KTGeoLocation)
           }
@@ -969,7 +984,11 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
             clearButtonDestination.isHidden = true
         }
         if self.metroStations.count != 0 {
-            self.getDestinationForPickUp()
+            if selectedRSPickStation != nil {
+                setDestinations()
+            } else {
+                self.getDestinationForPickUp()
+            }
         }
     }
     else {
@@ -1418,7 +1437,7 @@ extension KTAddressPickerViewController {
 
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if self.metroStations.count == 0 {
+        if xpressLocation == false {
             (viewModel as! KTAddressPickerViewModel).didSelectRow(at:indexPath, type: selectedTxtField)
         } else {
             let type = selectedTxtField
@@ -1433,8 +1452,111 @@ extension KTAddressPickerViewController {
                 selectedRSDropStation = nil
             }
             
-            self.setLocation(location: (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath, type: selectedTxtField, fromActionSheet: false), type: type)
+            if indexPath.section == 2 {
+                let station = (self.viewModel as! KTAddressPickerViewModel).metroStations[indexPath.row]
+                if station.type == "MetroStation" || station.type == "TramStation" {
+                    
+                    if selectedTxtField == .PickupAddress {
+                        let stops = stops.filter({$0.parent == station.code})
+                        if stops.count > 1 {
+                            self.showStopAlertViewController(stops: stops, selectedStation: station, selectedTextType: selectedTxtField)
+                        }else {
+                            self.setLocation(location: (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath, type: selectedTxtField, fromActionSheet: false), type: type)
+                        }
+                    } else {
+
+                        self.setLocation(location: (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath, type: selectedTxtField, fromActionSheet: false), type: type)
+                        
+                    }
+                    
+                } else {
+                    self.setLocation(location: (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath, type: selectedTxtField, fromActionSheet: false), type: type)
+                }
+            } else {
+                self.setLocation(location: (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath, type: selectedTxtField, fromActionSheet: false), type: type)
+            }
+                        
         }
+    }
+    
+    func showStopAlertViewController(stops: [Area], selectedStation: Area, selectedTextType: SelectedTextField) {
+            
+            let alert = UIAlertController(title: "\(selectedStation.name! + "str_stop".localized())", message: "str_select_stop".localized(), preferredStyle: .actionSheet)
+            
+            for item in stops {
+                alert.addAction(UIAlertAction(title: item.name!, style: .default , handler:{ (UIAlertAction)in
+                    print("User click Approve button")
+                    if selectedTextType == .PickupAddress {
+                        selectedRSPickZone = areas.filter({$0.code == selectedStation.parent}).first!
+                        selectedRSPickStation = selectedStation
+                        selectedRSPickStop = item
+                        if selectedRSPickStop != nil {
+                            selectedRSPickUpCoordinate = getCenterPointOfPolygon(bounds: selectedRSPickStop!.bound!)
+                        }
+                        self.txtPickAddress.text = selectedRSPickStop?.name ?? ""
+                        self.setDestinationForPickup()
+                        self.txtDropAddress.becomeFirstResponder()
+                        self.txtDropAddress .text = ""
+                        self.dropoffAddress = nil
+                    } else {
+                        selectedRSDropZone = areas.filter({$0.code == selectedStation.parent}).first!
+                        selectedRSDropStation = selectedStation
+                        selectedRSDropStop = item
+                    }
+                }))
+            }
+
+            alert.addAction(UIAlertAction(title: "str_cancel".localized(), style: .cancel, handler: { alert in
+                
+            }))
+            
+            self.present(alert, animated: true, completion: {
+                print("completion block")
+            })
+            
+        }
+    
+    fileprivate func setDestinationForPickup() {
+        var customDestinationsCode = [Int]()
+        destinationForPickUp = [Area]()
+        destinationForPickUp.removeAll()
+        if selectedRSPickStation != nil {
+            customDestinationsCode = destinations.filter{$0.source == selectedRSPickStation?.code!}.map{$0.destination!}
+            if customDestinationsCode.count == 0 {
+                customDestinationsCode = destinations.filter{$0.source == selectedRSPickStop?.code!}.map{$0.destination!}
+            }
+            for item in customDestinationsCode {
+                destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+            }
+            (viewModel as! KTAddressPickerViewModel).metroStations.removeAll()
+        } else {
+            if customDestinationsCode.count == 0 {
+                customDestinationsCode = destinations.filter{$0.source == selectedRSPickZone?.code!}.map{$0.destination!}
+            }
+            for item in customDestinationsCode {
+                if let destination = areas.filter({$0.code! == item}).first {
+                    if destination.type == "MetroStop" || destination.type == "TramStop" {
+                        if let station = areas.filter({$0.code! == destination.parent}).first {
+                            destinationForPickUp.append(station)
+                            if customDestinationsCode.count == 1 {
+                                selectedRSDropStation = station
+                                selectedRSDropStop = destination
+                            }
+                        } else {
+                            destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                        }
+                    } else {
+                        destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                    }
+                }
+            }
+            (viewModel as! KTAddressPickerViewModel).metroStations = self.destinationForPickUp
+            getFavouriteMetroStations()
+        }
+        
+        
+        
+        self.tblView.reloadData()
     }
     
     func setLocation(location: Any, type: SelectedTextField) {
@@ -1453,10 +1575,14 @@ extension KTAddressPickerViewController {
                     selectedRSDropZone = nil
                     selectedRSDropStation = nil
                     selectedRSDropOffCoordinate = nil
+                    txtDropAddress.isUserInteractionEnabled = true
+                    txtDropAddress.becomeFirstResponder()
                 case .DropoffAddress:
                     selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
                     self.setDropLocations()
                     txtPickAddress.isUserInteractionEnabled = true
+                    self.delegateAddress?.setLocation(picklocation: selectedRSPickStation != nil ?  selectedRSPickStation : pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+                    self.dismiss(animated: true, completion: nil)
                 }
             } else {
                 self.view.endEditing(true)
@@ -1490,10 +1616,56 @@ extension KTAddressPickerViewController {
                         selectedRSPickStop = stopOfStations.first!
                         selectedRSPickZone = areas.filter{$0.code == selectedRSPickStation?.parent}.first!
                     }
+                    self.dropoffAddress = nil
+                    self.txtDropAddress.text = ""
                     txtDropAddress.isUserInteractionEnabled = true
                     txtDropAddress.becomeFirstResponder()
-                    self.getDestinationForPickUp()
+                    self.setDestinations()
                     self.tblView.reloadData()
+                } else {
+                    var customDestinationsCode = [Int]()
+                    destinationForPickUp.removeAll()
+
+                    if selectedRSPickStation != nil {
+                        customDestinationsCode = destinations.filter{$0.source == selectedRSPickStation?.code!}.map{$0.destination!}
+                        if customDestinationsCode.count == 0 {
+                            customDestinationsCode = destinations.filter{$0.source == selectedRSPickStop?.code!}.map{$0.destination!}
+                        }
+                        
+                        for item in customDestinationsCode {
+                            destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                        }
+                        
+                        print("destinationForPickUp", destinationForPickUp)
+                    } else {
+                        if customDestinationsCode.count == 0 {
+                            customDestinationsCode = destinations.filter{$0.source == selectedRSPickZone?.code!}.map{$0.destination!}
+                        }
+                        for item in customDestinationsCode {
+                            if let destination = areas.filter({$0.code! == item}).first {
+                                if destination.type == "MetroStop" || destination.type == "TramStop" {
+                                    if let station = areas.filter({$0.code! == destination.parent}).first {
+                                        destinationForPickUp.append(station)
+                                        destinationForPickUp.append(destination)
+                                        if customDestinationsCode.count == 1 {
+                                            selectedRSDropStation = station
+                                            selectedRSDropStop = destination
+                                        }
+                                    }
+                                } else {
+                                    destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                                }
+                            }
+                        }
+                        
+                        print("destinationForPickUp", destinationForPickUp)
+                        
+                        self.delegateAddress?.setLocation(picklocation: selectedRSPickStation != nil ?  selectedRSPickStation : pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+
+                        self.dismiss(animated: true, completion: nil)
+                        
+                        
+                    }
                 }
                 
 //                switch type {
@@ -1592,49 +1764,52 @@ extension KTAddressPickerViewController {
         }
     }
     
-    func getDestinationForPickUp() {
-            setPickUpLocations()
-            var customDestinationsCode = [Int]()
-            destinationForPickUp = [Area]()
-            destinationForPickUp.removeAll()
-            if selectedRSPickStation != nil {
-                
-                customDestinationsCode = destinations.filter{$0.source == selectedRSPickStation?.code!}.map{$0.destination!}
-                
-                if customDestinationsCode.count == 0 {
-                    customDestinationsCode = destinations.filter{$0.source == selectedRSPickStop?.code!}.map{$0.destination!}
-                }
-                
-                for item in customDestinationsCode {
-                    destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
-                }
-                
-            } else {
-                
-                if customDestinationsCode.count == 0 {
-                    customDestinationsCode = destinations.filter{$0.source == selectedRSPickZone?.code!}.map{$0.destination!}
-                }
-                for item in customDestinationsCode {
-                    if let destination = areas.filter({$0.code! == item}).first {
-                        if destination.type == "MetroStop" || destination.type == "TramStop" {
-                            if let station = areas.filter({$0.code! == destination.parent}).first {
-                                destinationForPickUp.append(station)
-                                if customDestinationsCode.count == 1 {
-                                    selectedRSDropStation = station
-                                    selectedRSDropStop = destination
-                                }
+    fileprivate func setDestinations() {
+        var customDestinationsCode = [Int]()
+        destinationForPickUp = [Area]()
+        destinationForPickUp.removeAll()
+        if selectedRSPickStation != nil {
+            
+            customDestinationsCode = destinations.filter{$0.source == selectedRSPickStation?.code!}.map{$0.destination!}
+            
+            if customDestinationsCode.count == 0 {
+                customDestinationsCode = destinations.filter{$0.source == selectedRSPickStop?.code!}.map{$0.destination!}
+            }
+            
+            for item in customDestinationsCode {
+                destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+            }
+            
+            (viewModel as! KTAddressPickerViewModel).metroStations.removeAll()
+            
+        } else {
+            
+            if customDestinationsCode.count == 0 {
+                customDestinationsCode = destinations.filter{$0.source == selectedRSPickZone?.code!}.map{$0.destination!}
+            }
+            for item in customDestinationsCode {
+                if let destination = areas.filter({$0.code! == item}).first {
+                    if destination.type == "MetroStop" || destination.type == "TramStop" {
+                        if let station = areas.filter({$0.code! == destination.parent}).first {
+                            destinationForPickUp.append(station)
+                            if customDestinationsCode.count == 1 {
+                                selectedRSDropStation = station
+                                selectedRSDropStop = destination
                             }
-                        } else {
-                            destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
                         }
+                    } else {
+                        destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
                     }
                 }
-                            
             }
-        
-        (viewModel as! KTAddressPickerViewModel).metroStations = self.destinationForPickUp
-        getFavouriteMetroStations()
-        
+            (viewModel as! KTAddressPickerViewModel).metroStations = self.destinationForPickUp
+            getFavouriteMetroStations()
+        }
+    }
+    
+    func getDestinationForPickUp() {
+        setPickUpLocations()
+        setDestinations()
         self.tblView.reloadData()
     }
 //    func loadData() {
