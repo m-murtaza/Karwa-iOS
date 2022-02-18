@@ -180,6 +180,7 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     @IBAction func submitButtonPressed(sender: UIButton) {
         springAnimateButtonTapOut(button: setLocationButton)
         if sender.title(for: .normal) == "str_setpick".localized() {
+            
             if backToPickUpWithMessageSelected == true {
                 getDestinationForPickUp()
                 if tapOnMarker == false && selectedRSPickStation == nil {
@@ -309,12 +310,28 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         pickUpSelected = true
         pickAddressText = self.pickUpAddressLabel.text ?? ""
         getDestinationForPickUp()
-        if destinationForPickUp.count > 0 && tapOnMarker == false && selectedRSPickStation == nil {
-            setDropOffViewUI()
-            setDropOffPolygon()
-            self.markerIconImage.image = UIImage(named: "pin_dropoff_map")
-            self.markerImage.image = UIImage(named: "pin_dropoff_map")
-        } 
+        tapOnMarker = false
+        
+        if selectedRSPickStation != nil {
+            let stopsOfStations = stops.filter({$0.parent! == selectedRSPickStation?.code!})
+            if stopsOfStations.count == 1  {
+                if destinationForPickUp.count > 0 && tapOnMarker == false {
+                    setDropOffViewUI()
+                    setDropOffPolygon()
+                    self.markerIconImage.image = UIImage(named: "pin_dropoff_map")
+                    self.markerImage.image = UIImage(named: "pin_dropoff_map")
+                }
+            }
+        } else {
+            if destinationForPickUp.count > 0 && tapOnMarker == false {
+                setDropOffViewUI()
+                setDropOffPolygon()
+                self.markerIconImage.image = UIImage(named: "pin_dropoff_map")
+                self.markerImage.image = UIImage(named: "pin_dropoff_map")
+            }
+        }
+        
+        
     }
     
     fileprivate func setDropOff() {
@@ -324,6 +341,11 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         
         if selectedRSDropStop != nil {
             selectedRSDropOffCoordinate = getCenterPointOfPolygon(bounds: selectedRSDropStop!.bound!)
+        }
+        
+        if selectedRSPickStation != nil {
+            selectedRSDropStop = nil
+            selectedRSDropStation = nil
         }
     
         let rideData = RideSerivceLocationData(pickUpZone: selectedRSPickZone, pickUpStation: selectedRSPickStation, pickUpStop: selectedRSPickStop, dropOffZone: selectedRSDropZone, dropOfSftation: selectedRSDropStation, dropOffStop: selectedRSDropStop, pickUpCoordinate: selectedRSPickUpCoordinate, dropOffCoordinate: selectedRSDropOffCoordinate, passsengerCount: countOfPassenger)
@@ -619,11 +641,9 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     func showAlertForFailedRide(message: String) {
         
         let alert = UIAlertController(title: message, message: "", preferredStyle: .alert)
-    
         alert.addAction(UIAlertAction(title: "str_ok".localized(), style: .cancel, handler: { alert in
             
         }))
-        
         self.present(alert, animated: true, completion: {
             print("completion block")
             self.backToPickUpWithMessageSelected = false
@@ -1455,6 +1475,8 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
     
     fileprivate func setDropLocations() {
         
+        var dropOffCalled = false
+        
         if selectedRSDropZone == nil {
             
             for item in zones {
@@ -1514,6 +1536,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     showAlertForStation(station: selectedRSDropStation!)
                 }
             } else {
+                dropOffCalled = true
                 setDropOff()
             }
             
@@ -1522,11 +1545,14 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
 //            }
 //            selectedRSDropOffCoordinate = getCenterPointOfPolygon(bounds: selectedRSDropStation?.bound! ?? "")
         } else {
+            dropOffCalled = true
             setDropOff()
         }
         
         if selectedRSDropStation == nil && selectedRSDropZone != nil{
-            setDropOff()
+            if dropOffCalled == false {
+                setDropOff()
+            }
         }
 
         

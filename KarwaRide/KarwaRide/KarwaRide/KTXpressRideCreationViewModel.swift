@@ -48,7 +48,8 @@ public func createAttributedString(stringArray: [String], attributedPart: Int, a
 class KTXpressRideCreationViewModel: KTBaseViewModel {
     
     var operationArea = [Area]()
-    
+    let operationGroup = DispatchGroup()
+
     var rideServicePickDropOffData: RideSerivceLocationData? = nil
     
     var booking : KTBooking = KTBookingManager().booking()
@@ -140,6 +141,9 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     }
     
     fileprivate func callRideService() {
+        
+        self.delegate?.showProgressHud(show: true, status: "str_finding".localized())
+
         KTXpressBookingManager().getRideService(rideData: rideServicePickDropOffData!) { [weak self] (status, response) in
             
             self?.delegate?.hideProgressHud()
@@ -205,10 +209,11 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
     
     func fetchRideService() {
         
-        self.delegate?.showProgressHud(show: true, status: "str_finding".localized()) 
+        self.delegate?.showProgressHud(show: true, status: "str_finding".localized())
         
         if self.rideServicePickDropOffData?.pickUpStop == nil && self.rideServicePickDropOffData?.pickUpStation == nil && self.rideServicePickDropOffData?.pickUpZone != nil {
             KTBookingManager().address(forLocation: (self.rideServicePickDropOffData?.pickUpCoordinate!)!, Limit: 1) { (status, response) in
+                self.delegate?.hideProgressHud()
               if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0 {
                 let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
                   self.rideServicePickDropOffData?.pickUpZoneAddress = pAddress.name ?? ""
@@ -217,6 +222,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
             }
         } else if self.rideServicePickDropOffData?.dropOffStop == nil && self.rideServicePickDropOffData?.dropOfSftation == nil && self.rideServicePickDropOffData?.dropOffZone != nil {
             KTBookingManager().address(forLocation: (self.rideServicePickDropOffData?.dropOffCoordinate!)!, Limit: 1) { (status, response) in
+                self.delegate?.hideProgressHud()
               if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0 {
                 let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
                   self.rideServicePickDropOffData?.dropOffZoneAddress = pAddress.name ?? ""
@@ -413,7 +419,7 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
                         for item in stopsOFPickupStations {
                             if destinations.filter({$0.source! == item.code!}).map({$0.destination!}).count != 0 {
                                 customDestinationsCode.append(contentsOf: destinations.filter{$0.source! == item.code!}.map{$0.destination!})
-                                selectedPickupStop = stopsOFPickupStations.first!
+//                                selectedPickupStop = item
                             }
                         }
                     } else {
@@ -424,6 +430,11 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
                 for item in customDestinationsCode {
                     destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
                 }
+                
+                if stopsOFPickupStations.count == 1 {
+                    selectedPickupStop = stopsOFPickupStations.first!
+                }
+                
                 print("destinationForPickUp", destinationForPickUp)
             }
         } else {
@@ -526,26 +537,19 @@ class KTXpressRideCreationViewModel: KTBaseViewModel {
         print(selectedDropOfZone)
         print(selectedDropOfStation)
         
-        
-//
-//        if selectedDropOfStation != nil {
-//
-//            let coordinates = (selectedDropOfStation!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-//                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-//            })!
-//
-////            xpressRebookDropOffCoordinates = coordinates.first!
-//
-//        } else {
-//
-////            let coordinates = (selectedZone!.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-////                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-////            })!
-////
-////            selectedCoordinate = coordinates.first!
-////
-//        }
-        
+        if stopsOFPickupStations.count > 1 {
+            for item in stopsOFPickupStations {
+                let customDestination = destinations.filter({$0.source! == item.code!}).map({$0.destination!})
+                if customDestination.count != 0 {
+                    for des in customDestination {
+                        if selectedDropOfZone?.code! == des {
+                            selectedPickupStop = item
+                            print("selectedPickupStop", selectedPickupStop)
+                        }
+                    }
+                }
+            }
+        }
         
         rideServicePickDropOffData = RideSerivceLocationData(pickUpZone: self.selectedPickupZone, pickUpStation: self.selectedPickupStation, pickUpStop: self.selectedPickupStop, dropOffZone: self.selectedDropOfZone, dropOfSftation: self.selectedDropOfStation, dropOffStop: self.selectedDropOfStop, pickUpCoordinate: xpressRebookPickUpCoordinates, dropOffCoordinate: xpressRebookDropOffCoordinates, passsengerCount: xpressRebookNumberOfPassenger)
         

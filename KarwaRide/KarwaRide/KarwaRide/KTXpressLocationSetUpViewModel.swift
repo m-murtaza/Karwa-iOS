@@ -281,6 +281,7 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
             }
         } else if rideLocationData.dropOffStop == nil && rideLocationData.dropOfSftation == nil && rideLocationData.dropOffZone != nil {
             KTBookingManager().address(forLocation: rideLocationData.dropOffCoordinate!, Limit: 1) { (status, response) in
+                self.delegate?.hideProgressHud()
               if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0 {
                 let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
                   self.rideLocationData.dropOffZoneAddress = pAddress.name ?? ""

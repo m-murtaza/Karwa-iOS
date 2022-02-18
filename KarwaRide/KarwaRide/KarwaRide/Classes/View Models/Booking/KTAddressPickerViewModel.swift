@@ -655,13 +655,13 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         
         if type == SelectedTextField.PickupAddress {
               
-            defer {
-                if fromActionSheet == false {
-                    if indexPath.section != 2 {
-                        moveBackIfNeeded(skipDestination: false)
-                    }
-                }
-            }
+//            defer {
+//                if fromActionSheet == false {
+//                    if indexPath.section != 2 {
+//                        moveBackIfNeeded(skipDestination: false)
+//                    }
+//                }
+//            }
             
             if indexPath.section == 1 {
                 if indexPath.row >= bookmarks.count && ((indexPath.row - bookmarks.count) >=  0) && ((indexPath.row - bookmarks.count) < favoriteMetroStation.count)  {
