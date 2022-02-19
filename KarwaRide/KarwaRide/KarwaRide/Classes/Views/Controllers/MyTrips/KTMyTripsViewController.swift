@@ -176,7 +176,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     //            cell.lblCallerId.isHidden = false
     //            cell.lblCallerId.text = (viewModel as! KTMyTripsViewModel).callerId(forIdx: indexPath.row)
     //        }
-    animateCell(cell)
+//    animateCell(cell)
     
     return cell
   }

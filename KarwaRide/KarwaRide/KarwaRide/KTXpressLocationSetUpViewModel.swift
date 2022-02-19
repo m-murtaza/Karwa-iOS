@@ -213,6 +213,7 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
     }
     
     fileprivate func callRideService() {
+        self.delegate?.showProgressHud(show: true, status: "str_finding".localized())
         KTXpressBookingManager().getRideService(rideData: self.rideLocationData) { [weak self] (status, response) in
             self?.delegate?.hideProgressHud()
             guard let strongSelf = self else{
@@ -271,6 +272,7 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
         
         if rideLocationData.pickUpStop == nil && rideLocationData.pickUpStation == nil && rideLocationData.pickUpZone != nil {
             KTBookingManager().address(forLocation: rideLocationData.pickUpCoordinate!, Limit: 1) { (status, response) in
+                self.delegate?.hideProgressHud()
               if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0 {
                 let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
                   self.rideLocationData.pickUpZoneAddress = pAddress.name ?? ""
@@ -279,6 +281,7 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
             }
         } else if rideLocationData.dropOffStop == nil && rideLocationData.dropOfSftation == nil && rideLocationData.dropOffZone != nil {
             KTBookingManager().address(forLocation: rideLocationData.dropOffCoordinate!, Limit: 1) { (status, response) in
+                self.delegate?.hideProgressHud()
               if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0 {
                 let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
                   self.rideLocationData.dropOffZoneAddress = pAddress.name ?? ""
