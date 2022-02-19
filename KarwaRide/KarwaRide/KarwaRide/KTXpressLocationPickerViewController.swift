@@ -1254,11 +1254,14 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
             print("stationsStop", stationsStop)
         }
 
-        
         if stopOfStations.count > 1 && stationsStop.count == 0 {
             self.showStopAlertViewController(stops: stopOfStations, selectedStation: selectedRSDropStation!)
         } else {
-            selectedRSDropStop = stopOfStations.first!
+            if stationsStop.count > 0 {
+                selectedRSDropStop = stationsStop.first!
+            } else {
+                selectedRSDropStop = stopOfStations.first!
+            }
             showAlertForStation(station: (marker.userData as! Area))
         }
     }
@@ -1532,7 +1535,11 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                 if stopOfStations.count > 1 && stationsStop.count == 0 {
                     self.showStopAlertViewController(stops: stopOfStations, selectedStation: selectedRSDropStation!)
                 } else {
-                    selectedRSDropStop = stopOfStations.first!
+                    if stationsStop.count > 0 {
+                        selectedRSDropStop = stationsStop.first!
+                    } else {
+                        selectedRSDropStop = stopOfStations.first!
+                    }
                     showAlertForStation(station: selectedRSDropStation!)
                 }
             } else {
