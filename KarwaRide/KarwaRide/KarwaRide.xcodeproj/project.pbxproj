@@ -179,6 +179,8 @@
 		1852094D2063C91C00BD5FCD /* RoundedLable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852094C2063C91C00BD5FCD /* RoundedLable.swift */; };
 		18573B4627A69AD500777CB2 /* KTKarwaBusPlanTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18573B4527A69AD500777CB2 /* KTKarwaBusPlanTripViewController.swift */; };
 		1860676127252BC500EFDF25 /* KTXpressLocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1860676027252BC500EFDF25 /* KTXpressLocationPickerViewController.swift */; };
+		18611CF127C13A880020D522 /* RouteKarwaBusCarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18611CEF27C13A870020D522 /* RouteKarwaBusCarouselCell.swift */; };
+		18611CF227C13B080020D522 /* RouteKarwaBusCarouselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18611CF027C13A870020D522 /* RouteKarwaBusCarouselCell.xib */; };
 		186487221F0A361B00DDB003 /* KTBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487211F0A361B00DDB003 /* KTBaseViewController.swift */; };
 		186487251F0A368F00DDB003 /* KTLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487241F0A368F00DDB003 /* KTLoginViewController.swift */; };
 		186487271F0A36DD00DDB003 /* KTBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */; };
@@ -485,6 +487,8 @@
 		1852094C2063C91C00BD5FCD /* RoundedLable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoundedLable.swift; path = Classes/Common/Extensions/RoundedLable.swift; sourceTree = "<group>"; };
 		18573B4527A69AD500777CB2 /* KTKarwaBusPlanTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTKarwaBusPlanTripViewController.swift; sourceTree = "<group>"; };
 		1860676027252BC500EFDF25 /* KTXpressLocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTXpressLocationPickerViewController.swift; sourceTree = "<group>"; };
+		18611CEF27C13A870020D522 /* RouteKarwaBusCarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteKarwaBusCarouselCell.swift; sourceTree = "<group>"; };
+		18611CF027C13A870020D522 /* RouteKarwaBusCarouselCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RouteKarwaBusCarouselCell.xib; sourceTree = "<group>"; };
 		186487211F0A361B00DDB003 /* KTBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewController.swift; path = Classes/Views/Controllers/KTBaseViewController.swift; sourceTree = "<group>"; };
 		186487241F0A368F00DDB003 /* KTLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTLoginViewController.swift; path = Classes/Views/Controllers/Login/KTLoginViewController.swift; sourceTree = "<group>"; };
 		186487261F0A36DD00DDB003 /* KTBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KTBaseViewModel.swift; path = "Classes/View Models/KTBaseViewModel.swift"; sourceTree = "<group>"; };
@@ -1263,6 +1267,8 @@
 				18867A5627ABDF1200DBCD88 /* RouteWalkCarouselCell.swift */,
 				18867A5227ABC81600DBCD88 /* RouteDetailCarouselCell.swift */,
 				18B89D7127AE5DF50007D7D0 /* RouteKarwaBookCarouselCell.swift */,
+				18611CEF27C13A870020D522 /* RouteKarwaBusCarouselCell.swift */,
+				18611CF027C13A870020D522 /* RouteKarwaBusCarouselCell.xib */,
 				18867A5727ABDF1200DBCD88 /* RouteWalkCarouselCell.xib */,
 				18B89D7027AE5DF40007D7D0 /* RouteKarwaBookCarouselCell.xib */,
 				18867A5127ABC81600DBCD88 /* RouteDetailCarouselCell.xib */,
@@ -1863,6 +1869,7 @@
 				18259166271EFD980033AB4A /* location_qatar.gpx in Resources */,
 				0DBC403725AEEA1C001AFDA2 /* ride_shiner.json in Resources */,
 				1876E33E279DB4E700989768 /* location_qatar_second.gpx in Resources */,
+				18611CF227C13B080020D522 /* RouteKarwaBusCarouselCell.xib in Resources */,
 				0DE28EAF250767A5000E27E4 /* karwatechnologies_com.der in Resources */,
 				F07CFD722630231D00F003DA /* KTPaymentMethodSelectionView.xib in Resources */,
 				441D114B254FEC17005E1B66 /* KTFavoriteAddressViewController.xib in Resources */,
@@ -2268,6 +2275,7 @@
 				0DD0F40E2580A6600089CECD /* LocalisableLabel.swift in Sources */,
 				448595E22546A98D00409C6C /* KTTextField.swift in Sources */,
 				1852094220623BF200BD5FCD /* iOSDevCenters+GIF.swift in Sources */,
+				18611CF127C13A880020D522 /* RouteKarwaBusCarouselCell.swift in Sources */,
 				18DC95B62289D33400EB000D /* CircularProgress.swift in Sources */,
 				0D79DB40215246BC00316D2F /* AnalyticsUtil.swift in Sources */,
 				0DE6A741218B141200125507 /* Gateway+URLSessionDelegate.swift in Sources */,

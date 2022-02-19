@@ -29,23 +29,35 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c3V-1f-wev">
                         <rect key="frame" x="0.0" y="10" width="337" height="85"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="mU9-Ja-1PZ">
-                                <rect key="frame" x="10" y="10" width="317" height="65"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="mU9-Ja-1PZ">
+                                <rect key="frame" x="10" y="5" width="317" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start from" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Phm-gK-cOl">
-                                        <rect key="frame" x="0.0" y="0.0" width="56" height="17.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="56" height="17"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                         <color key="textColor" red="0.73725490199999999" green="0.72549019609999998" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barwa City - Al grahim" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLz-Lz-BmO">
-                                        <rect key="frame" x="0.0" y="20.5" width="168" height="23"/>
-                                        <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
-                                        <color key="textColor" red="0.0039215686269999999" green="0.38431372549999998" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="YhB-hH-rYV">
+                                        <rect key="frame" x="0.0" y="22" width="191" height="24"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stop" translatesAutoresizingMaskIntoConstraints="NO" id="enc-e0-7ky">
+                                                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="Eq2-DR-N1v"/>
+                                                    <constraint firstAttribute="height" constant="20" id="wkx-qq-Z3R"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barwa City - Al grahim" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLz-Lz-BmO">
+                                                <rect key="frame" x="23" y="0.0" width="168" height="19.5"/>
+                                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
+                                                <color key="textColor" red="0.0039215686269999999" green="0.38431372549999998" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Depart at 9:40 pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ff9-gd-oGG">
-                                        <rect key="frame" x="0.0" y="46.5" width="101.5" height="18.5"/>
+                                        <rect key="frame" x="0.0" y="51" width="101.5" height="19"/>
                                         <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
                                         <color key="textColor" red="0.0039215686269999999" green="0.38431372549999998" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
@@ -56,7 +68,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="mU9-Ja-1PZ" secondAttribute="bottom" constant="10" id="CCK-d9-YD9"/>
-                            <constraint firstItem="mU9-Ja-1PZ" firstAttribute="top" secondItem="c3V-1f-wev" secondAttribute="top" constant="10" id="OPG-Zc-jrA"/>
+                            <constraint firstItem="mU9-Ja-1PZ" firstAttribute="top" secondItem="c3V-1f-wev" secondAttribute="top" constant="5" id="OPG-Zc-jrA"/>
                             <constraint firstAttribute="trailing" secondItem="mU9-Ja-1PZ" secondAttribute="trailing" constant="10" id="S5u-bm-uMc"/>
                             <constraint firstAttribute="height" constant="85" id="fft-H8-09y"/>
                             <constraint firstItem="mU9-Ja-1PZ" firstAttribute="leading" secondItem="c3V-1f-wev" secondAttribute="leading" constant="10" id="g3K-Mb-0GX"/>
@@ -90,10 +102,17 @@
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="414" height="176"/>
+            <connections>
+                <outlet property="addressLabel" destination="dLz-Lz-BmO" id="1oj-87-mp4"/>
+                <outlet property="bgView" destination="c3V-1f-wev" id="BtQ-h7-3Pe"/>
+                <outlet property="timeLabel" destination="ff9-gd-oGG" id="DYq-KI-vwF"/>
+                <outlet property="titleLabel" destination="Phm-gK-cOl" id="ecF-v5-1ke"/>
+            </connections>
             <point key="canvasLocation" x="-226.81159420289856" y="2.34375"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="stop" width="20" height="25"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -114,7 +114,11 @@
             </collectionViewCellContentView>
             <size key="customSize" width="462" height="306"/>
             <connections>
+                <outlet property="addressLabel" destination="dLz-Lz-BmO" id="ahI-Qs-ISC"/>
+                <outlet property="bgView" destination="c3V-1f-wev" id="4ae-hW-ita"/>
                 <outlet property="imgLegTypeView" destination="caA-al-MYB" id="Pm6-3M-Vvv"/>
+                <outlet property="timeLabel" destination="ff9-gd-oGG" id="XOa-1n-xuX"/>
+                <outlet property="titleLabel" destination="Phm-gK-cOl" id="u3j-0T-zen"/>
             </connections>
             <point key="canvasLocation" x="-192.0289855072464" y="45.870535714285715"/>
         </collectionViewCell>

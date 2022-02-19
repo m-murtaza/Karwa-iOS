@@ -133,13 +133,11 @@ class KTKarwaBusPlanTripViewController: KTBaseViewController, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let headerLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: tableView.frame.height))
         headerLabel.text = "Suggested Routes"
         headerLabel.font = UIFont(name: "MuseoSans-900", size: 14.0)
         headerLabel.textColor = .lightText
         return headerLabel
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -164,7 +162,6 @@ class KTKarwaBusPlanTripViewController: KTBaseViewController, UITableViewDelegat
             cell.contentView.addGestureRecognizer(cell.legsScrollView.panGestureRecognizer)
             return cell
         }
-        
        
     }
     

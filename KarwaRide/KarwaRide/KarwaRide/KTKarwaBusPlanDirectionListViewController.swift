@@ -399,6 +399,14 @@ extension KTKarwaBusPlanDirectionListViewController {
         }
         return UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let busStoryboard = UIStoryboard(name: "BusStoryBoard", bundle: .main)
+        let directionController = busStoryboard.instantiateViewController(withIdentifier: "KTKarwaBusPlanDirectionViewController") as? KTKarwaBusPlanDirectionViewController
+        directionController?.itenary = itenary
+        directionController?.selectedIndex = indexPath.row
+        self.navigationController?.pushViewController(directionController!, animated: true)
+    }
 }
 
 class KTKarwaDirectionTableViewCell: UITableViewCell {

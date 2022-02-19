@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="MuseoSans-500.otf">
+            <string>MuseoSans-500</string>
+        </array>
+        <array key="MuseoSans-700.otf">
+            <string>MuseoSans-700</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RouteKarwaBusCarouselCell" customModule="KarwaRide" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RouteKarwaBusCarouselCell" id="tUT-uY-9Yj" userLabel="RouteKarwaBookCarouselCell" customClass="RouteKarwaBusCarouselCell" customModule="KarwaRide" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="385" height="239"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ECS-YN-Nhw">
+                <rect key="frame" x="0.0" y="0.0" width="385" height="239"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c3V-1f-wev">
+                        <rect key="frame" x="0.0" y="33" width="385" height="200"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GXJ-Se-nLe">
+                                <rect key="frame" x="20" y="0.0" width="344" height="200"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wait for" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0az-yC-JXd">
+                                        <rect key="frame" x="10" y="7" width="324" height="13.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="13.5" id="TFg-gu-7so"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
+                                        <color key="textColor" red="0.73725490199999999" green="0.72549019609999998" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barwa City - Al grahim" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FV9-gd-m7q">
+                                        <rect key="frame" x="10" y="47" width="168" height="19.5"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
+                                        <color key="textColor" red="0.0039215686269999999" green="0.38431372549999998" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Depart at 9:40 pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKr-be-vP7">
+                                        <rect key="frame" x="10" y="72.5" width="324" height="13"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="13" id="SMs-BC-6gT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
+                                        <color key="textColor" red="0.0039215686269999999" green="0.38431372549999998" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="LQL-W0-aAY">
+                                        <rect key="frame" x="10" y="125.5" width="324" height="58.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ride to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qi6-6x-Tvr">
+                                                <rect key="frame" x="0.0" y="0.0" width="39.5" height="14.5"/>
+                                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
+                                                <color key="textColor" red="0.73725490199999999" green="0.72549019609999998" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barwa City - Al grahim" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzd-Tm-Ybf">
+                                                <rect key="frame" x="0.0" y="19.5" width="168" height="19.5"/>
+                                                <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="16"/>
+                                                <color key="textColor" red="0.0039215686269999999" green="0.38431372549999998" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Depart at 9:40 pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zL5-fW-iN3">
+                                                <rect key="frame" x="0.0" y="44" width="101.5" height="14.5"/>
+                                                <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="12"/>
+                                                <color key="textColor" red="0.0039215686269999999" green="0.38431372549999998" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rjY-HP-qFk">
+                                        <rect key="frame" x="9" y="92.5" width="132" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="vAK-Zg-AtY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MuseoSans-500" family="Museo Sans" pointSize="11"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="More Details &amp; Schedules "/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGv-Gu-qew" customClass="PaddingLabel" customModule="KarwaRide" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="26" width="15.5" height="17"/>
+                                        <fontDescription key="fontDescription" name="MuseoSans-700" family="Museo Sans" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="customBorderWidth">
+                                                <real key="value" value="1.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="customBorderColor">
+                                                <color key="value" red="0.14117647059999999" green="0.3411764706" blue="0.39607843139999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <real key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aoQ-Os-Bxu">
+                                        <rect key="frame" x="10" y="117.5" width="324" height="1"/>
+                                        <color key="backgroundColor" red="0.72549019609999998" green="0.73725490199999999" blue="0.72549019609999998" alpha="0.48467003400000003" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="1" id="5SY-mY-EG3"/>
+                                            <constraint firstAttribute="height" constant="1" id="h8k-UN-yQr"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="FV9-gd-m7q" firstAttribute="leading" secondItem="GXJ-Se-nLe" secondAttribute="leading" constant="10" id="32M-ei-vwc"/>
+                                    <constraint firstItem="mGv-Gu-qew" firstAttribute="leading" secondItem="GXJ-Se-nLe" secondAttribute="leading" constant="10" id="7PN-vI-wf4"/>
+                                    <constraint firstItem="gKr-be-vP7" firstAttribute="leading" secondItem="GXJ-Se-nLe" secondAttribute="leading" constant="10" id="Ain-nO-bnu"/>
+                                    <constraint firstAttribute="trailing" secondItem="gKr-be-vP7" secondAttribute="trailing" constant="10" id="C7C-5w-8gE"/>
+                                    <constraint firstItem="0az-yC-JXd" firstAttribute="leading" secondItem="GXJ-Se-nLe" secondAttribute="leading" constant="10" id="CyH-yB-A9T"/>
+                                    <constraint firstItem="rjY-HP-qFk" firstAttribute="leading" secondItem="GXJ-Se-nLe" secondAttribute="leading" constant="9" id="DuK-MR-fQP"/>
+                                    <constraint firstAttribute="trailing" secondItem="aoQ-Os-Bxu" secondAttribute="trailing" constant="10" id="GnS-aC-fmA"/>
+                                    <constraint firstItem="FV9-gd-m7q" firstAttribute="top" secondItem="mGv-Gu-qew" secondAttribute="bottom" constant="4" id="MRB-kQ-FQc"/>
+                                    <constraint firstItem="rjY-HP-qFk" firstAttribute="top" secondItem="gKr-be-vP7" secondAttribute="bottom" constant="7" id="VNu-9T-GGP"/>
+                                    <constraint firstItem="0az-yC-JXd" firstAttribute="top" secondItem="GXJ-Se-nLe" secondAttribute="top" constant="7" id="eL1-Bh-UES"/>
+                                    <constraint firstItem="mGv-Gu-qew" firstAttribute="top" secondItem="0az-yC-JXd" secondAttribute="bottom" constant="5.5" id="eYw-bG-zIT"/>
+                                    <constraint firstItem="aoQ-Os-Bxu" firstAttribute="leading" secondItem="GXJ-Se-nLe" secondAttribute="leading" constant="10" id="opH-Em-qP2"/>
+                                    <constraint firstAttribute="trailing" secondItem="0az-yC-JXd" secondAttribute="trailing" constant="10" id="pp8-bC-Y0i"/>
+                                    <constraint firstItem="LQL-W0-aAY" firstAttribute="leading" secondItem="GXJ-Se-nLe" secondAttribute="leading" constant="10" id="sec-Nz-APR"/>
+                                    <constraint firstItem="LQL-W0-aAY" firstAttribute="top" secondItem="aoQ-Os-Bxu" secondAttribute="bottom" constant="7" id="tK2-ha-bNI"/>
+                                    <constraint firstItem="gKr-be-vP7" firstAttribute="top" secondItem="FV9-gd-m7q" secondAttribute="bottom" constant="6" id="uDX-cR-spi"/>
+                                    <constraint firstItem="aoQ-Os-Bxu" firstAttribute="top" secondItem="rjY-HP-qFk" secondAttribute="bottom" constant="4" id="ukn-jK-kol"/>
+                                    <constraint firstAttribute="trailing" secondItem="LQL-W0-aAY" secondAttribute="trailing" constant="10" id="vdE-fY-Bma"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="customBorderColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="GXJ-Se-nLe" firstAttribute="top" secondItem="c3V-1f-wev" secondAttribute="top" id="6ak-ZM-BpM"/>
+                            <constraint firstItem="GXJ-Se-nLe" firstAttribute="leading" secondItem="c3V-1f-wev" secondAttribute="leading" constant="20" id="UAx-aF-gha"/>
+                            <constraint firstAttribute="bottom" secondItem="GXJ-Se-nLe" secondAttribute="bottom" id="adV-ui-auW"/>
+                            <constraint firstAttribute="trailing" secondItem="GXJ-Se-nLe" secondAttribute="trailing" constant="21" id="nGf-DL-Kc0"/>
+                            <constraint firstAttribute="height" constant="200" id="xwY-BJ-nrA"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="customCornerRadius">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="customBorderColor">
+                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="customShadowRadius">
+                                <real key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="customShadowOpacity">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="customShadowOffset">
+                                <size key="value" width="1" height="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="customShadowColor">
+                                <color key="value" systemColor="systemGray5Color"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="c3V-1f-wev" secondAttribute="bottom" constant="6" id="WBh-m2-qhT"/>
+                    <constraint firstAttribute="trailing" secondItem="c3V-1f-wev" secondAttribute="trailing" id="XAE-41-XJV"/>
+                    <constraint firstItem="c3V-1f-wev" firstAttribute="leading" secondItem="ECS-YN-Nhw" secondAttribute="leading" id="zcK-wp-ooF"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="462" height="306"/>
+            <connections>
+                <outlet property="addressLbl" destination="FV9-gd-m7q" id="BmR-Wh-oD6"/>
+                <outlet property="bgView" destination="c3V-1f-wev" id="V7L-4B-4nr"/>
+                <outlet property="busNumberLbl" destination="mGv-Gu-qew" id="C50-Ag-WkF"/>
+                <outlet property="rideToAddressLbl" destination="kzd-Tm-Ybf" id="ixz-gy-wp7"/>
+                <outlet property="rideToTimeLbl" destination="zL5-fW-iN3" id="4EK-ee-9K5"/>
+                <outlet property="timeLbl" destination="gKr-be-vP7" id="m5S-rf-OQn"/>
+            </connections>
+            <point key="canvasLocation" x="-192.0289855072464" y="45.870535714285715"/>
+        </collectionViewCell>
+    </objects>
+    <designables>
+        <designable name="mGv-Gu-qew">
+            <size key="intrinsicContentSize" width="15.5" height="17"/>
+        </designable>
+    </designables>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

@@ -19,12 +19,12 @@ class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView : GMSMapView!
+    var itenary: Itinerary?
     let busStoryboard = UIStoryboard(name: "BusStoryBoard", bundle: .main)
 
     var screenSize: CGRect!
     var widthRatio = 0.8
     var selectedIndex = 0
-    var showList = true
 
     fileprivate var pageSize: CGSize {
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
@@ -46,13 +46,15 @@ class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
         }
         self.addMap()
     }
-        
+    
     func setupCV(){
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: String(describing: RouteDetailCarouselCell.self), bundle:nil), forCellWithReuseIdentifier: String(describing: RouteDetailCarouselCell.self))
         collectionView.register(UINib(nibName: String(describing: RouteWalkCarouselCell.self), bundle:nil), forCellWithReuseIdentifier: String(describing: RouteWalkCarouselCell.self))
         collectionView.register(UINib(nibName: String(describing: RouteKarwaBookCarouselCell.self), bundle:nil), forCellWithReuseIdentifier: String(describing: RouteKarwaBookCarouselCell.self))
+        collectionView.register(UINib(nibName: String(describing: RouteKarwaBusCarouselCell.self), bundle:nil), forCellWithReuseIdentifier: String(describing: RouteKarwaBusCarouselCell.self))
+
         let layout = UPCarouselFlowLayout()
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 10)
         layout.sideItemScale = 0.8
@@ -62,20 +64,11 @@ class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         collectionView.collectionViewLayout = layout
-        self.pageControl.numberOfPages = 10
+        self.pageControl.numberOfPages = (self.itenary?.legs?.count ?? 0) + 1
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        showList = true
-    }
-    
-    @objc func setMapView() {
-        if #available(iOS 13.0, *) {
-            mapToggleBtn.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
-        } else {
-            // Fallback on earlier versions
-        }
-        showList = true
+
     }
     
     @IBAction func toggleDirectionView(_ sender: UIButton) {
@@ -123,34 +116,64 @@ class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
 
 }
 
-extension KTKarwaBusPlanDirectionViewController: UIViewControllerTransitioningDelegate {
-    // 2.
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        FilterPresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}
-
-
 extension KTKarwaBusPlanDirectionViewController: UICollectionViewDataSource {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return (itenary?.legs?.count ?? 0) + 1
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if indexPath.row % 2 == 0 {
+        if indexPath.row == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RouteDetailCarouselCell.self), for: indexPath) as! RouteDetailCarouselCell
+            cell.bgView.backgroundColor = UIColor.white
+            cell.titleLabel.text = "Start from"
+            cell.addressLabel.text = suggestedRoutes.plan?.from?.name ?? ""
+            let date = Date(timeIntervalSince1970: TimeInterval(Double(suggestedRoutes.plan?.date ?? 0)))
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a dd MMM yyyy"
+            let dateString = dateFormatter.string(from: date)
+            cell.timeLabel.text = "Departs at \(dateString)"
             return cell
-        } else if indexPath.row % 3 == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RouteWalkCarouselCell.self), for: indexPath) as! RouteWalkCarouselCell
-            return cell
-        }
-        else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RouteKarwaBookCarouselCell.self), for: indexPath) as! RouteKarwaBookCarouselCell
-            return cell
+        } else {
+            if let leg = itenary?.legs?[indexPath.row - 1] {
+                
+                if leg.mode! == "WALK" {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RouteWalkCarouselCell.self), for: indexPath) as! RouteWalkCarouselCell
+                    cell.titleLabel.text = "Walk to"
+                    cell.addressLabel.text = leg.to?.name ?? ""
+                    cell.timeLabel.text = "\(Int(leg.distance ?? 0)) m • \((leg.duration ?? 0)/60) min"
+                    return cell
+                } else if leg.mode! == "BUS" {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: RouteKarwaBusCarouselCell.self), for: indexPath) as! RouteKarwaBusCarouselCell
+                    cell.busNumberLbl.addLeading(image: UIImage(named: "BusListing")!, text: "\(leg.routeShortName ?? "") ", imageOffsetY: 0)
+                    cell.busNumberLbl.customBorderColor = UIColor(hexString: "\(leg.routeColor ?? "")")
+                    cell.addressLbl.text = leg.from?.name ?? ""
+                    let date = Date(timeIntervalSince1970: TimeInterval(Double(suggestedRoutes.plan?.date ?? 0)))
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "h:mm a dd MMM yyyy"
+                    let dateString = dateFormatter.string(from: date)
+                    cell.timeLbl.text = "Departs at \(dateString)"
+                    
+                    let departTime = Date(timeIntervalSince1970: TimeInterval(Double(leg.from?.departure ?? 0)))
+                    let timeFormatter = DateFormatter()
+                    timeFormatter.dateFormat = "h:mm a dd/mm/yyyy"
+                    let timeString = timeFormatter.string(from: departTime)
+                    
+                    let arrivalTime = Date(timeIntervalSince1970: TimeInterval(Double(leg.from?.arrival ?? 0)))
+                    let arrivalTimeFormatter = DateFormatter()
+                    arrivalTimeFormatter.dateFormat = "h:mm a dd/mm/yyyy"
+                    let arrtimeString = arrivalTimeFormatter.string(from: arrivalTime)
+                    
+                    cell.timeLbl.text = "\(timeString) - \(arrtimeString)"
+                    cell.rideToAddressLbl.text = leg.to?.name ?? ""
+                    cell.rideToTimeLbl.text = "\(Int(leg.distance ?? 0)) m • \((leg.duration ?? 0)/60) min"
+                    return cell
+                }
+            }
         }
         
+        return UICollectionViewCell()
         
     }
 }
@@ -178,6 +201,20 @@ extension KTKarwaBusPlanDirectionViewController: UICollectionViewDelegate {
         if selectedIndex != currentItem {
             selectedIndex = currentItem
         }
+//        
+//        if selectedIndex == 0 {
+//            
+//        }
+//        
+//        if let leg = itenary?.legs?[selectedIndex] {
+//            if let path = GMSMutablePath(fromEncodedPath: leg.legGeometry?.points ?? "") {
+//                path.coordinate(at:0)
+//                let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(path.coordinate(at:0), zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+//                self.mapView.animate(with: update)
+//            }
+//        }
+        
+        
     }
         
     func animateLegType(index: Int) {
