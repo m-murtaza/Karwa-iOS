@@ -1553,9 +1553,6 @@ extension KTAddressPickerViewController {
             (viewModel as! KTAddressPickerViewModel).metroStations = self.destinationForPickUp
             getFavouriteMetroStations()
         }
-        
-        
-        
         self.tblView.reloadData()
     }
     
@@ -1584,7 +1581,6 @@ extension KTAddressPickerViewController {
                 return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
             }
             if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
-                
                 if item.type! == "Zone" {
                     selectedRSPickZone = item
                 } else if item.type! == "MetroStation" || item.type! == "TramStation" {
@@ -1610,7 +1606,6 @@ extension KTAddressPickerViewController {
             let actualLocation = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
             let sources = Set(destinations.map({$0.source}))
             let destination = Set(destinations.map({$0.destination}))
-
             var pickArea = [Area]()
             
             for item in sources {
@@ -1636,7 +1631,6 @@ extension KTAddressPickerViewController {
                         showOutZoneMessage("str_outzone".localized())
                     }
                 } else if selectedRSPickStation != nil {
-
                     var dropArea = [Area]()
                     var destinationStationArray = destinations.filter({$0.source! == selectedRSPickStation?.code!}).map({$0.destination})
                     let stopsOfStations = stops.filter({$0.parent! == selectedRSPickStation?.code!})
@@ -1655,7 +1649,7 @@ extension KTAddressPickerViewController {
                         self.dismiss(animated: true, completion: nil)
                     } else {
                         txtDropAddress.becomeFirstResponder()
-                        showOutZoneMessage("str_outzone".localized())
+                        showOutZoneMessage("SETTODROPZONE".localized())
                     }
                     
                 }
@@ -1746,29 +1740,8 @@ extension KTAddressPickerViewController {
 
                         self.dismiss(animated: true, completion: nil)
                         
-                        
                     }
                 }
-                
-//                switch type {
-//                case .PickupAddress:
-//
-//                case .DropoffAddress:
-////                    selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude)
-////                    if loc.type! == "Zone" {
-////                        selectedRSDropZone = loc
-////                    } else {
-////                        selectedRSDropStation = loc
-////                        let stopOfStations = areas.filter{$0.parent == selectedRSDropStation?.code}
-////                        selectedRSDropStop = stopOfStations.first!
-////                        selectedRSDropZone = areas.filter{$0.code == selectedRSDropStation?.parent}.first!
-////                    }
-////                    txtDropAddress.isUserInteractionEnabled = true
-////                    self.setDropLocations()
-//                    break
-//                }
-                
-    
             }
         }
     }
