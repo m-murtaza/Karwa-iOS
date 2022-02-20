@@ -43,6 +43,23 @@ extension KTKarwaBusPlanDirectionViewController: GMSMapViewDelegate{
             i += 1
         }
         
+        if let leg = itenary?.legs?[selectedIndex] {
+            if let path = GMSMutablePath(fromEncodedPath: leg.legGeometry?.points ?? "") {
+                path.coordinate(at:0)
+                let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(path.coordinate(at:0), zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+                self.mapView.animate(with: update)
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.scrollToSelectedIndex()
+        }
+        
+    }
+    
+    func scrollToSelectedIndex() {
+        collectionView.scrollToItem(at: IndexPath(row: selectedIndex, section: 0), at: .centeredHorizontally, animated: true)
+
     }
     
     func focusMapToCurrentLocation() {
@@ -82,13 +99,13 @@ extension KTKarwaBusPlanDirectionViewController: GMSMapViewDelegate{
                   addMarkerOnMap(location: dropoff, image: UIImage(named: "dropoff_pin")!)
               }
               
-              let inset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-              
-      //        // focus to fit all the point including path, pick and destination in map camera
-              focusMapToFitRoute(pointA: path.coordinate(at: 0),
-                                 pointB: path.coordinate(at: path.count()-1),
-                                 path: path,
-                                 inset: inset)
+//              let inset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+//
+//      //        // focus to fit all the point including path, pick and destination in map camera
+//              focusMapToFitRoute(pointA: path.coordinate(at: 0),
+//                                 pointB: path.coordinate(at: path.count()-1),
+//                                 path: path,
+//                                 inset: inset)
                 
           }
           

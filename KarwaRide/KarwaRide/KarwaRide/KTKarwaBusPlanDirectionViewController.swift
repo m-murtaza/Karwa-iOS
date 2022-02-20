@@ -41,10 +41,9 @@ class KTKarwaBusPlanDirectionViewController: KTBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.setupCV()
-        }
+        self.setupCV()
         self.addMap()
+
     }
     
     func setupCV(){
@@ -201,19 +200,22 @@ extension KTKarwaBusPlanDirectionViewController: UICollectionViewDelegate {
         if selectedIndex != currentItem {
             selectedIndex = currentItem
         }
-//        
-//        if selectedIndex == 0 {
-//            
-//        }
-//        
-//        if let leg = itenary?.legs?[selectedIndex] {
-//            if let path = GMSMutablePath(fromEncodedPath: leg.legGeometry?.points ?? "") {
-//                path.coordinate(at:0)
-//                let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(path.coordinate(at:0), zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
-//                self.mapView.animate(with: update)
-//            }
-//        }
         
+        print("selectedIndex", selectedIndex)
+        
+        if selectedIndex == -1 {
+            selectedIndex = 0
+        }
+        
+        if selectedIndex < itenary?.legs?.count ?? 0 {
+            if let leg = itenary?.legs?[selectedIndex] {
+                if let path = GMSMutablePath(fromEncodedPath: leg.legGeometry?.points ?? "") {
+                    path.coordinate(at:0)
+                    let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(path.coordinate(at:0), zoom: KTCreateBookingConstants.DEFAULT_MAP_ZOOM)
+                    self.mapView.animate(with: update)
+                }
+            }
+        }
         
     }
         
