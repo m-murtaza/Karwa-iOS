@@ -18,6 +18,7 @@ var zones = [Area]()
 var zonalArea = [[String : [Area]]]()
 var destinations = [Destination]()
 var stops = [Area]()
+var allStations = [Area]()
 var pickUpArea = [Area]()
 var dropOffArea = [Area]()
 var selectedRSPickUpCoordinate: CLLocationCoordinate2D?
@@ -107,6 +108,9 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
                 
                 stops.append(contentsOf: metroStopsArea)
                 stops.append(contentsOf: tramStopsArea)
+
+                allStations.append(contentsOf: metroStations)
+                allStations.append(contentsOf: tramStations)
 
                 for item in zonalArea {
                     print("Zonal Area", item)

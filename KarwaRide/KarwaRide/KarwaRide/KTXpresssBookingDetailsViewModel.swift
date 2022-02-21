@@ -189,7 +189,10 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     
     //MARK:- Driver Info
     func callDriver() {
-        guard let phone : String = booking?.driverPhone else {
+        
+        UIApplication.shared.open(URL(string: "TEL://+97444588888")!)
+        
+        /*guard let phone : String = booking?.driverPhone else {
             del?.showError!(title: "Error", message: "Driver phone number is not available")
             return
         }
@@ -198,7 +201,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         }
         else {
             del?.showError!(title: "Error", message: "Driver phone number is not available")
-        }
+        }*/
         
     }
     
