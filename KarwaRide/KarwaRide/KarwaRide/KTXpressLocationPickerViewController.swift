@@ -126,6 +126,7 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
         } else {
             if bookingSuccessful == true {
                 self.passengerLabel.text = "str_1pass".localized()
+                countOfPassenger = 1
                 plusBtn.layer.opacity = 1
                 minuBtn.layer.opacity = 0.5
             }
@@ -1478,7 +1479,6 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
     
     fileprivate func setDropStop(_ dropOffCalled: inout Bool) {
         let stopOfStations = areas.filter{$0.parent == selectedRSDropStation?.code}
-        selectedRSDropZone = areas.filter{$0.code == selectedRSDropStation?.parent}.first!
         selectedRSDropStop = stopOfStations.first!
         selectedRSDropOffCoordinate = getCenterPointOfPolygon(bounds: selectedRSDropStation?.bound! ?? "")
         
@@ -1522,9 +1522,45 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
     fileprivate func setDropLocations() {
         
         var dropOffCalled = false
+        var noDropZone = false
         
-        if selectedRSPickStation != nil {
-            let destination = destinations.filter({$0.source == selectedRSPickStop?.code})
+        var destination = destinations.filter({$0.source == selectedRSPickStop?.code})
+        if destination.count > 0 {
+            for item in destination {
+                let pickupzones = zones.filter({$0.code == item.destination!})
+                for item in pickupzones {
+                    let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                        return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                    })!
+                    if  CLLocationCoordinate2D(latitude: selectedRSDropOffCoordinate?.latitude ?? 0.0, longitude: selectedRSDropOffCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
+                        selectedRSDropZone = item
+                        noDropZone = true
+                        break
+                    }
+                }
+            }
+        }
+        
+        destination = destinations.filter({$0.source == selectedRSPickStation?.code})
+        if destination.count > 0 {
+            for item in destination {
+                let pickupzones = zones.filter({$0.code == item.destination!})
+                for item in pickupzones {
+                    let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                        return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+                    })!
+                    if  CLLocationCoordinate2D(latitude: selectedRSDropOffCoordinate?.latitude ?? 0.0, longitude: selectedRSDropOffCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
+                        selectedRSDropZone = item
+                        noDropZone = true
+                        break
+                    }
+                }
+            }
+        }
+        
+        destination = destinations.filter({$0.source == selectedRSPickZone?.code})
+        
+        if selectedRSPickStation == nil && selectedRSPickStop == nil && selectedRSPickZone != nil{
             if destination.count > 0 {
                 for item in destination {
                     let pickupzones = zones.filter({$0.code == item.destination!})
@@ -1534,6 +1570,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                         })!
                         if  CLLocationCoordinate2D(latitude: selectedRSDropOffCoordinate?.latitude ?? 0.0, longitude: selectedRSDropOffCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
                             selectedRSDropZone = item
+                            noDropZone = true
                             break
                         }
                     }
@@ -1541,31 +1578,18 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
             }
         }
         
-        if selectedRSDropZone == nil {
-            for item in zones {
-                let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
-                    return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
-                })!
-                if  CLLocationCoordinate2D(latitude: selectedRSDropOffCoordinate?.latitude ?? 0.0, longitude: selectedRSDropOffCoordinate?.longitude ?? 0.0).contained(by: coordinates) {
-                    selectedRSDropZone = item
-                    break
-                }
-            }
-        } else {
-            
+        if noDropZone == false {
+            selectedRSDropZone = selectedRSPickZone
         }
         
         if selectedRSDropStation == nil {
-            let stationsOfZone = zonalArea.filter{$0["zone"]?.first!.code == selectedRSDropZone!.code}.first!["stations"]
             
-            var destinationStation = [Area]()
-            for item in stationsOfZone ?? [Area]() {
-                if let destinationCode =  destinations.filter({$0.destination == item.code!}).map({$0.destination!}).first {
-                    destinationStation.append(contentsOf: (areas.filter{$0.code == destinationCode}))
-                }
+            var stationsOfZone = [Area]()
+            for item in destination {
+                stationsOfZone.append(contentsOf: allStations.filter({$0.code! == item.destination!}))
             }
             
-            for item in destinationStation ?? [Area]() {
+            for item in stationsOfZone {
                 let coordinates = (item.bound?.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
                     return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
                 })!
@@ -1575,11 +1599,11 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     break
                 }
             }
-
+            
             if selectedRSDropStation != nil {
                 setDropStop(&dropOffCalled)
             }
-
+            
         } else if selectedRSDropStation != nil && selectedRSDropStop == nil {
             setDropStop(&dropOffCalled)
         } else {
@@ -1592,29 +1616,6 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                 setDropOff()
             }
         }
-//            else if selectedRSDropStation != nil && selectedRSDropZone != nil && selectedRSDropStop == nil{
-//            if dropOffCalled == false {
-//                let source = destinations.filter({$0.source == selectedRSPickStop?.code})
-//                if source.count > 0 {
-//                    let new = source.map{$0.destination}
-//                    if new.count > 0 {
-//                        for item in new {
-//                            selectedRSDropZone = zones.filter({$0.code! == item!}).first!
-//                        }
-//                    }
-//                }
-//
-//                let stopOfStations = areas.filter{$0.parent == selectedRSDropStation?.code}
-//                if stopOfStations.count == 1 {
-//                    selectedRSDropStop = stopOfStations.first!
-//                }
-//
-//                setDropOff()
-//            }
-//        }
-        
-
-        
     }
     
     func getDestinationForAddressScreen() {

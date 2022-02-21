@@ -85,7 +85,9 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var shimmerImageView: UIImageView!
     
     var oneTimeSetSizeForBottomSheet = false
-
+    var bottomsheetSizeSet = false
+    var previousBookingStatus = Int32()
+    
     lazy var fareBreakDownView: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -391,6 +393,13 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func updateBookingBottomSheet()
     {
+        if previousBookingStatus != vModel?.bookingStatii() {
+            previousBookingStatus = (vModel?.bookingStatii())!
+            bottomsheetSizeSet = false
+        } else {
+            bottomsheetSizeSet = true
+        }
+        
         self.sheet?.handleScrollView(self.scrollView)
 //        self.scrollView.isScrollEnabled = false
         KTPaymentManager().fetchPaymentsFromServer{(status, response) in}
@@ -532,7 +541,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             constraintDriverInfoMarginTop.constant = showDescription() ? 150 + 65 : 150
             constraintVehicleInfoMarginTop.constant = showDescription() ? 250 + 65 : 250
 
-            if oneTimeSetSizeForBottomSheet == false {
+            if bottomsheetSizeSet == false {
                 DispatchQueue.main.async {
                     if self.vModel?.getBookingOtp() != nil {
                         self.constraintViewRideActionsTop.constant = self.showDescription() ? 328 + 65 : 328
@@ -547,8 +556,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
                     } else {
                         self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
                     }
-                    
-                    self.oneTimeSetSizeForBottomSheet = true
                 }
             }
             
@@ -756,27 +763,31 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
            
             hideSeperatorBeforeReportAnIssue()
             
-            if showOTP() == true && showDescription() == true {
-                DispatchQueue.main.async {
-                    self.heightOFScrollViewContent.constant = 800
-                    self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
-                }
-            } else if showOTP() == true && showDescription() == true {
-                DispatchQueue.main.async {
-                    self.heightOFScrollViewContent.constant = 700
-                    self.sheet?.setSizes([.percent(0.45),.marginFromTop(150)], animated: true)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    if self.vModel?.getBookingOtp() != nil {
-                        self.constraintViewRideActionsTop.constant = 325
-                    } else {
-                        self.constraintViewRideActionsTop.constant = 350
+            if bottomsheetSizeSet == false {
+                if showOTP() == true && showDescription() == true {
+                    DispatchQueue.main.async {
+                        self.heightOFScrollViewContent.constant = 800
+                        self.sheet?.setSizes([.percent(0.25),.marginFromTop(150)], animated: true)
                     }
-                    self.heightOFScrollViewContent.constant = 650
-                    self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
+                } else if showOTP() == true && showDescription() == true {
+                    DispatchQueue.main.async {
+                        self.heightOFScrollViewContent.constant = 700
+                        self.sheet?.setSizes([.percent(0.45),.marginFromTop(150)], animated: true)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        if self.vModel?.getBookingOtp() != nil {
+                            self.constraintViewRideActionsTop.constant = 325
+                        } else {
+                            self.constraintViewRideActionsTop.constant = 350
+                        }
+                        self.heightOFScrollViewContent.constant = 650
+                        self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
+                    }
                 }
             }
+            
+
             
             self.viewRideInfo.isHidden = false
             self.view.bringSubview(toFront: self.viewRideInfo)

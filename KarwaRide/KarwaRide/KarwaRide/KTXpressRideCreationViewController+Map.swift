@@ -22,7 +22,7 @@ extension KTXpressRideCreationViewController
         
         dropOffLocationMarker = self.addAndGetMarkerOnMap(location: selectedRSDropOffCoordinate!, image: #imageLiteral(resourceName: "BookingMapDirectionDropOff"))
 
-        let padding = UIEdgeInsets(top: 100, left: 20, bottom: 100, right: 100)
+        let padding = UIEdgeInsets(top: -50, left: -30, bottom: 50, right: -40)
         mapView.padding = padding
         self.mapView.settings.rotateGestures = false
         self.mapView.settings.tiltGestures = false
@@ -55,7 +55,7 @@ extension KTXpressRideCreationViewController
         gmsMarker = [pickUpLocationMarker,dropOffLocationMarker]
         
         self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
-        mapView.animate(toZoom: 15)
+//        mapView.animate(toZoom: 15)
         
         showCurrentLocationDot(show: true)
                 
@@ -69,12 +69,16 @@ extension KTXpressRideCreationViewController
         }
         
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 10)
-        
+        update = GMSCameraUpdate.fit(bounds,
+                                     with: UIEdgeInsets(top: -50, left: -30, bottom: 50, right: -40))
+
         CATransaction.begin()
         CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
-        mapView.moveCamera(update!)
+        mapView.animate(with: update!)
         CATransaction.commit()
+        
+        mapView.setMinZoom(1, maxZoom: 17) // allow the user zoom in more than level 15 again
+        
     }
     
     func addMarkerForServerPickUpLocation(coordinate: CLLocationCoordinate2D, dropCoordinate: CLLocationCoordinate2D) {
@@ -116,16 +120,7 @@ extension KTXpressRideCreationViewController
         } else {
             pickUpLocationMarker.map = nil
         }
-        
-//        if coordinate.latitude == selectedRSPickUpCoordinate!.latitude {
-//            pickUpLocationMarker.map = nil
-//        } else {
-//            pickUpLocationMarker.map = self.mapView
-//            self.drawArc(startLocation: selectedRSPickUpCoordinate!, endLocation: coordinate)
-//        }
-        
-        
-        
+    
         if self.vModel?.rideServicePickDropOffData?.dropOfSftation != nil {
             dropOffLocationMarker.map = nil
         } else {
@@ -136,12 +131,6 @@ extension KTXpressRideCreationViewController
             } else {
                 dropOffLocationMarker.map = nil
             }
-//            if dropCoordinate.latitude == selectedRSDropOffCoordinate!.latitude {
-//                dropOffLocationMarker.map = nil
-//            } else {
-//                dropOffLocationMarker.map = self.mapView
-//                self.drawArc(startLocation: selectedRSDropOffCoordinate!, endLocation: dropCoordinate)
-//            }
         }
         
         var bounds = GMSCoordinateBounds()
@@ -153,7 +142,7 @@ extension KTXpressRideCreationViewController
         gmsMarker = [pickUpLocationMarker,dropOffLocationMarker,serverPickUpLocationMarker]
         
         self.focusMapToShowAllMarkers(gmsMarker: gmsMarker)
-        mapView.animate(toZoom: 14)
+       // mapView.animate(toZoom: 14)
         
     }
     
@@ -173,7 +162,8 @@ extension KTXpressRideCreationViewController
             polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths as [NSNumber], .rhumb)
             
             let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)
-            let insets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+            let insets = UIEdgeInsets(top: -50, left: -30, bottom: 50, right: -40)
+
             let camera = mapView.camera(for: bounds, insets: insets)!
             mapView.animate(to: camera)
         }
@@ -215,7 +205,7 @@ extension KTXpressRideCreationViewController
             bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
             polyline.strokeColor = bgPolylineColor
             
-            let inset = UIEdgeInsets(top: 150, left: 50, bottom: self.view.frame.height/2, right: 50)
+            let inset = UIEdgeInsets(top: -50, left: -30, bottom: 50, right: -40)
             
             // focus to fit all the point including path, pick and destination in map camera
             self.focusMapToFitRoute(pointA: startLocation,
@@ -287,7 +277,7 @@ extension KTXpressRideCreationViewController
       addMarkerOnMap(location: pickup, image: UIImage(named: "BookingMapDirectionPickup")!)
       addMarkerOnMap(location: dropoff, image: UIImage(named: "BookingMapDirectionDropOff")!)
       
-      let inset = UIEdgeInsets(top: 100, left: 100, bottom: 200, right: 100)
+      let inset = UIEdgeInsets(top: -50, left: -30, bottom: 50, right: -40)
       
       // focus to fit all the point including path, pick and destination in map camera
       focusMapToFitRoute(pointA: path.coordinate(at: 0),

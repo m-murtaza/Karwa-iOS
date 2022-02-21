@@ -48,6 +48,9 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     var sheet: SheetViewController?
     @IBOutlet weak var btnReportIssue: LocalisableButton!
 
+    var bottomsheetSizeSet = false
+    var previousBookingStatus = Int32()
+
 
 //    @IBOutlet weak var constraintTripInfoMarginTop: NSLayoutConstraint!
 //    @IBOutlet weak var constraintDriverInfoMarginTop: NSLayoutConstraint!
@@ -412,6 +415,13 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         self.sheet?.handleScrollView(self.scrollView)
 //        self.scrollView.isScrollEnabled = false
         
+        if previousBookingStatus != vModel?.bookingStatii() {
+            previousBookingStatus = (vModel?.bookingStatii())!
+            bottomsheetSizeSet = false
+        } else {
+            bottomsheetSizeSet = true
+        }
+        
         //MARK:- ON CALL BOOKING
         if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue)
         {
@@ -427,41 +437,33 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             bottomStartRatingLabel.isHidden = false
             bookingTime.isHidden = false
             hideSeperatorBeforeReportAnIssue()
-            
             showDriverInfoBox()
-//            self.shimmerView.isHidden = true
-//            self.lblDriverName.stopShimmeringAnimation()
-//            self.bottomStartRatingLabel.stopShimmeringAnimation()
-            
-           
-//                constraintRebookMarginTop.constant = 375
-                        
             self.view.customCornerRadius = 20.0
             
-            DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 550
-                if UIDevice().userInterfaceIdiom == .phone {
-                        switch UIScreen.main.nativeBounds.height {
-                        case 1136:
-                            print("iPhone 5 or 5S or 5C")
-                            self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
-                        case 1334:
-                            print("iPhone 6/6S/7/8")
-                            self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
-                        case 1920, 2208:
-                            print("iPhone 6+/6S+/7+/8+")
-                            self.sheet?.setSizes([.percent(0.30),.intrinsic], animated: true)
-                        case 2436:
-                            print("iPhone X")
-                            self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
-                        default:
-                            print("unknown")
-                            self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+            if bottomsheetSizeSet == false {
+                DispatchQueue.main.async {
+                    self.heightOFScrollViewContent.constant = 550
+                    if UIDevice().userInterfaceIdiom == .phone {
+                            switch UIScreen.main.nativeBounds.height {
+                            case 1136:
+                                print("iPhone 5 or 5S or 5C")
+                                self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
+                            case 1334:
+                                print("iPhone 6/6S/7/8")
+                                self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
+                            case 1920, 2208:
+                                print("iPhone 6+/6S+/7+/8+")
+                                self.sheet?.setSizes([.percent(0.30),.intrinsic], animated: true)
+                            case 2436:
+                                print("iPhone X")
+                                self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                            default:
+                                print("unknown")
+                                self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                            }
                         }
-                    }
+                }
             }
-            
-            
             
         }
 
@@ -481,37 +483,33 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             bookingTime.isHidden = false
 
             self.view.customCornerRadius = 20.0
-                       
-            if oneTimeSetSizeForBottomSheet == false {
+            
+            if bottomsheetSizeSet == false {
                 DispatchQueue.main.async {
-                    DispatchQueue.main.async {
-                        self.heightOFScrollViewContent.constant = 550
-                        if UIDevice().userInterfaceIdiom == .phone {
-                            switch UIScreen.main.nativeBounds.height {
-                            case 1136:
-                                print("iPhone 5 or 5S or 5C")
-                                self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
-                            case 1334:
-                                print("iPhone 6/6S/7/8")
-                                self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
-                            case 1920, 2208:
-                                print("iPhone 6+/6S+/7+/8+")
-                                self.sheet?.setSizes([.percent(0.30),.intrinsic], animated: true)
-                            case 2436:
-                                print("iPhone X")
-                                self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
-                            default:
-                                print("unknown")
-                                self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
-                            }
+                    self.heightOFScrollViewContent.constant = 550
+                    if UIDevice().userInterfaceIdiom == .phone {
+                        switch UIScreen.main.nativeBounds.height {
+                        case 1136:
+                            print("iPhone 5 or 5S or 5C")
+                            self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
+                        case 1334:
+                            print("iPhone 6/6S/7/8")
+                            self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
+                        case 1920, 2208:
+                            print("iPhone 6+/6S+/7+/8+")
+                            self.sheet?.setSizes([.percent(0.30),.intrinsic], animated: true)
+                        case 2436:
+                            print("iPhone X")
+                            self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                        default:
+                            print("unknown")
+                            self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
                         }
-                        
                     }
                     
-                    self.oneTimeSetSizeForBottomSheet = true
                 }
             }
-                        
+                                            
         }
         
         //MARK:- COMPLETED BOOKING
@@ -554,15 +552,13 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideBtnComplain()
             hideRebookBtn()
             hideFareDetailBtn()
-//            constraintVehicleInfoMarginTop.constant = 140
             hideSeperatorBeforeReportAnIssue()
-//            self.otpView.isHidden = true
-            DispatchQueue.main.async {
-//                self.constraintViewRideActionsTop.constant = 220
-                self.heightOFScrollViewContent.constant = 545
-                self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
+            if bottomsheetSizeSet == false {
+                DispatchQueue.main.async {
+                    self.heightOFScrollViewContent.constant = 545
+                    self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
+                }
             }
-            
         }
 
         //MARK:- CANCELLED BOOKING
@@ -580,69 +576,11 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
             showBtnComplain()
-            DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 600
-                //                    self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
-                if UIDevice().userInterfaceIdiom == .phone {
-                    switch UIScreen.main.nativeBounds.height {
-                    case 1136:
-                        print("iPhone 5 or 5S or 5C")
-                        self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
-                    case 1334:
-                        print("iPhone 6/6S/7/8")
-                        self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
-                    case 1920, 2208:
-                        print("iPhone 6+/6S+/7+/8+")
-                        self.sheet?.setSizes([.percent(0.30),.intrinsic], animated: true)
-                    case 2436:
-                        print("iPhone X")
-                        self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
-                    default:
-                        print("unknown")
-                        self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
-                    }
-                }
-            }
             
-            self.view.customCornerRadius = 0
-                        
-        }
-        
-        //MARK:- NO RIDE FOUND BOOKING
-        if(vModel?.bookingStatii() == BookingStatus.TAXI_NOT_FOUND.rawValue || vModel?.bookingStatii() == BookingStatus.NO_TAXI_ACCEPTED.rawValue)
-        {
-            eta.isHidden = true
-            hideEtaView()
-            hideCancelBtn()
-            hideShareBtn()
-            hidePhoneButton()
-            rideHeaderText.textColor = UIColor(hexString:"#E43825")
-            hideBtnComplain()
-            showRebookBtn()
-            hideFareDetailBtn()
-            DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 545
-                self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
-            }
-            hideSeperatorBeforeReportAnIssue()
-            self.view.customCornerRadius = 0
-
-        }
-        
-        //MARK:- ARRIVED BOOKING
-        if(vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue) {
-            starView.isHidden = true
-            eta.isHidden = true
-            bottomStartRatingLabel.isHidden = false
-            hideSeperatorBeforeReportAnIssue()
-            showShareBtn()
-            showPhoneButton()
-            bookingTime.isHidden = false
-
-            DispatchQueue.main.async {
-                self.heightOFScrollViewContent.constant = 545
-                
-                if UIDevice().userInterfaceIdiom == .phone {
+            if bottomsheetSizeSet == false {
+                DispatchQueue.main.async {
+                    self.heightOFScrollViewContent.constant = 600
+                    if UIDevice().userInterfaceIdiom == .phone {
                         switch UIScreen.main.nativeBounds.height {
                         case 1136:
                             print("iPhone 5 or 5S or 5C")
@@ -661,7 +599,70 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
                             self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
                         }
                     }
-                
+                }
+            }
+            
+            
+            self.view.customCornerRadius = 0
+                        
+        }
+        
+        //MARK:- NO RIDE FOUND BOOKING
+        if(vModel?.bookingStatii() == BookingStatus.TAXI_NOT_FOUND.rawValue || vModel?.bookingStatii() == BookingStatus.NO_TAXI_ACCEPTED.rawValue)
+        {
+            eta.isHidden = true
+            hideEtaView()
+            hideCancelBtn()
+            hideShareBtn()
+            hidePhoneButton()
+            rideHeaderText.textColor = UIColor(hexString:"#E43825")
+            hideBtnComplain()
+            showRebookBtn()
+            hideFareDetailBtn()
+            if bottomsheetSizeSet == false {
+                DispatchQueue.main.async {
+                    self.heightOFScrollViewContent.constant = 545
+                    self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true)
+                }
+            }
+            hideSeperatorBeforeReportAnIssue()
+            self.view.customCornerRadius = 0
+
+        }
+        
+        //MARK:- ARRIVED BOOKING
+        if(vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue) {
+            starView.isHidden = true
+            eta.isHidden = true
+            bottomStartRatingLabel.isHidden = false
+            hideSeperatorBeforeReportAnIssue()
+            showShareBtn()
+            showPhoneButton()
+            bookingTime.isHidden = false
+            
+            if bottomsheetSizeSet == false {
+                DispatchQueue.main.async {
+                    self.heightOFScrollViewContent.constant = 545
+                    if UIDevice().userInterfaceIdiom == .phone {
+                            switch UIScreen.main.nativeBounds.height {
+                            case 1136:
+                                print("iPhone 5 or 5S or 5C")
+                                self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
+                            case 1334:
+                                print("iPhone 6/6S/7/8")
+                                self.sheet?.setSizes([.percent(0.35),.intrinsic], animated: true)
+                            case 1920, 2208:
+                                print("iPhone 6+/6S+/7+/8+")
+                                self.sheet?.setSizes([.percent(0.30),.intrinsic], animated: true)
+                            case 2436:
+                                print("iPhone X")
+                                self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                            default:
+                                print("unknown")
+                                self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                            }
+                        }
+                }
             }
             
             hideFareDetailBtn()
