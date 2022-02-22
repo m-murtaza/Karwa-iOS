@@ -1011,7 +1011,6 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
             
             rects.append(rect)
             
-            
             if addressSelected == false { //address selection should be false
                 if backToPreviousPickUp == false { //click back button should be false
                     let coordinate = CLLocationCoordinate2D(latitude: xpressRebookSelected == true ? selectedRSPickUpCoordinate?.latitude ?? 0.0 : getCenterPointOfPolygon(bounds: item).latitude, longitude: xpressRebookSelected == true ? selectedRSPickUpCoordinate?.longitude ?? 0.0 : getCenterPointOfPolygon(bounds: item).longitude)
@@ -1021,6 +1020,16 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     if pickUpSelected == true {
                         selectedRSPickUpCoordinate = CLLocationCoordinate2D(latitude: KTLocationManager.sharedInstance.currentLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.currentLocation.coordinate.longitude)
                     }
+                    
+                    if let currentLocation = self.mapView.myLocation {
+                        if checkLatLonInside(location: currentLocation) {
+                            let camera = GMSCameraPosition.camera(withLatitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude, zoom: 15)
+                            self.mapView.animate(to: camera)
+                            KTLocationManager.sharedInstance.currentLocation = currentLocation// CLLocation(latitude:  coordinate.latitude, longitude: coordinate.longitude)
+                            selectedRSPickUpCoordinate = CLLocationCoordinate2D(latitude: KTLocationManager.sharedInstance.currentLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.currentLocation.coordinate.longitude)
+                        }
+                    }
+                    
                 }
             }
             

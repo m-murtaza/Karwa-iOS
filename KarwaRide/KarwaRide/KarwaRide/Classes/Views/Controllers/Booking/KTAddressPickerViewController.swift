@@ -983,7 +983,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
        } else {
             clearButtonDestination.isHidden = true
         }
-        if self.metroStations.count != 0 {
+        if xpressLocation == true {
             if selectedRSPickStation != nil {
                 setDestinations()
             } else {
@@ -1000,7 +1000,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       clearButtonDestination.isHidden = true
       (viewModel as! KTAddressPickerViewModel).metroStations = self.metroStations
         
-        if metroStations.count != 0 {
+        if xpressLocation == true {
             if dropoffAddress == nil {
                 txtDropAddress.isUserInteractionEnabled = false
             } else {
@@ -1649,7 +1649,7 @@ extension KTAddressPickerViewController {
                         self.dismiss(animated: true, completion: nil)
                     } else {
                         txtDropAddress.becomeFirstResponder()
-                        showOutZoneMessage("SETTODROPZONE".localized())
+                        showOutZoneMessage("str_outzone".localized())
                     }
                     
                 }
@@ -1657,18 +1657,19 @@ extension KTAddressPickerViewController {
                 if checkLatLonInsidePickArea(location: actualLocation, zoneArea: pickArea) {
                     KTLocationManager.sharedInstance.setCurrentLocation(location: actualLocation)
                     selectedRSPickUpCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
-                    selectedRSPickStation = nil
+                    pickupAddress = loc
+                    selectedRSPickZone = nil
                     selectedRSPickStop = nil
                     selectedRSPickStation = nil
-                    self.getDestinationForPickUp()
-                    txtDropAddress.isUserInteractionEnabled = true
-                    txtDropAddress.becomeFirstResponder()
+                    setPickUpLocations()
                     selectedRSDropStop = nil
                     selectedRSDropZone = nil
                     selectedRSDropStation = nil
                     selectedRSDropOffCoordinate = nil
                     txtDropAddress.isUserInteractionEnabled = true
                     txtDropAddress.becomeFirstResponder()
+                    self.setDestinations()
+                    self.tblView.reloadData()
                 } else {
                     txtPickAddress.becomeFirstResponder()
                     txtDropAddress.isUserInteractionEnabled = false
@@ -1863,7 +1864,6 @@ extension KTAddressPickerViewController {
     }
     
     func getDestinationForPickUp() {
-        setPickUpLocations()
         setDestinations()
         self.tblView.reloadData()
     }
