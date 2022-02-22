@@ -1600,6 +1600,138 @@ extension KTAddressPickerViewController {
 
     }
     
+    fileprivate func setPickupLocationFromGeoLocation(_ actualLocation: CLLocation, _ pickArea: [Area], _ loc: KTGeoLocation) {
+        if checkLatLonInsidePickArea(location: actualLocation, zoneArea: pickArea) {
+            KTLocationManager.sharedInstance.setCurrentLocation(location: actualLocation)
+            selectedRSPickUpCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+            pickupAddress = loc
+            selectedRSPickZone = nil
+            selectedRSPickStop = nil
+            selectedRSPickStation = nil
+            setPickUpLocations()
+            selectedRSDropStop = nil
+            selectedRSDropZone = nil
+            selectedRSDropStation = nil
+            selectedRSDropOffCoordinate = nil
+            txtDropAddress.isUserInteractionEnabled = true
+            txtDropAddress.becomeFirstResponder()
+            self.setDestinations()
+            self.tblView.reloadData()
+        } else {
+            txtPickAddress.becomeFirstResponder()
+            txtDropAddress.isUserInteractionEnabled = false
+            pickupAddress = nil
+            showOutZoneMessage("str_outzone".localized())
+        }
+    }
+    
+    fileprivate func setDropOffLocationFromGeoLocation(_ actualLocation: CLLocation, _ loc: KTGeoLocation) {
+        if selectedRSPickZone != nil && selectedRSPickStation == nil {
+            var dropArea = [Area]()
+            let destinationStationArray = destinations.filter({$0.source! == selectedRSPickZone?.code!}).map({$0.destination})
+            for item in destinationStationArray {
+                dropArea.append(contentsOf: areas.filter({$0.code! == item}))
+            }
+            
+            if checkLatLonInsideDropArea(location: actualLocation, zoneArea: dropArea) == true {
+                selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+                self.setDropLocations()
+                txtPickAddress.isUserInteractionEnabled = true
+                self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                txtDropAddress.becomeFirstResponder()
+                showOutZoneMessage("str_outzone".localized())
+            }
+        } else if selectedRSPickStation != nil {
+            var dropArea = [Area]()
+            var destinationStationArray = destinations.filter({$0.source! == selectedRSPickStation?.code!}).map({$0.destination})
+            let stopsOfStations = stops.filter({$0.parent! == selectedRSPickStation?.code!})
+            for item in stopsOfStations {
+                destinationStationArray.append(contentsOf: destinations.filter({$0.source! == item.code!}).map({$0.destination}))
+            }
+            destinationStationArray = Array(Set(destinationStationArray))
+            for item in destinationStationArray {
+                dropArea.append(contentsOf: areas.filter({$0.code! == item}))
+            }
+            if checkLatLonInsideDropArea(location: actualLocation, zoneArea: dropArea) {
+                selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+                self.setDropLocations()
+                txtPickAddress.isUserInteractionEnabled = true
+                self.delegateAddress?.setLocation(picklocation: selectedRSPickStation, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                txtDropAddress.becomeFirstResponder()
+                showOutZoneMessage("str_outzone".localized())
+            }
+            
+        }
+    }
+    
+    fileprivate func setPickLocationFromAreas(_ metroAreaCoordinate: CLLocationCoordinate2D, _ loc: Area) {
+        selectedRSPickUpCoordinate = CLLocationCoordinate2D(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude)
+        if loc.type! == "Zone" {
+            selectedRSPickZone = loc
+        } else {
+            selectedRSPickStation = loc
+            let stopOfStations = areas.filter{$0.parent == selectedRSPickStation?.code}
+            selectedRSPickStop = stopOfStations.first!
+            selectedRSPickZone = areas.filter{$0.code == selectedRSPickStation?.parent}.first!
+        }
+        self.dropoffAddress = nil
+        self.txtDropAddress.text = ""
+        txtDropAddress.isUserInteractionEnabled = true
+        txtDropAddress.becomeFirstResponder()
+        self.setDestinations()
+        self.tblView.reloadData()
+    }
+    
+    fileprivate func                     setDropOffLocationFromAreas(_ metroAreaCoordinate: CLLocationCoordinate2D) {
+        selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude)
+        var customDestinationsCode = [Int]()
+        destinationForPickUp.removeAll()
+        
+        if selectedRSPickStation != nil {
+            customDestinationsCode = destinations.filter{$0.source == selectedRSPickStation?.code!}.map{$0.destination!}
+            if customDestinationsCode.count == 0 {
+                customDestinationsCode = destinations.filter{$0.source == selectedRSPickStop?.code!}.map{$0.destination!}
+            }
+            
+            for item in customDestinationsCode {
+                destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+            }
+            
+            print("destinationForPickUp", destinationForPickUp)
+        } else {
+            if customDestinationsCode.count == 0 {
+                customDestinationsCode = destinations.filter{$0.source == selectedRSPickZone?.code!}.map{$0.destination!}
+            }
+            for item in customDestinationsCode {
+                if let destination = areas.filter({$0.code! == item}).first {
+                    if destination.type == "MetroStop" || destination.type == "TramStop" {
+                        if let station = areas.filter({$0.code! == destination.parent}).first {
+                            destinationForPickUp.append(station)
+                            destinationForPickUp.append(destination)
+                            if customDestinationsCode.count == 1 {
+                                selectedRSDropStation = station
+                                selectedRSDropStop = destination
+                            }
+                        }
+                    } else {
+                        destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
+                    }
+                }
+            }
+            
+            print("destinationForPickUp", destinationForPickUp)
+            
+            self.delegateAddress?.setLocation(picklocation: selectedRSPickStation != nil ?  selectedRSPickStation : pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+            
+            self.dismiss(animated: true, completion: nil)
+            
+        }
+    }
+    
     func setLocation(location: Any, type: SelectedTextField) {
         if let loc = location as? KTGeoLocation {
             print(location)
@@ -1607,75 +1739,14 @@ extension KTAddressPickerViewController {
             let sources = Set(destinations.map({$0.source}))
             let destination = Set(destinations.map({$0.destination}))
             var pickArea = [Area]()
-            
             for item in sources {
                 pickArea.append(contentsOf: areas.filter({$0.code! == item}))
             }
             
             if type == .DropoffAddress {
-                if selectedRSPickZone != nil && selectedRSPickStation == nil {
-                    var dropArea = [Area]()
-                    let destinationStationArray = destinations.filter({$0.source! == selectedRSPickZone?.code!}).map({$0.destination})
-                    for item in destinationStationArray {
-                        dropArea.append(contentsOf: areas.filter({$0.code! == item}))
-                    }
-                    
-                    if checkLatLonInsideDropArea(location: actualLocation, zoneArea: dropArea) == true {
-                        selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
-                        self.setDropLocations()
-                        txtPickAddress.isUserInteractionEnabled = true
-                        self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
-                        self.dismiss(animated: true, completion: nil)
-                    } else {
-                        txtDropAddress.becomeFirstResponder()
-                        showOutZoneMessage("str_outzone".localized())
-                    }
-                } else if selectedRSPickStation != nil {
-                    var dropArea = [Area]()
-                    var destinationStationArray = destinations.filter({$0.source! == selectedRSPickStation?.code!}).map({$0.destination})
-                    let stopsOfStations = stops.filter({$0.parent! == selectedRSPickStation?.code!})
-                    for item in stopsOfStations {
-                        destinationStationArray.append(contentsOf: destinations.filter({$0.source! == item.code!}).map({$0.destination}))
-                    }
-                    destinationStationArray = Array(Set(destinationStationArray))
-                    for item in destinationStationArray {
-                        dropArea.append(contentsOf: areas.filter({$0.code! == item}))
-                    }
-                    if checkLatLonInsideDropArea(location: actualLocation, zoneArea: dropArea) {
-                        selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
-                        self.setDropLocations()
-                        txtPickAddress.isUserInteractionEnabled = true
-                        self.delegateAddress?.setLocation(picklocation: selectedRSPickStation, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
-                        self.dismiss(animated: true, completion: nil)
-                    } else {
-                        txtDropAddress.becomeFirstResponder()
-                        showOutZoneMessage("str_outzone".localized())
-                    }
-                    
-                }
+                setDropOffLocationFromGeoLocation(actualLocation, loc)
             } else if type == .PickupAddress {
-                if checkLatLonInsidePickArea(location: actualLocation, zoneArea: pickArea) {
-                    KTLocationManager.sharedInstance.setCurrentLocation(location: actualLocation)
-                    selectedRSPickUpCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
-                    pickupAddress = loc
-                    selectedRSPickZone = nil
-                    selectedRSPickStop = nil
-                    selectedRSPickStation = nil
-                    setPickUpLocations()
-                    selectedRSDropStop = nil
-                    selectedRSDropZone = nil
-                    selectedRSDropStation = nil
-                    selectedRSDropOffCoordinate = nil
-                    txtDropAddress.isUserInteractionEnabled = true
-                    txtDropAddress.becomeFirstResponder()
-                    self.setDestinations()
-                    self.tblView.reloadData()
-                } else {
-                    txtPickAddress.becomeFirstResponder()
-                    txtDropAddress.isUserInteractionEnabled = false
-                    pickupAddress = nil
-                    showOutZoneMessage("str_outzone".localized())
-                }
+                setPickupLocationFromGeoLocation(actualLocation, pickArea, loc)
             }
 
         } else {
@@ -1683,65 +1754,9 @@ extension KTAddressPickerViewController {
                 print(location)
                 let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
                 if type == .PickupAddress {
-                    selectedRSPickUpCoordinate = CLLocationCoordinate2D(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude)
-                    if loc.type! == "Zone" {
-                        selectedRSPickZone = loc
-                    } else {
-                        selectedRSPickStation = loc
-                        let stopOfStations = areas.filter{$0.parent == selectedRSPickStation?.code}
-                        selectedRSPickStop = stopOfStations.first!
-                        selectedRSPickZone = areas.filter{$0.code == selectedRSPickStation?.parent}.first!
-                    }
-                    self.dropoffAddress = nil
-                    self.txtDropAddress.text = ""
-                    txtDropAddress.isUserInteractionEnabled = true
-                    txtDropAddress.becomeFirstResponder()
-                    self.setDestinations()
-                    self.tblView.reloadData()
+                    setPickLocationFromAreas(metroAreaCoordinate, loc)
                 } else {                    
-                    selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude)
-                    var customDestinationsCode = [Int]()
-                    destinationForPickUp.removeAll()
-
-                    if selectedRSPickStation != nil {
-                        customDestinationsCode = destinations.filter{$0.source == selectedRSPickStation?.code!}.map{$0.destination!}
-                        if customDestinationsCode.count == 0 {
-                            customDestinationsCode = destinations.filter{$0.source == selectedRSPickStop?.code!}.map{$0.destination!}
-                        }
-                        
-                        for item in customDestinationsCode {
-                            destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
-                        }
-                        
-                        print("destinationForPickUp", destinationForPickUp)
-                    } else {
-                        if customDestinationsCode.count == 0 {
-                            customDestinationsCode = destinations.filter{$0.source == selectedRSPickZone?.code!}.map{$0.destination!}
-                        }
-                        for item in customDestinationsCode {
-                            if let destination = areas.filter({$0.code! == item}).first {
-                                if destination.type == "MetroStop" || destination.type == "TramStop" {
-                                    if let station = areas.filter({$0.code! == destination.parent}).first {
-                                        destinationForPickUp.append(station)
-                                        destinationForPickUp.append(destination)
-                                        if customDestinationsCode.count == 1 {
-                                            selectedRSDropStation = station
-                                            selectedRSDropStop = destination
-                                        }
-                                    }
-                                } else {
-                                    destinationForPickUp.append(contentsOf: areas.filter{$0.code! == item})
-                                }
-                            }
-                        }
-                        
-                        print("destinationForPickUp", destinationForPickUp)
-                        
-                        self.delegateAddress?.setLocation(picklocation: selectedRSPickStation != nil ?  selectedRSPickStation : pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
-
-                        self.dismiss(animated: true, completion: nil)
-                        
-                    }
+                    setDropOffLocationFromAreas(metroAreaCoordinate)
                 }
             }
         }
@@ -1757,7 +1772,6 @@ extension KTAddressPickerViewController {
                     selectedRSPickZone = item
                     break
                 }
-                
             }
         }
         
@@ -1867,45 +1881,6 @@ extension KTAddressPickerViewController {
         setDestinations()
         self.tblView.reloadData()
     }
-//    func loadData() {
-//        self.tableView.reloadData()
-//    }
-//
-//    func pickUpTxt() -> String {
-//        return self.textField.text!
-//    }
-//
-//    func dropOffTxt() -> String {
-//        return self.textField.text!
-//    }
-    
-//    func setPickUp(pick: String) {
-//        self.textField.text = pick
-//    }
-//
-//    func setDropOff(drop: String) {
-//        self.textField.text = drop
-//    }
-    
-//    func moveFocusToDestination() {
-//
-//    }
-//
-//    func moveFocusToPickUp() {
-//
-//    }
-    
-    
-//    func navigateToFavoriteScreen(location: KTGeoLocation?) {
-//        let vc = KTXpressFavoriteAddressViewController()
-//        vc.favoritelocation = location
-//        vc.xpressFavoriteDelegate = self
-//        self.present(vc, animated: true, completion: nil)
-//    }
-    
-//    func btnMoreTapped(withTag idx: Int) {
-//
-//    }
     
 }
 
