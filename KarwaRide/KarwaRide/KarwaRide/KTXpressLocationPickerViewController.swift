@@ -1037,6 +1037,14 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                             self.mapView.animate(to: camera)
                             KTLocationManager.sharedInstance.currentLocation = currentLocation// CLLocation(latitude:  coordinate.latitude, longitude: coordinate.longitude)
                             selectedRSPickUpCoordinate = CLLocationCoordinate2D(latitude: KTLocationManager.sharedInstance.currentLocation.coordinate.latitude, longitude: KTLocationManager.sharedInstance.currentLocation.coordinate.longitude)
+                        } else {
+                            if checkLatLonInsideZone(location: currentLocation).0 {
+                                let nearByZone = checkLatLonInsideZone(location: currentLocation).1
+                                let loc = CLLocation(latitude: getCenterPointOfPolygon(bounds: nearByZone.bound!).latitude, longitude: getCenterPointOfPolygon(bounds: nearByZone.bound!).longitude)
+                                let camera = GMSCameraPosition.camera(withLatitude: getCenterPointOfPolygon(bounds: nearByZone.bound!).latitude, longitude: getCenterPointOfPolygon(bounds: nearByZone.bound!).longitude, zoom: 15)
+                                self.mapView.animate(to: camera)
+                                KTLocationManager.sharedInstance.currentLocation = loc
+                            }
                         }
                     }
                     

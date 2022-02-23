@@ -337,28 +337,44 @@ extension UIViewController {
 
     }
     
-    func checkLatLonInsideZone(location: CLLocation) -> Bool {
-        
+    func checkLatLonInsideZone(location: CLLocation) -> (Bool, Area) {
         
         var latLonInside = false
+        var zoneFound = false
+        var nearByZone = Area()
         
         for item in zones {
-            
             let coordinates = item.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
                 return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
             }
             if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
                 latLonInside = true
                 print("it contains")
+                zoneFound = true
+                nearByZone = item
                 break
             } else {
                 print("it wont contains")
-                latLonInside = false
+                for loc in coordinates {
+                    let distanceInMeters = location.distance(from: CLLocation(latitude: loc.latitude, longitude: loc.longitude))
+                    if distanceInMeters < (2*1609) {
+                        latLonInside = true
+                        zoneFound = true
+                        nearByZone = item
+                        break
+                    } else {
+                        latLonInside = false
+                    }
+                }
+                
+                if zoneFound == true {
+                    break
+                }
             }
             
         }
         
-        return latLonInside
+        return (latLonInside,nearByZone)
 
     }
 }
