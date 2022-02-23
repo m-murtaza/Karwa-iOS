@@ -6,6 +6,8 @@
 //  Copyright © 2017 Karwa. All rights reserved.
 //
 
+import Darwin
+
 //import UIKit
 //
 //class AppConstants: NSObject {
@@ -217,7 +219,9 @@ struct Constants {
         static let CustomerType = "CustomerType"
         static let Email = "Email"
         static let Name = "Name"
+        static let Gender = "Gender"
         static let CountryCode = "CountryCode"
+        static let Dob = "Dob"
         static let Phone = "Phone"
         static let SessionID = "SessionID"
         static let MaskedEmail = "MaskedEmail"

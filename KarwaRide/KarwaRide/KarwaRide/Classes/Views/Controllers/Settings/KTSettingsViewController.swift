@@ -83,9 +83,6 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         if section == 2 {
             numRows = 2
         }
-        else if section == 3 {
-            numRows = 2
-        }
         return numRows
     }
     
@@ -232,7 +229,9 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = false
 
                 
-            } else if indexPath.row == 1 {
+            }
+            /*Removed Rating option
+            else if indexPath.row == 1 {
                 cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
                 guard let _ = cell else {
                     return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
@@ -242,8 +241,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconRate")
                 (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
                 (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = true
-
             }
+              */
             
         }
         else if indexPath.section == 4 {
@@ -308,11 +307,12 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 self.performSegue(name: "segueSettingsToSetWork")
             }
         }
+        /* Removed Rate option
         else if indexPath.section == 3 {
             if indexPath.row == 1{
                 (viewModel as! KTSettingsViewModel).rateApplication()
             }
-        }
+        }*/
         
         else if indexPath.section == 4 {
             if indexPath.row == 0 {
