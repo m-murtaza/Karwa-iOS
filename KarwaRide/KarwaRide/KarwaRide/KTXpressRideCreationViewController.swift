@@ -114,6 +114,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
     var poseDuration = 0
     var indexProgressBar = 0
     var currentPoseIndex = 0
+    var timeoutAlertYesPressed = false
     
     var selectedVehicleIndex = 0
     var fromRideHistory = false
@@ -437,6 +438,7 @@ class KTXpressRideCreationViewController: KTBaseCreateBookingController, KTXpres
         }
         alert.add(action: doneAction)
         let yesAction = CDAlertViewAction(title: "str_yes".localized()) { value in
+            self.timeoutAlertYesPressed = true
             self.vModel?.fetchRideService()
             return true
         }

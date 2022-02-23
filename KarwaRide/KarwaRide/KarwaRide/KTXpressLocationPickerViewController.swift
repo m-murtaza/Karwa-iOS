@@ -96,7 +96,19 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
             self.passengerLabel.text = "str_1pass".localized()
             plusBtn.layer.opacity = 1
             minuBtn.layer.opacity = 0.5
-            bookingSuccessful = false
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            // your code here
+            if bookingSuccessful == true {
+                let location = CLLocation(latitude: self.mapView.projection.coordinate(for: self.mapView.center).latitude, longitude: self.mapView.projection.coordinate(for: self.mapView.center).longitude)
+                selectedRSPickUpCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                self.vModel?.fetchLocationName(forGeoCoordinate: selectedRSPickUpCoordinate!)
+                self.checkCoordinateStatus(location)
+                bookingSuccessful = false
+            }
         }
     }
     
@@ -124,12 +136,10 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
                 self.passengerLabel.text = "str_1pass".localized()
             }
         } else {
-            if bookingSuccessful == true {
-                self.passengerLabel.text = "str_1pass".localized()
-                countOfPassenger = 1
-                plusBtn.layer.opacity = 1
-                minuBtn.layer.opacity = 0.5
-            }
+            self.passengerLabel.text = "str_1pass".localized()
+            countOfPassenger = 1
+            plusBtn.layer.opacity = 1
+            minuBtn.layer.opacity = 0.5
         }
     }
     

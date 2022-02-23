@@ -46,7 +46,6 @@ class TabViewController: UITabBarController {
 //        tabBar.customShadowColor = UIColor.black.withAlphaComponent(0.7)
         
         if bookingSuccessful {
-            bookingSuccessful = false
             self.selectedIndex = 1
         } else {
             self.selectedIndex = 0
