@@ -290,7 +290,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         vModel = viewModel as? KTBookingDetailsViewModel
         (viewModel as! KTBookingDetailsViewModel).booking = booking
-        navigationItem.title = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
+        navigationItem.title = "txt_ride_info".localized() //(vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
         
     }
     
@@ -660,6 +660,37 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         ratingPopup?.booking((vModel?.booking)!)
         navController.modalPresentationStyle = .fullScreen
         self.present(navController, animated: true, completion: nil)
+    }
+    
+    func showPaymentScreen() {
+        let navController: UINavigationController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardId.PaymentNavigationController) as! UINavigationController
+        navController.modalPresentationStyle = .fullScreen
+        let ktPaymentViewController: KTPaymentViewController = (navController.viewControllers)[0] as! KTPaymentViewController
+//        ktPaymentViewController.payTripBean = payTripBean
+//        ktPaymentViewController.isManageButtonPressed = true
+        ktPaymentViewController.isTriggeredFromUniversalLink = true
+        self.present(navController, animated: true, completion: nil)
+//        if(payTripBean != nil)
+//        {
+//            ktPaymentViewController.payTripBean = payTripBean
+//            ktPaymentViewController.isManageButtonPressed = true
+//            ktPaymentViewController.isTriggeredFromUniversalLink = true
+//
+//            let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
+//            let sideMeun =  SideMenuController(contentViewController: paymentNavigationController,
+//                                               menuViewController: leftView)
+//            window? = UIWindow(frame: UIScreen.main.bounds)
+//            window?.rootViewController = sideMeun
+//            window?.makeKeyAndVisible()
+//
+//        }
+//        else
+//        {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75)
+//            {
+//                ktPaymentViewController.showErrorBanner("  ", "Invalid QR Code ")
+//            }
+//        }
     }
     
     func closeRating(_ rating : Int32) {

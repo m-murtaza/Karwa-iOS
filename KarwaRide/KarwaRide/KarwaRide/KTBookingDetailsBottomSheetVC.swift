@@ -34,7 +34,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var bottomSheetToolIcon: UIImageView!
     
     @IBOutlet weak var constraintPlateNo: NSLayoutConstraint!
-    @IBOutlet weak var constraintHeaderWidth: NSLayoutConstraint!
     @IBOutlet weak var constraintReportIssueMarginTop: NSLayoutConstraint!
     @IBOutlet weak var constraintFareInfoMarginTop: NSLayoutConstraint!
     @IBOutlet weak var constraintCancellationChargeMarginTop: NSLayoutConstraint!
@@ -46,6 +45,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var rideHeaderText: LocalisableSpringLabel!
     @IBOutlet weak var lblPickAddress: SpringLabel!
     @IBOutlet weak var lblDropoffAddress: SpringLabel!
+    @IBOutlet weak var lblTripInfo: SpringLabel!
 
     @IBOutlet weak var lblPickMessage: SpringLabel!
     @IBOutlet weak var bookingTime: UILabel!
@@ -65,7 +65,9 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var imgNumberPlate: UIImageView!
     
     @IBOutlet weak var lblDriverName: LocalisableSpringLabel!
-    @IBOutlet weak var starView: SpringLabel!
+    @IBOutlet weak var btnRate: LocalisableButton!
+    @IBOutlet weak var btnPayNow: LocalisableButton!
+    @IBOutlet weak var starStackView: UIStackView!
     var sheetCoordinator: UBottomSheetCoordinator?
     weak var sheet: SheetViewController?
 
@@ -148,6 +150,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
 
     func updateBookingCard()
     {
+        lblTripInfo.text = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())! + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
         lblPickAddress.text = vModel?.pickAddress()
         lblDropoffAddress.text = vModel?.dropAddress()
         if let msg = vModel?.pickMessage() {
@@ -296,12 +299,34 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             lblVehicleNumber.text = vModel?.vehicleNumber()
         }
         
-        starView.addLeading(image:  #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
-        starView.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
         bottomStartRatingLabel.addLeading(image:  #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
         bottomStartRatingLabel.textAlignment = .natural
         imgNumberPlate.image = vModel?.imgForPlate()
+        
+        self.btnRate.isHidden = false
+        self.starStackView.isHidden = true
+        self.starStackView.removeFullyAllArrangedSubviews()
+        for _ in 0..<Int(vModel?.driverRating() ?? 0) {
+            self.starStackView.isHidden = false
+            let imageView = UIImageView()
+            imageView.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: 15.0).isActive = true
+            imageView.image = UIImage(named: "star_ico")
+            imageView.contentMode = .scaleAspectFit
+            self.starStackView.addArrangedSubview(imageView)
+        }
     }
+    
+    @IBAction func btnRateTapTouchIn(_ sender: Any)
+    {
+        vModel?.checkForRating()
+    }
+    
+    @IBAction func btnPayNowTapTouchIn(_ sender: Any)
+    {
+        vModel?.onClickPayNow()
+    }
+    
     func hideDriverInfoBox()
     {
         preRideDriver.isHidden = true
@@ -321,12 +346,10 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
     func hideEtaView()
     {
         btnETA.isHidden = true
-        constraintHeaderWidth.constant = UIScreen.main.bounds.width - 40
     }
     func showEtaView()
     {
         btnETA.isHidden = false
-        constraintHeaderWidth.constant = 250
     }
     
     func updateBookingStatusOnCard(_ withAnimation: Bool)
@@ -418,19 +441,18 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             if showOTP() == true && showDescription() == true {
                 constraintTripInfoMarginTop.constant = 110 + 65 + 65
                 constraintDriverInfoMarginTop.constant = 5 + 65 + 65
-                constraintVehicleInfoMarginTop.constant = 250 + 65 + 65
+                constraintVehicleInfoMarginTop.constant = 220 + 65 + 65
                 constraintReportIssueMarginTop.constant = 20 + 65 + 65
                 constraintViewRideActionsTop.constant = 328 + 65 + 65
             } else if showOTP() == true || showDescription() == true {
                 constraintTripInfoMarginTop.constant = 110 + 80
                 constraintDriverInfoMarginTop.constant = 5 + 80
-                constraintVehicleInfoMarginTop.constant = 250 + 80
+                constraintVehicleInfoMarginTop.constant = 220 + 80
                 constraintReportIssueMarginTop.constant = 20 + 80
                 constraintViewRideActionsTop.constant = 328 + 80
             }
             
             
-            self.starView.isHidden = true
             self.shimmerView.isHidden = false
             
             self.view.customCornerRadius = 20.0
@@ -452,7 +474,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideBtnComplain()
             hideRebookBtn()
             hideFareDetailBtn()
-            starView.isHidden = true
             bottomStartRatingLabel.isHidden = false
             bookingTime.isHidden = false
             hideSeperatorBeforeReportAnIssue()
@@ -465,13 +486,13 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             if showOTP() == true && showDescription() == true {
                 constraintTripInfoMarginTop.constant = 110 + 65 + 65
                 constraintDriverInfoMarginTop.constant = 5 + 65 + 65
-                constraintVehicleInfoMarginTop.constant = 250 + 65 + 65
+                constraintVehicleInfoMarginTop.constant = 220 + 65 + 65
                 constraintReportIssueMarginTop.constant = 20 + 65 + 65
                 constraintViewRideActionsTop.constant = 328 + 65 + 65
             } else if showOTP() == true || showDescription() == true {
                 constraintTripInfoMarginTop.constant = 110 + 80
                 constraintDriverInfoMarginTop.constant = 5 + 80
-                constraintVehicleInfoMarginTop.constant = 250 + 80
+                constraintVehicleInfoMarginTop.constant = 220 + 80
                 constraintReportIssueMarginTop.constant = 20 + 80
                 constraintViewRideActionsTop.constant = 328 + 80
             }
@@ -519,7 +540,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideBtnComplain()
             hideRebookBtn()
             hideFareDetailBtn()
-            starView.isHidden = true
             bottomStartRatingLabel.isHidden = false
             hideSeperatorBeforeReportAnIssue()
             
@@ -530,7 +550,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             constraintTripInfoMarginTop.constant = showDescription() ? 10 + 65 : 10
             constraintDriverInfoMarginTop.constant = showDescription() ? 150 + 65 : 150
-            constraintVehicleInfoMarginTop.constant = showDescription() ? 250 + 65 : 250
+            constraintVehicleInfoMarginTop.constant = showDescription() ? 220 + 65 : 220
 
             if oneTimeSetSizeForBottomSheet == false {
                 DispatchQueue.main.async {
@@ -575,7 +595,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 3
 
             constraintReportIssueMarginTop.constant = CGFloat(Double(totalDetailsCount) * 27)
-            starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
             
             self.view.customCornerRadius = 0
@@ -584,7 +603,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             constraintTripInfoMarginTop.constant = 10
             constraintDriverInfoMarginTop.constant = 150
-            constraintVehicleInfoMarginTop.constant = 250
+            constraintVehicleInfoMarginTop.constant = 220
 
             if oneTimeSetSizeForBottomSheet == false {
                 DispatchQueue.main.async {
@@ -659,7 +678,6 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             showRebookBtn()
             hideFareDetailBtn()
             hideSeperatorBeforeReportAnIssue()
-            starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
             
             if self.lblDriverName.text!.count != 0 &&  self.shimmerView.isHidden == true {
@@ -667,7 +685,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
                 preRideDriver.isHidden = false
                 constraintTripInfoMarginTop.constant = 5
                 constraintDriverInfoMarginTop.constant = 150
-                constraintVehicleInfoMarginTop.constant = 250
+                constraintVehicleInfoMarginTop.constant = 220
                 self.constraintReportIssueMarginTop.constant = 20
                 self.constraintRebookMarginTop.constant = 400
                 
@@ -736,20 +754,19 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         }
         
         if(vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue) {
-            starView.isHidden = true
             
             bottomStartRatingLabel.isHidden = false
             
             if showOTP() == true && showDescription() == true {
                 constraintTripInfoMarginTop.constant = 110 + 65 + 65
                 constraintDriverInfoMarginTop.constant = 5 + 65 + 65
-                constraintVehicleInfoMarginTop.constant = 250 + 65 + 65
+                constraintVehicleInfoMarginTop.constant = 220 + 65 + 65
                 constraintReportIssueMarginTop.constant = 20 + 65 + 65
                 constraintViewRideActionsTop.constant = 328 + 65 + 65
             } else if showOTP() == true || showDescription() == true {
                 constraintTripInfoMarginTop.constant = 110 + 80
                 constraintDriverInfoMarginTop.constant = 5 + 80
-                constraintVehicleInfoMarginTop.constant = 250 + 80
+                constraintVehicleInfoMarginTop.constant = 220 + 80
                 constraintReportIssueMarginTop.constant = 20 + 80
                 constraintViewRideActionsTop.constant = 328 + 80
             }

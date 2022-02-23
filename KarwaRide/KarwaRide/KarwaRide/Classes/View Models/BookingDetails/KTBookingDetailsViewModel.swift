@@ -72,6 +72,8 @@ protocol KTBookingDetailsViewModelDelegate: KTViewModelDelegate {
     func addWalkToDropOffMarker()
     func removeWalkToPickUpMarker()
     func removeWalkToDropOffMarker()
+    
+    func showPaymentScreen()
 }
 
 extension KTBookingDetailsViewModelDelegate {
@@ -83,6 +85,7 @@ extension KTBookingDetailsViewModelDelegate {
     func removeWalkToPickUpMarker(){}
     func removeWalkToDropOffMarker(){}
     func removeWayPoints(){}
+    func showPaymentScreen() {}
 }
 
 //MARK: -
@@ -112,7 +115,6 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        checkForRating()
     }
     
     func initializeViewWRTBookingStatus() {
@@ -509,7 +511,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                 msg = "txt_ride_cancelled".localized()
                 break
             case BookingStatus.COMPLETED.rawValue:
-                msg = "txt_completed".localized()
+                msg = "txt_completed".localized() + " " + totalFareOfTrip()
                 break
             case BookingStatus.PENDING.rawValue:
                 msg = "str_scheduled".localized()
@@ -1204,4 +1206,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
       }
     }
     
+    func onClickPayNow() {
+        del?.showPaymentScreen()
+    }
 }
