@@ -668,7 +668,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         let ktPaymentViewController: KTPaymentViewController = (navController.viewControllers)[0] as! KTPaymentViewController
 //        ktPaymentViewController.payTripBean = payTripBean
 //        ktPaymentViewController.isManageButtonPressed = true
-        ktPaymentViewController.isTriggeredFromUniversalLink = true
+        ktPaymentViewController.isTriggeredFromBookingDetail = true
         self.present(navController, animated: true, completion: nil)
 //        if(payTripBean != nil)
 //        {

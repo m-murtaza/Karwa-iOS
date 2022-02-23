@@ -58,6 +58,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     var isTriggeredFromUniversalLink = false
     var gotoDashboardRequired = false
     private var isPaidSuccessfullShowed = false
+    var isTriggeredFromBookingDetail = false
     
     override func viewDidLoad()
     {
@@ -155,6 +156,12 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         if(payTripBean != nil)
         {
             fillPayTripData(payTripBean)
+            vModel?.showingTripPayment()
+            showBottomContainer()
+            populatePayTripData()
+        }
+        else if isTriggeredFromBookingDetail
+        {
             vModel?.showingTripPayment()
             showBottomContainer()
             populatePayTripData()
