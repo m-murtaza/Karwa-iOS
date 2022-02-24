@@ -666,31 +666,8 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         let navController: UINavigationController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardId.PaymentNavigationController) as! UINavigationController
         navController.modalPresentationStyle = .fullScreen
         let ktPaymentViewController: KTPaymentViewController = (navController.viewControllers)[0] as! KTPaymentViewController
-//        ktPaymentViewController.payTripBean = payTripBean
-//        ktPaymentViewController.isManageButtonPressed = true
         ktPaymentViewController.isTriggeredFromBookingDetail = true
         self.present(navController, animated: true, completion: nil)
-//        if(payTripBean != nil)
-//        {
-//            ktPaymentViewController.payTripBean = payTripBean
-//            ktPaymentViewController.isManageButtonPressed = true
-//            ktPaymentViewController.isTriggeredFromUniversalLink = true
-//
-//            let leftView : UIViewController = sBoard.instantiateViewController(withIdentifier: Constants.StoryBoardId.LeftMenu)
-//            let sideMeun =  SideMenuController(contentViewController: paymentNavigationController,
-//                                               menuViewController: leftView)
-//            window? = UIWindow(frame: UIScreen.main.bounds)
-//            window?.rootViewController = sideMeun
-//            window?.makeKeyAndVisible()
-//
-//        }
-//        else
-//        {
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75)
-//            {
-//                ktPaymentViewController.showErrorBanner("  ", "Invalid QR Code ")
-//            }
-//        }
     }
     
     func closeRating(_ rating : Int32) {

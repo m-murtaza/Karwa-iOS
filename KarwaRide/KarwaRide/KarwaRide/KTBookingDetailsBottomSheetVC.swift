@@ -303,17 +303,29 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         bottomStartRatingLabel.textAlignment = .natural
         imgNumberPlate.image = vModel?.imgForPlate()
         
-        self.btnRate.isHidden = false
-        self.starStackView.isHidden = true
-        self.starStackView.removeFullyAllArrangedSubviews()
-        for _ in 0..<Int(vModel?.driverRating() ?? 0) {
-            self.starStackView.isHidden = false
-            let imageView = UIImageView()
-            imageView.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
-            imageView.widthAnchor.constraint(equalToConstant: 15.0).isActive = true
-            imageView.image = UIImage(named: "star_ico")
-            imageView.contentMode = .scaleAspectFit
-            self.starStackView.addArrangedSubview(imageView)
+        if (vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue) {
+            if vModel?.isRated() ?? false {
+                self.btnRate.isHidden = true
+                self.starStackView.isHidden = false
+                self.starStackView.removeFullyAllArrangedSubviews()
+                for _ in 0..<Int(vModel?.getRating() ?? 0) {
+                    let imageView = UIImageView()
+                    imageView.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+                    imageView.widthAnchor.constraint(equalToConstant: 15.0).isActive = true
+                    imageView.image = UIImage(named: "star_ico")
+                    imageView.contentMode = .scaleAspectFit
+                    self.starStackView.addArrangedSubview(imageView)
+                }
+            }
+            else {
+                self.btnRate.isHidden = false
+                self.starStackView.isHidden = true
+            }
+        }
+        else {
+            self.btnRate.isHidden = true
+            self.starStackView.isHidden = true
+            self.btnPayNow.isHidden = true
         }
     }
     
@@ -484,17 +496,17 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             self.bottomStartRatingLabel.stopShimmeringAnimation()
             
             if showOTP() == true && showDescription() == true {
-                constraintTripInfoMarginTop.constant = 110 + 65 + 65
+                constraintTripInfoMarginTop.constant = 80 + 65 + 65
                 constraintDriverInfoMarginTop.constant = 5 + 65 + 65
                 constraintVehicleInfoMarginTop.constant = 220 + 65 + 65
                 constraintReportIssueMarginTop.constant = 20 + 65 + 65
-                constraintViewRideActionsTop.constant = 328 + 65 + 65
+                constraintViewRideActionsTop.constant = 300 + 65 + 65
             } else if showOTP() == true || showDescription() == true {
-                constraintTripInfoMarginTop.constant = 110 + 80
+                constraintTripInfoMarginTop.constant = 80 + 80
                 constraintDriverInfoMarginTop.constant = 5 + 80
                 constraintVehicleInfoMarginTop.constant = 220 + 80
                 constraintReportIssueMarginTop.constant = 20 + 80
-                constraintViewRideActionsTop.constant = 328 + 80
+                constraintViewRideActionsTop.constant = 300 + 80
             }
             
             

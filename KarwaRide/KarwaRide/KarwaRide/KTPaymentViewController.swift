@@ -183,7 +183,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
             gotoManagePayments()
         }
         
-        if(isShowBarcodeRequired)
+        if(isShowBarcodeRequired && !isTriggeredFromBookingDetail)
         {
             isShowBarcodeRequired = !isShowBarcodeRequired
             presentBarcodeScanner()
@@ -192,7 +192,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     
     func showbarcodeScanner(show: Bool)
     {
-        if(!isTriggeredFromUniversalLink)
+        if(!isTriggeredFromUniversalLink && !isTriggeredFromBookingDetail)
         {
             if(show)
             {
@@ -545,7 +545,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         {
             gotoDashboard()
         }
-        else if(isManageButtonPressed || !gotoDashboardRequired)
+        else if((isManageButtonPressed || !gotoDashboardRequired) && !isTriggeredFromBookingDetail)
         {
             presentBarcodeScanner()
             isManageButtonPressed = !isManageButtonPressed

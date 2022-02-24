@@ -293,6 +293,10 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
 //        return UIImage(named:"limo_number_plate")!
     }
     
+    func getRating() -> Int32 {
+        return booking?.rating ?? 0
+    }
+    
     func driverRating() -> Double {
         guard let rating = booking?.driverRating else {
             return 0.0
@@ -1155,6 +1159,11 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     //MARK:- Check for rating
+    func isRated() -> Bool
+    {
+        return booking?.isRated ?? false
+    }
+    
     func checkForRating(){
         
         guard booking != nil, booking?.isRated == false else {
