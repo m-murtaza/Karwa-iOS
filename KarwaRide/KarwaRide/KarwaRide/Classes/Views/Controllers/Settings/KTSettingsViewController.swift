@@ -141,7 +141,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         var cell: UITableViewCell?
         if indexPath.section == 0 && indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "userInfoCellIdentifier")
-            
+            (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor.black
+
             guard let _ = cell else {
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
@@ -158,6 +159,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         }
         else if indexPath.section == 1 && indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
+            (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor.black
             guard let _ = cell else {
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
@@ -170,6 +172,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         
         else if indexPath.section == 2 && indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
+            (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor.black
             guard let _ = cell else {
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
@@ -182,6 +185,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         }
         else if indexPath.section == 2 && indexPath.row == 1 {
             cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
+            (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor.black
             guard let _ = cell else {
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
@@ -227,6 +231,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 (cell as! KTSettingsImgTextTableViewCell).lblText.text = "str_otp_settings".localized()
                 (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "otp_ico_setting")
                 (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = false
+                (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor.black
 
                 
             }
