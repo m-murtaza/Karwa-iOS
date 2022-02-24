@@ -55,7 +55,6 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        checkForRating()
         //Check the drop of address name
         xpressRebookSelected = false
         guard self.rideServicePickDropOffData != nil else {
@@ -266,6 +265,10 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             return UIImage(named:"taxiplate")!
         }
         return UIImage(named:"xpressplate")!
+    }
+    
+    func getRating() -> Int32 {
+        return booking?.rating ?? 0
     }
     
     func driverRating() -> Double {
@@ -489,7 +492,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             msg = "txt_ride_cancelled".localized()
             break
         case BookingStatus.COMPLETED.rawValue:
-            msg = "txt_completed_metro".localized()
+            msg = "txt_completed".localized() + " " + totalFareOfTrip()
             break
         case BookingStatus.PENDING.rawValue:
             msg = "str_scheduled".localized()
@@ -1240,6 +1243,11 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     }
     
     //MARK:- Check for rating
+    func isRated() -> Bool
+    {
+        return booking?.isRated ?? false
+    }
+    
     func checkForRating(){
         
         guard booking != nil, booking?.isRated == false else {
@@ -1294,4 +1302,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
       }
     }
     
+    func onClickPayNow() {
+        del?.showPaymentScreen()
+    }
 }

@@ -501,7 +501,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         }
         vModel = viewModel as? KTXpresssBookingDetailsViewModel
         (viewModel as! KTXpresssBookingDetailsViewModel).booking = booking
-        navigationItem.title = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
+        navigationItem.title = "txt_ride_info".localized()
         
     }
     
@@ -1016,6 +1016,14 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         let navController = UINavigationController(rootViewController: ratingPopup!) // Creating a navigation controller with VC1 at the root of the navigation stack.
         ratingPopup?.booking((vModel?.booking)!)
         navController.modalPresentationStyle = .fullScreen
+        self.present(navController, animated: true, completion: nil)
+    }
+    
+    func showPaymentScreen() {
+        let navController: UINavigationController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardId.PaymentNavigationController) as! UINavigationController
+        navController.modalPresentationStyle = .fullScreen
+        let ktPaymentViewController: KTPaymentViewController = (navController.viewControllers)[0] as! KTPaymentViewController
+        ktPaymentViewController.isTriggeredFromBookingDetail = true
         self.present(navController, animated: true, completion: nil)
     }
     

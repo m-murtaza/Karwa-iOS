@@ -290,7 +290,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         vModel = viewModel as? KTBookingDetailsViewModel
         (viewModel as! KTBookingDetailsViewModel).booking = booking
-        navigationItem.title = "txt_ride_info".localized() //(vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())!  + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
+        navigationItem.title = "txt_ride_info".localized()
         
     }
     
@@ -658,6 +658,10 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         
         let navController = UINavigationController(rootViewController: ratingPopup!) // Creating a navigation controller with VC1 at the root of the navigation stack.
         ratingPopup?.booking((vModel?.booking)!)
+        ratingPopup?.onSubmitRating = { [weak self] in
+            guard let `self` = self else {return}
+            self.updateAssignmentInfo()
+        }
         navController.modalPresentationStyle = .fullScreen
         self.present(navController, animated: true, completion: nil)
     }

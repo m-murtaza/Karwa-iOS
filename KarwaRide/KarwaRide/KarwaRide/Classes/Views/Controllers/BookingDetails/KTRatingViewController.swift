@@ -46,7 +46,8 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
     @IBOutlet weak var lblVehicleType: UILabel!
     @IBOutlet weak var lblNumberOfPassenger: UILabel!
 
-
+    var onSubmitRating: (()->())?
+    
     @IBAction func testbtnTapped(_ sender: Any) {
         (sender as! UIButton).backgroundColor = UIColor.blue
     }
@@ -270,7 +271,7 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
                 showRatingDialog(rating)
             }
         }
-        
+        self.onSubmitRating?()
         self.dismiss(animated: true, completion: nil)
 
     }

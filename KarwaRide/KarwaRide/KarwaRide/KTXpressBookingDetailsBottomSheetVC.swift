@@ -29,6 +29,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     @IBOutlet weak var bookingTime: UILabel!
     @IBOutlet weak var btnETA: LocalisableButton!
     @IBOutlet weak var eta: LocalisableButton!
+    @IBOutlet weak var lblTripInfo: SpringLabel!
 
     @IBOutlet weak var btnShare: LocalisableButton!
     @IBOutlet weak var btnCancel: LocalisableButton!
@@ -43,7 +44,9 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     @IBOutlet weak var fareInfoView: UIView!
     @IBOutlet weak var lblDriverName: LocalisableSpringLabel!
-    @IBOutlet weak var starView: SpringLabel!
+    @IBOutlet weak var btnRate: LocalisableButton!
+    @IBOutlet weak var btnPayNow: LocalisableButton!
+    @IBOutlet weak var starStackView: UIStackView!
     var sheetCoordinator: UBottomSheetCoordinator?
     var sheet: SheetViewController?
     @IBOutlet weak var btnReportIssue: LocalisableButton!
@@ -105,6 +108,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 
     func updateBookingCard()
     {
+        lblTripInfo.text = (vModel?.pickupDayAndTime())! + (vModel?.pickupDateOfMonth())! + (vModel?.pickupMonth())! + (vModel?.pickupYear())!
         lblPickAddress.text = vModel?.pickAddress()
         lblDropoffAddress.text = vModel?.dropAddress()
 
@@ -319,11 +323,44 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             lblVehicleNumber.text = vModel?.vehicleNumber()
         }
         
-        starView.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
-        starView.textAlignment = Device.getLanguage().contains("AR") ? .left : .right
         bottomStartRatingLabel.addLeading(image: #imageLiteral(resourceName: "star_ico"), text: String(format: "%.1f", vModel?.driverRating() as! CVarArg), imageOffsetY: 0)
         bottomStartRatingLabel.textAlignment = .natural
         imgNumberPlate.image = vModel?.imgForPlate()
+        
+        if (vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue) {
+            if vModel?.isRated() ?? false {
+                self.btnRate.isHidden = true
+                self.starStackView.isHidden = false
+                self.starStackView.removeFullyAllArrangedSubviews()
+                for _ in 0..<Int(vModel?.getRating() ?? 0) {
+                    let imageView = UIImageView()
+                    imageView.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+                    imageView.widthAnchor.constraint(equalToConstant: 15.0).isActive = true
+                    imageView.image = UIImage(named: "star_ico")
+                    imageView.contentMode = .scaleAspectFit
+                    self.starStackView.addArrangedSubview(imageView)
+                }
+            }
+            else {
+                self.btnRate.isHidden = false
+                self.starStackView.isHidden = true
+            }
+        }
+        else {
+            self.btnRate.isHidden = true
+            self.starStackView.isHidden = true
+            self.btnPayNow.isHidden = true
+        }
+    }
+    
+    @IBAction func btnRateTapTouchIn(_ sender: Any)
+    {
+        vModel?.checkForRating()
+    }
+    
+    @IBAction func btnPayNowTapTouchIn(_ sender: Any)
+    {
+        vModel?.onClickPayNow()
     }
     
     func hideDriverInfoBox()
@@ -424,7 +461,6 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideBtnComplain()
             hideRebookBtn()
             hideFareDetailBtn()
-            starView.isHidden = true
             bottomStartRatingLabel.isHidden = false
             bookingTime.isHidden = false
             hideSeperatorBeforeReportAnIssue()
@@ -476,7 +512,6 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideBtnComplain()
             hideRebookBtn()
             hideFareDetailBtn()
-            starView.isHidden = true
             bottomStartRatingLabel.isHidden = false
             hideSeperatorBeforeReportAnIssue()
             bookingTime.isHidden = false
@@ -531,7 +566,6 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
 
             let totalDetailsCount = (vModel?.fareDetailsHeader()?.count ?? 0) + (vModel?.fareDetailsBody()?.count ?? 0) + 3
 
-            starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
             
             self.view.customCornerRadius = 0
@@ -575,7 +609,6 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             showRebookBtn()
             hideFareDetailBtn()
             hideSeperatorBeforeReportAnIssue()
-            starView.isHidden = false
             bottomStartRatingLabel.isHidden = true
             showBtnComplain()
             DispatchQueue.main.async {
@@ -628,7 +661,6 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         
         //MARK:- ARRIVED BOOKING
         if(vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue) {
-            starView.isHidden = true
             eta.isHidden = true
             bottomStartRatingLabel.isHidden = false
             hideSeperatorBeforeReportAnIssue()
