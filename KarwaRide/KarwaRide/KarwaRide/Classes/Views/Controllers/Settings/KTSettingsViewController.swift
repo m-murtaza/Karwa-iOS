@@ -141,8 +141,6 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         var cell: UITableViewCell?
         if indexPath.section == 0 && indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "userInfoCellIdentifier")
-            (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor.black
-
             guard let _ = cell else {
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
@@ -153,7 +151,6 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             let isEmailVerified = (viewModel as! KTSettingsViewModel).isEmailVerified()
 
             (cell as! KTSettingsProfileTableViewCell).setUserInfo(name: name, phone: phone, completeness: perCompletion, emailVerified: isEmailVerified)
-
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             
         }
