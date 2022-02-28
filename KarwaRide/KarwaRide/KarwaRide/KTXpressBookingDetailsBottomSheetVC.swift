@@ -148,7 +148,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
     
     func showRebookBtn()
     {
-        btnRebook.isHidden = false
+        btnRebook.isHidden = true //changed as per the new requirement to hide the rebook option
     }
     
     func hideFareDetailBtn()
@@ -579,7 +579,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             if bottomsheetSizeSet == false {
                 DispatchQueue.main.async {
-                    self.heightOFScrollViewContent.constant = 600
+                    self.heightOFScrollViewContent.constant = 450 // change for removing rebook feature
                     if UIDevice().userInterfaceIdiom == .phone {
                         switch UIScreen.main.nativeBounds.height {
                         case 1136:
@@ -593,10 +593,10 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
                             self.sheet?.setSizes([.percent(0.30),.intrinsic], animated: true)
                         case 2436:
                             print("iPhone X")
-                            self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                            self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true) // change for removing rebook feature
                         default:
                             print("unknown")
-                            self.sheet?.setSizes([.percent(0.25),.intrinsic], animated: true)
+                            self.sheet?.setSizes([.percent(0.45),.intrinsic], animated: true) // change for removing rebook feature
                         }
                     }
                 }

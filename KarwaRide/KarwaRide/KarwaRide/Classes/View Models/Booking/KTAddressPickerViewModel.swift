@@ -36,7 +36,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   
   public var pickUpAddress : Any?
   public var dropOffAddress : Any?
-  private var locations : [KTGeoLocation] = []
+  var locations : [KTGeoLocation] = []
   var bookmarks : [KTGeoLocation] = []
   var favorites : [KTGeoLocation] = []
   var nearBy : [KTGeoLocation] = []
@@ -51,7 +51,11 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     var pickStations = [Area]()
     var dropStations = [Area]()
     var favoriteMetroStation = [Area]()
-  
+    var fromXpressLocation = false
+    var pickArea = [Area]()
+    var dropArea = [Area]()
+    public var selectedTxtField : SelectedTextField = SelectedTextField.DropoffAddress
+
   //MARK: - View Lifecycle
   
   override func viewDidLoad() {
@@ -60,7 +64,14 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
     del = (delegate as! KTAddressPickerViewModelDelegate)
     
-    fetchLocations()
+      if fromXpressLocation == false {
+          fetchLocations()
+      }
+
+      for item in sources {
+          pickArea.append(contentsOf: areas.filter({$0.code! == item}))
+      }
+     
   }
   override func viewWillAppear() {
     if pickUpAddress != nil {
@@ -70,8 +81,28 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     if dropOffAddress != nil{
       (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: getAddressName(location: dropOffAddress))
     }
-    fetchLocations()
+      if fromXpressLocation == false {
+          fetchLocations()
+      }
   }
+    
+    func checkLatLonInsidePickArea(location: KTGeoLocation, zoneArea: [Area]) -> Bool {
+        var latLonInside = false
+        for item in zoneArea {
+            let coordinates = item.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            }
+            if CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude).contained(by: coordinates) {
+                latLonInside = true
+                print("it contains")
+                break
+            } else {
+                print("it wont contains")
+                latLonInside = false
+            }
+        }
+        return latLonInside
+    }
   
   func pickupAddressClearedAction() {
     pickUpAddress = nil
@@ -221,9 +252,63 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     //delegate?.userIntraction(enable: false)
     delegate?.showProgressHud(show: true, status: "Searching Location")
     KTBookingManager().address(forSearch: query) { (status, response) in
-      
       if status == Constants.APIResponseStatus.SUCCESS {
         self.locations = response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]
+          if self.del?.inFocusTextField() == SelectedTextField.PickupAddress {
+              if self.fromXpressLocation == true {
+                  var newLocation = [KTGeoLocation]()
+                  for item in self.locations {
+                      if self.checkLatLonInsidePickArea(location: item, zoneArea: self.pickArea) {
+                          newLocation.append(item)
+                      }
+                  }
+                  self.locations = newLocation
+              }
+              
+              if self.locations.count == 0 {
+                  self.delegate?.showError!(title: "str_no_record".localized(), message: "")
+              }
+          } else {
+              if self.fromXpressLocation == true {
+                  
+                  if selectedRSPickZone != nil && selectedRSPickStation == nil {
+                      var dropArea = [Area]()
+                      let destinationStationArray = destinations.filter({$0.source! == selectedRSPickZone?.code!}).map({$0.destination})
+                      for item in destinationStationArray {
+                          dropArea.append(contentsOf: areas.filter({$0.code! == item}))
+                      }
+                      
+                      var newLocation = [KTGeoLocation]()
+                      for item in self.locations {
+                          self.checkLatLonInsideDropArea(location: item, zoneArea: dropArea, newlocation: &newLocation)
+                      }
+                      self.locations = newLocation
+                      
+                  } else if selectedRSPickStation != nil {
+                      var dropArea = [Area]()
+                      var destinationStationArray = destinations.filter({$0.source! == selectedRSPickStation?.code!}).map({$0.destination})
+                      let stopsOfStations = stops.filter({$0.parent! == selectedRSPickStation?.code!})
+                      for item in stopsOfStations {
+                          destinationStationArray.append(contentsOf: destinations.filter({$0.source! == item.code!}).map({$0.destination}))
+                      }
+                      destinationStationArray = Array(Set(destinationStationArray))
+                      for item in destinationStationArray {
+                          dropArea.append(contentsOf: areas.filter({$0.code! == item}))
+                      }
+                      var newLocation = [KTGeoLocation]()
+                      for item in self.locations {
+                          self.checkLatLonInsideDropArea(location: item, zoneArea: dropArea, newlocation: &newLocation)
+                      }
+                      self.locations = newLocation
+                      
+                  }
+                
+              }
+              
+              if self.locations.count == 0 {
+                  self.delegate?.showError!(title: "str_no_record".localized(), message: "")
+              }
+          }
         (self.delegate as! KTAddressPickerViewModelDelegate).loadData()
         //self.delegate?.userIntraction(enable: true)
         self.delegate?.hideProgressHud()
@@ -236,6 +321,21 @@ class KTAddressPickerViewModel: KTBaseViewModel {
       }
     }
   }
+    
+    func checkLatLonInsideDropArea(location: KTGeoLocation, zoneArea: [Area], newlocation: inout [KTGeoLocation]) {
+        for item in zoneArea {
+            let coordinates = item.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            }
+            if CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude).contained(by: coordinates) {
+                newlocation.append(location)
+                print("it contains")
+            } else {
+                print("it wont contains")
+            }
+        }
+        
+    }
   
   //MARK: - Map
   
