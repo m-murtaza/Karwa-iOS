@@ -659,6 +659,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
                       
                       if selectedRSDropOffCoordinate != nil {
                           self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+                          self.dismiss(animated: true, completion: nil)
                       }
                       
                   }
@@ -667,9 +668,11 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
                   print(selectedRSPickStation)
                   if selectedRSDropOffCoordinate != nil {
                       self.delegateAddress?.setLocation(picklocation: selectedRSPickStation, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+                      self.dismiss(animated: true, completion: nil)
                   }
+              } else {
+                  self.dismiss(animated: true, completion: nil)
               }
-              self.dismiss(animated: true, completion: nil)
           } else {
               self.delegateAddress?.setLocation(picklocation: selectedRSPickStation != nil ? selectedRSPickStation : pickupAddress, dropLocation: selectedRSDropOffCoordinate == nil ? nil : dropoffAddress, destinationForPickUp: destinationForPickUp)
               self.dismiss(animated: true, completion: nil)
@@ -1702,6 +1705,7 @@ extension KTAddressPickerViewController {
             if checkLatLonInsideDropArea(location: actualLocation, zoneArea: dropArea) {
                 selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
                 self.setDropLocations()
+                selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
                 txtPickAddress.isUserInteractionEnabled = true
                 self.delegateAddress?.setLocation(picklocation: selectedRSPickStation, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
                 self.dismiss(animated: true, completion: nil)

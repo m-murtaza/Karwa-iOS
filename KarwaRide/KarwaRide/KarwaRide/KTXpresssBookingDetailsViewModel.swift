@@ -689,6 +689,9 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
             KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, true, completion: {
                 (status, response) in
                 
+                print(response)
+                print(status)
+
                 self.fetchBookingForUpdate((self.booking?.bookingId)!, true)
                                 
                 if status == Constants.APIResponseStatus.SUCCESS
@@ -763,7 +766,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     
     @objc func fetchBooking(_ bookingId : String, _ isFromBookingId : Bool)
     {
-        self.del?.showProgressHud(show: true, status: "Fetching Trip Information")
+        self.del?.showProgressHud(show: true, status: "")
         
         KTBookingManager().booking(bookingId as String, isFromBookingId) { (status, response) in
             

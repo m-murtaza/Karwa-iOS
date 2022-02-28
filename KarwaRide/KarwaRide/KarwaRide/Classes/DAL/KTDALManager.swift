@@ -168,6 +168,8 @@ class KTDALManager: KTBase {
         var syncDate = UserDefaults.standard.object(forKey: key) as? Date
         if syncDate == nil {
             syncDate = self.defaultSyncDate()
+            UserDefaults.standard.set(syncDate, forKey: key)
+            UserDefaults.standard.synchronize()
         }
         
         //MAHA CHOTIYAPA: Ask Abdullah for details. Server need Timestamp with +3 hr for qatar
@@ -184,9 +186,8 @@ class KTDALManager: KTBase {
     }
     
     func updateSyncTime(forKey key: String) {
-        let defaults: UserDefaults? = UserDefaults.standard
-        defaults?.set(Date(), forKey: key)
-        defaults?.synchronize()
+        UserDefaults.standard.set(Date(), forKey: key)
+        UserDefaults.standard.synchronize()
     }
     
     func removeSyncTime(forKey key:String) {

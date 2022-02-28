@@ -83,7 +83,9 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     let MAX_ZOOM_LEVEL = 16
     var isAbleToObserveZooming = false
     var haltAutoZooming = false
-    
+
+    var fromBackGround = false
+
     var rideExploreDelegate: RideExploreDelegate?
 
     lazy var sheet = SheetViewController(
@@ -169,8 +171,14 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         self.mapView.settings.rotateGestures = false
         self.mapView.settings.tiltGestures = false
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showBookingStatus(notification:)), name: Notification.Name("CurrentBookingNotification"), object: nil)
+
 //        self.navigationController?.navigationBar.backIndicatorImage = nil
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func showBookingStatus(notification: Notification) {
+        fromBackGround = true
     }
     
     func initializeValue() {
@@ -677,11 +685,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     
     //MARK:- Map
     func initializeMap(location : CLLocationCoordinate2D) {
-        
         self.mapView.clear()
-        
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
-        
         self.mapView.camera = camera;
         self.mapView.delegate = self
         
@@ -698,7 +703,6 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         } catch {
             NSLog("One or more of the map styles failed to load. \(error)")
         }
-        
     }
     
     func showCurrentLocationDot(show: Bool) {
