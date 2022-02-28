@@ -681,19 +681,10 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     @objc func fetchTaxiForTracking()
     {
         let bStatus = BookingStatus(rawValue: (booking?.bookingStatus)!)
-
-        print("current booking status", bStatus )
-        
         if  bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED || bStatus == BookingStatus.PICKUP
         {
             KTBookingManager().trackVechicle(jobId: (booking?.bookingId)!,vehicleNumber: (booking?.vehicleNo)!, true, completion: {
                 (status, response) in
-                
-                print(response)
-                print(status)
-
-                self.fetchBookingForUpdate((self.booking?.bookingId)!, true)
-                                
                 if status == Constants.APIResponseStatus.SUCCESS
                 {
                     let vtrack : VehicleTrack = self.parseVehicleTrack(track: response)

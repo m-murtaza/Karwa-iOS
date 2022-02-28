@@ -178,7 +178,18 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     @objc func showBookingStatus(notification: Notification) {
-        fromBackGround = true
+        if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue || vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue || vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue || vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue) {
+            vModel?.stopBookingUpdateTimer()
+            vModel?.stopVehicleUpdateTimer()
+            if fromRideHistory == false {
+                bookingSuccessful = true
+                sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
+                sideMenuController?.hideMenu()
+            } else {
+                sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+                sideMenuController?.hideMenu()
+            }
+        }
     }
     
     func initializeValue() {
