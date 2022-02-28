@@ -656,12 +656,18 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
                           selectedRSDropStation = nil
                           selectedRSDropStop = nil
                       }
-                      self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+                      
+                      if selectedRSDropOffCoordinate != nil {
+                          self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+                      }
+                      
                   }
               }
               if selectedRSPickStation != nil && dropoffAddress != nil {
                   print(selectedRSPickStation)
-                  self.delegateAddress?.setLocation(picklocation: selectedRSPickStation, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+                  if selectedRSDropOffCoordinate != nil {
+                      self.delegateAddress?.setLocation(picklocation: selectedRSPickStation, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+                  }
               }
               self.dismiss(animated: true, completion: nil)
           } else {
@@ -1726,9 +1732,7 @@ extension KTAddressPickerViewController {
         self.tblView.reloadData()
     }
     
-    fileprivate func setDropOffLocationFromAreas(_ metroArea: Area) {
-        
-        let metroAreaCoordinate = getCenterPointOfPolygon(bounds: metroArea.bound!)
+    fileprivate func setDropOffLocationFromAreas(_ metroAreaCoordinate: CLLocationCoordinate2D) {
         selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: metroAreaCoordinate.latitude, longitude: metroAreaCoordinate.longitude)
         var customDestinationsCode = [Int]()
         destinationForPickUp.removeAll()
@@ -1796,7 +1800,7 @@ extension KTAddressPickerViewController {
                 if type == .PickupAddress {
                     setPickLocationFromAreas(metroAreaCoordinate, loc)
                 } else {                    
-                    setDropOffLocationFromAreas(loc)
+                    setDropOffLocationFromAreas(metroAreaCoordinate)
                 }
             }
         }
