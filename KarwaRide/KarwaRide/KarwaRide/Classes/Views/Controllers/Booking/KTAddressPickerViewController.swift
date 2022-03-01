@@ -755,9 +755,8 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
           }
           previousView?.dismiss()
       } else {
-          
-          self.checkPermittedDropOff(dropOff: dropOff, pickup: pickup)
-                              
+          self.delegateAddress?.setLocation(picklocation: pickup, dropLocation: dropOff, destinationForPickUp: self.destinationForPickUp)
+          self.dismiss(animated: true, completion: nil)
       }
     
   }
