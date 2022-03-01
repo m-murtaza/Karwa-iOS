@@ -61,8 +61,16 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
 //        } else {
 //            // Fallback on earlier versions
 //        }
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showCurrentBooking(notification:)), name: Notification.Name("BackgroundBookingNotification"), object: nil)
+
       addMenuButton()
+    }
+    
+    @objc func showCurrentBooking(notification: Notification) {
+        if let currentBooking = notification.userInfo!["booking"] as? KTBooking {
+            (viewModel as! KTMyTripsViewModel).selectedBooking = currentBooking
+            self.moveToDetails()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
