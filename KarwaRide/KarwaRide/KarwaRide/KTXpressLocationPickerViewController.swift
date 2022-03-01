@@ -56,7 +56,6 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
     
     var pickAddressText = ""
 
-
     var backToPreviousPickUp = false
 
     lazy var countOfPassenger =  1
@@ -1299,32 +1298,29 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
     
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         addressSelected = false
-       // resetValues()
-    }
-    
-    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-        self.checkCoordinateStatus(location)
     }
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
-        if tapOnMarker == false {
-            if self.pickUpSelected == true {
-                selectedRSPickUpCoordinate = location.coordinate
-                setPickUpLocations(fromMapDrag: true)
-                if selectedRSPickStation == nil {
-                    (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+            let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
+            if self.tapOnMarker == false {
+                if self.pickUpSelected == true {
+                    selectedRSPickUpCoordinate = location.coordinate
+                    self.setPickUpLocations(fromMapDrag: true)
+                    if selectedRSPickStation == nil {
+                        (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
+                    }
+                } else {
+                    selectedRSDropOffCoordinate = location.coordinate
+                    self.setDropLocations(fromMapDrag: true)
+                    
                 }
             } else {
-                selectedRSDropOffCoordinate = location.coordinate
-                setDropLocations(fromMapDrag: true)
+                self.tapOnMarker = false
             }
-        } else {
-            tapOnMarker = false
+            self.checkCoordinateStatus(location)
+            self.fromAddressScreenAddress = false
         }
-        self.checkCoordinateStatus(location)
-        fromAddressScreenAddress = false
     }
     
     fileprivate func setPickUpLocationData(_ marker: GMSMarker) {
@@ -1640,12 +1636,8 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                 }
                 self.pickUpAddressLabel.text = selectedRSDropStop?.name ?? ""
                 if fromMapDrag == false {
-                    dropOffCalled = true
-                    setDropOff()
+                    showAlertForStation(station: selectedRSDropStation!)
                 }
-//                if fromMapDrag == false {
-//                    showAlertForStation(station: selectedRSDropStation!)
-//                }
             }
         } else {
             dropOffCalled = true
