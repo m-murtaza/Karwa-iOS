@@ -178,22 +178,13 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     @objc func showBookingStatus(notification: Notification) {
-        
         if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue || vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue || vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue || vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue) {
             vModel?.stopBookingUpdateTimer()
             vModel?.stopVehicleUpdateTimer()
-            if fromRideHistory == false {
-                bookingSuccessful = true
-                sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "BookingNavigationViewController")
-                sideMenuController?.hideMenu()
-            } else {
-                sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
-                sideMenuController?.hideMenu()
-            }
-            defer {
-                Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
-                    NotificationCenter.default.post(name: Notification.Name("BackgroundBookingNotification"), object: nil, userInfo: ["booking": (self.viewModel as! KTXpresssBookingDetailsViewModel).booking ?? KTBooking()])
-                }
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+            sideMenuController?.hideMenu()
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                NotificationCenter.default.post(name: Notification.Name("BackgroundBookingNotification"), object: nil, userInfo: ["booking": (self.viewModel as! KTXpresssBookingDetailsViewModel).booking ?? KTBooking()])
             }
         }
     }
