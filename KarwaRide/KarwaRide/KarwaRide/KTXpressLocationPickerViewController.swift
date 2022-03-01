@@ -200,6 +200,9 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
                     callSetPickUpAction()
                 }
             } else {
+                selectedRSDropZone = nil
+                selectedRSDropStation = nil
+                selectedRSDropStop = nil
                 callSetPickUpAction()
             }
         } else if sender.title(for: .normal) == "str_dropoff".localized() {
