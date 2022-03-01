@@ -1193,6 +1193,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                         self.setLocationButton.isUserInteractionEnabled = true
                         self.setLocationButton.backgroundColor = UIColor(hexString: "#4BA5A7")
                         self.setLocationButton.isUserInteractionEnabled = true
+                        selectedRSDropOffCoordinate = location.coordinate
                         break
                     }
                 } else {
@@ -1204,6 +1205,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     self.setLocationButton.backgroundColor = UIColor(hexString: "#4BA5A7")
                     self.setLocationButton.isUserInteractionEnabled = true
                     self.pickUpAddressLabel.text = selectedRSDropStation?.name ?? ""
+                    selectedRSDropOffCoordinate = location.coordinate
                     break
                 }
                 
@@ -1222,15 +1224,13 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                         print("it wont contains")
                         self.setLocationButton.setTitle("str_outzone".localized(), for: .normal)
                     }
-
+                    
                     self.setLocationButton.backgroundColor = UIColor.clear
                     self.markerImage.image = #imageLiteral(resourceName: "pin_outofzone")
                     self.setLocationButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
                     self.setLocationButton.isUserInteractionEnabled = false
-                    if fromAddressScreenAddress == false {
-                        (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
-                    }
-
+                    (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
+                    
                 } else {
                     
                     print("it wont contains")
@@ -1239,9 +1239,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     self.markerImage.image = #imageLiteral(resourceName: "pin_outofzone")
                     self.setLocationButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
                     self.setLocationButton.isUserInteractionEnabled = false
-                    if fromAddressScreenAddress == false {
                         (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
-                    }
 //                    self.setDropOffButton.layer.shadowColor = UIColor.clear.cgColor
                     
                 }
@@ -1314,9 +1312,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                         (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
                     }
                 } else {
-                    selectedRSDropOffCoordinate = location.coordinate
-                    self.setDropLocations(fromMapDrag: true)
-                    
+//                    self.setDropLocations(fromMapDrag: true)
                 }
             } else {
                 self.tapOnMarker = false
