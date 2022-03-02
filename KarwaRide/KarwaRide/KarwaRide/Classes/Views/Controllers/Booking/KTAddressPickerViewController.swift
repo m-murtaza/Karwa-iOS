@@ -61,6 +61,18 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   
   public var pickupAddress : KTGeoLocation?
   public var dropoffAddress : KTGeoLocation?
+    
+    var previouspickupAddress : KTGeoLocation?
+    var previousdropoffAddress : KTGeoLocation?
+    var previousselectedRSPickUpCoordinate: CLLocationCoordinate2D?
+    var previousselectedRSDropOffCoordinate: CLLocationCoordinate2D?
+    var previousselectedRSDropZone: Area?
+    var previousselectedRSPickZone: Area?
+    var previousselectedRSPickStation: Area?
+    var previousselectedRSDropStation: Area?
+    var previousselectedRSPickStop: Area?
+    var previousselectedRSDropStop: Area?
+    
   var delegateAddress: KTXpressAddressDelegate?
   var metroStations = [Area]()
     var xpressLocation = false
@@ -114,9 +126,22 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
     viewModel = KTAddressPickerViewModel(del:self)
     
     (viewModel as! KTAddressPickerViewModel).pickUpAddress = pickupAddress
+      
+      previouspickupAddress = pickupAddress
+      previousselectedRSPickUpCoordinate = selectedRSPickUpCoordinate
+      previousselectedRSDropOffCoordinate = selectedRSDropOffCoordinate
+      previousselectedRSDropZone = selectedRSDropZone
+      previousselectedRSPickZone = selectedRSPickZone
+      previousselectedRSPickStation = selectedRSPickStation
+      previousselectedRSDropStation = selectedRSDropStation
+      previousselectedRSPickStop = selectedRSPickStop
+      previousselectedRSDropStop = selectedRSDropStop
+      
     
     if dropoffAddress != nil {
       (viewModel as! KTAddressPickerViewModel).dropOffAddress = dropoffAddress
+        previousdropoffAddress = dropoffAddress
+
     }
       
       (viewModel as! KTAddressPickerViewModel).metroStations = self.metroStations
@@ -647,39 +672,53 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   }
   
   @IBAction func dismissAction(_ sender: UIButton) {
+//
+//      if xpressLocation == true {
+//          if valueChanged == false {
+//              if selectedTxtField == .DropoffAddress {
+//                  if selectedRSDropZone == nil || (txtDropAddress.text?.count ?? 0) == 0{
+//                      if selectedRSDropZone == nil {
+//                          selectedRSDropStation = nil
+//                          selectedRSDropStop = nil
+//                      }
+//
+//                      if selectedRSDropOffCoordinate != nil {
+//                          self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+//                          self.dismiss(animated: true, completion: nil)
+//                      }
+//
+//                  }
+//              }
+//              if selectedRSPickStation != nil && dropoffAddress != nil {
+//                  print(selectedRSPickStation)
+//                  if selectedRSDropOffCoordinate != nil {
+//                      self.delegateAddress?.setLocation(picklocation: selectedRSPickStation, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+//                      self.dismiss(animated: true, completion: nil)
+//                  }
+//              } else {
+//                  self.dismiss(animated: true, completion: nil)
+//              }
+//          } else {
+//              self.delegateAddress?.setLocation(picklocation: selectedRSPickStation != nil ? selectedRSPickStation : pickupAddress, dropLocation: selectedRSDropOffCoordinate == nil ? nil : dropoffAddress, destinationForPickUp: destinationForPickUp)
+//              self.dismiss(animated: true, completion: nil)
+//          }
+//      } else {
+//          self.dismiss(animated: true, completion: nil)
+//      }
+//
+      dropoffAddress = previousdropoffAddress
+      pickupAddress = previouspickupAddress
+      selectedRSPickUpCoordinate = previousselectedRSPickUpCoordinate
+      selectedRSDropOffCoordinate = previousselectedRSDropOffCoordinate
+      selectedRSDropZone = previousselectedRSDropZone
+      selectedRSPickZone = previousselectedRSPickZone
+      selectedRSPickStation = previousselectedRSPickStation
+      selectedRSDropStation = previousselectedRSDropStation
+      selectedRSPickStop = previousselectedRSPickStop
+      selectedRSDropStop = previousselectedRSDropStop
       
-      if xpressLocation == true {
-          if valueChanged == false {
-              if selectedTxtField == .DropoffAddress {
-                  if selectedRSDropZone == nil || (txtDropAddress.text?.count ?? 0) == 0{
-                      if selectedRSDropZone == nil {
-                          selectedRSDropStation = nil
-                          selectedRSDropStop = nil
-                      }
-                      
-                      if selectedRSDropOffCoordinate != nil {
-                          self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
-                          self.dismiss(animated: true, completion: nil)
-                      }
-                      
-                  }
-              }
-              if selectedRSPickStation != nil && dropoffAddress != nil {
-                  print(selectedRSPickStation)
-                  if selectedRSDropOffCoordinate != nil {
-                      self.delegateAddress?.setLocation(picklocation: selectedRSPickStation, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
-                      self.dismiss(animated: true, completion: nil)
-                  }
-              } else {
-                  self.dismiss(animated: true, completion: nil)
-              }
-          } else {
-              self.delegateAddress?.setLocation(picklocation: selectedRSPickStation != nil ? selectedRSPickStation : pickupAddress, dropLocation: selectedRSDropOffCoordinate == nil ? nil : dropoffAddress, destinationForPickUp: destinationForPickUp)
-              self.dismiss(animated: true, completion: nil)
-          }
-      } else {
-          self.dismiss(animated: true, completion: nil)
-      }
+      self.dismiss(animated: true, completion: nil)
+
 
   }
   
@@ -1024,11 +1063,18 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
             clearButtonDestination.isHidden = true
         }
         if xpressLocation == true {
-            if selectedRSPickStation != nil {
-                setDestinations()
+            
+            if txtPickAddress.text?.count == 0 {
+                
             } else {
-                self.getDestinationForPickUp()
+                if selectedRSPickStation != nil {
+                    setDestinations()
+                } else {
+                    self.getDestinationForPickUp()
+                }
             }
+            
+            
         }
     }
     else {
@@ -1530,11 +1576,18 @@ extension KTAddressPickerViewController {
                 alert.addAction(UIAlertAction(title: item.name!, style: .default , handler:{ (UIAlertAction)in
                     print("User click Approve button")
                     if selectedTextType == .PickupAddress {
+                        
+                        print("selectedStation", selectedStation)
+                        
                         selectedRSPickZone = areas.filter({$0.code == selectedStation.parent}).first!
                         selectedRSPickStation = selectedStation
                         selectedRSPickStop = item
                         if selectedRSPickStop != nil {
                             selectedRSPickUpCoordinate = getCenterPointOfPolygon(bounds: selectedRSPickStop!.bound!)
+                        }
+                        let new = destinations.filter({$0.source == selectedRSPickStop?.code}).map({$0.destination})
+                        if new.count > 0 {
+                            selectedRSPickZone = zones.filter({$0.code! == new.first!}).first!
                         }
                         self.txtPickAddress.text = selectedRSPickStop?.name ?? ""
                         self.setDestinationForPickup()

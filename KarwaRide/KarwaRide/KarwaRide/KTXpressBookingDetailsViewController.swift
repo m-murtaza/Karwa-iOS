@@ -410,7 +410,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             
 
             let wayPointImage = wayPointBGView.asImage()
-            wayPointsMarker.append(self.addAndGetWayPointsOnMap(location: CLLocationCoordinate2D(latitude: 25.2683, longitude: 51.4715), image: wayPointImage))
+            wayPointsMarker.append(self.addAndGetMarkerOnMap(location: CLLocationCoordinate2D(latitude: item.Location.lat, longitude: item.Location.lon), image: wayPointImage))
+            
        }
         
         removeOldPolyline()

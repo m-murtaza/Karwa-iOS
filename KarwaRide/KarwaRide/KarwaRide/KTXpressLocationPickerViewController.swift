@@ -764,13 +764,9 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
             self.getDestinationForAddressScreen()
             destination.metroStations = pickUpArea
 //            destination.metroStations = destinationForPickUp
-            if stopsOfStations.count == 1 {
-                selectedRSPickStop = stopsOfStations.first!
-                destination.pickupAddress = KTBookingManager().geoLocaiton(forLocationId: Int32(Int.random(in: 1..<100000)), latitude: selectedRSPickUpCoordinate?.latitude ?? 0.0, longitude: selectedRSPickUpCoordinate?.longitude ?? 0.0, name: selectedRSPickStation?.name ?? "")
-                self.present(destination, animated: true)
-            } else {
-                self.showStopAlertAddressViewController(stops: stopsOfStations, selectedStation: selectedRSPickStation!, addressScreen: destination)
-            }
+            selectedRSPickStop = stopsOfStations.first!
+            destination.pickupAddress = KTBookingManager().geoLocaiton(forLocationId: Int32(Int.random(in: 1..<100000)), latitude: selectedRSPickUpCoordinate?.latitude ?? 0.0, longitude: selectedRSPickUpCoordinate?.longitude ?? 0.0, name: selectedRSPickStation?.name ?? "")
+            self.present(destination, animated: true)
         } else {
             self.getDestinationForAddressScreen()
 //            destination.destinationForPickUp = destinationForPickUp
