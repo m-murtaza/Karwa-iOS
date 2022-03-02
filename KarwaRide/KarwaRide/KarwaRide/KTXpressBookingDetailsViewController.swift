@@ -909,7 +909,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             dashedPolyline.strokeWidth = 3.0
             bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
             let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(UIColor.clear)]
-            let lengths = [0.5, 0.5] // Play with this for dotted line
+            let lengths = [0.5, 0.5] // Play with this for dotted    line
             dashedPolyline.spans = GMSStyleSpans(dashedPolyline.path!, styles, lengths as [NSNumber], .rhumb)
             
             let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)

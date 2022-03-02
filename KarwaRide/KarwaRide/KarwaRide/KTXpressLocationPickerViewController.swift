@@ -1298,6 +1298,8 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
     }
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        self.setLocationButton.isEnabled = false
+        self.showAddressPickerBtn.isEnabled = false
         Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
             let location = CLLocation(latitude: mapView.camera.target.latitude, longitude: mapView.camera.target.longitude)
             if self.tapOnMarker == false {
@@ -1313,6 +1315,8 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
             } else {
                 self.tapOnMarker = false
             }
+            self.setLocationButton.isEnabled = true
+            self.showAddressPickerBtn.isEnabled = false
             self.checkCoordinateStatus(location)
             self.fromAddressScreenAddress = false
         }
@@ -1615,6 +1619,9 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                 stationsStop = stopOfStations.filter({$0.code! == item.destination})
             }
             print("stationsStop", stationsStop)
+            if stationsStop.count > 0 {
+                selectedRSDropStop = stationsStop.first!
+            }
         }
         
         

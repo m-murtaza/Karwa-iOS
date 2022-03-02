@@ -1730,17 +1730,18 @@ extension KTAddressPickerViewController {
             }
             dropoffAddress = loc
             selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
-            if checkLatLonInsideDropArea(location: actualLocation, zoneArea: dropArea) == true {
-                selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
-                self.setDropLocations()
-                txtPickAddress.isUserInteractionEnabled = true
-                self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
-                self.dismiss(animated: true, completion: nil)
-            } else {
-                dropoffAddress = nil
-                txtDropAddress.becomeFirstResponder()
-                showOutZoneMessage("str_outzone".localized())
-            }
+            self.setDropLocations()
+            txtPickAddress.isUserInteractionEnabled = true
+            self.delegateAddress?.setLocation(picklocation: pickupAddress, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+            self.dismiss(animated: true, completion: nil)
+            
+//            if checkLatLonInsideDropArea(location: actualLocation, zoneArea: dropArea) == true {
+//
+//            } else {
+//                dropoffAddress = nil
+//                txtDropAddress.becomeFirstResponder()
+//                showOutZoneMessage("str_outzone".localized())
+//            }
         } else if selectedRSPickStation != nil {
             var dropArea = [Area]()
             var destinationStationArray = destinations.filter({$0.source! == selectedRSPickStation?.code!}).map({$0.destination})
@@ -1754,18 +1755,19 @@ extension KTAddressPickerViewController {
             for item in destinationStationArray {
                 dropArea.append(contentsOf: areas.filter({$0.code! == item}))
             }
-            if checkLatLonInsideDropArea(location: actualLocation, zoneArea: dropArea) {
-                selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
-                self.setDropLocations()
-                selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
-                txtPickAddress.isUserInteractionEnabled = true
-                self.delegateAddress?.setLocation(picklocation: selectedRSPickStation, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
-                self.dismiss(animated: true, completion: nil)
-            } else {
-                dropoffAddress = nil
-                txtDropAddress.becomeFirstResponder()
-                showOutZoneMessage("str_outzone".localized())
-            }
+            selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+            self.setDropLocations()
+            selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: loc.latitude, longitude: loc.longitude)
+            txtPickAddress.isUserInteractionEnabled = true
+            self.delegateAddress?.setLocation(picklocation: selectedRSPickStation, dropLocation: dropoffAddress, destinationForPickUp: destinationForPickUp)
+            self.dismiss(animated: true, completion: nil)
+//            if checkLatLonInsideDropArea(location: actualLocation, zoneArea: dropArea) {
+//
+//            } else {
+//                dropoffAddress = nil
+//                txtDropAddress.becomeFirstResponder()
+//                showOutZoneMessage("str_outzone".localized())
+//            }
             
         }
     }
