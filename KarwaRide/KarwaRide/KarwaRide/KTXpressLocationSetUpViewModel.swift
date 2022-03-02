@@ -198,6 +198,13 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
                 (self.delegate as! KTXpressLocationViewModelDelegate).setPickUp(pick: pAddress.name)
               }
             }
+        } else {
+            DispatchQueue.main.async {
+              //self.delegate?.userIntraction(enable: true)
+              if self.delegate != nil {
+                (self.delegate as! KTXpressLocationViewModelDelegate).setPickUp(pick: "")
+              }
+            }
         }
       }
     }

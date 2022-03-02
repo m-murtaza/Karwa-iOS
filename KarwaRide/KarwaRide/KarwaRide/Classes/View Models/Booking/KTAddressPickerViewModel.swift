@@ -288,10 +288,18 @@ class KTAddressPickerViewModel: KTBaseViewModel {
                       var dropArea = [Area]()
                       var destinationStationArray = destinations.filter({$0.source! == selectedRSPickStation?.code!}).map({$0.destination})
                       let stopsOfStations = stops.filter({$0.parent! == selectedRSPickStation?.code!})
-                      for item in stopsOfStations {
-                          destinationStationArray.append(contentsOf: destinations.filter({$0.source! == item.code!}).map({$0.destination}))
-                      }
-                      destinationStationArray = Array(Set(destinationStationArray))
+                      
+                      destinationStationArray.append(contentsOf: destinations.filter({$0.source! == selectedRSPickStop?.code!}).map({$0.destination}))
+
+                      
+//
+//                      for item in stopsOfStations {
+//                          destinationStationArray.append(contentsOf: destinations.filter({$0.source! == item.code!}).map({$0.destination}))
+//                      }
+//                      destinationStationArray = Array(Set(destinationStationArray))
+                      
+                      print(destinationStationArray)
+                      
                       for item in destinationStationArray {
                           dropArea.append(contentsOf: areas.filter({$0.code! == item}))
                       }
