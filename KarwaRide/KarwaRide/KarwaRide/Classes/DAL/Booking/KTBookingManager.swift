@@ -190,6 +190,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
             self.saveTripSummey(data: data,booking: b )
         }
         
+        b.isPayable = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.IsPayable] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.IsPayable] as! Bool : false
         b.isRated = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.IsRated] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.IsRated] as! Bool : false
         
         b.paymentMethod = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PaymentMethod] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PaymentMethod] as? String : ""

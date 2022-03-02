@@ -1242,6 +1242,11 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         return (booking?.toKeyValueBody?.array as! [KTKeyValue])
     }
     
+    func isPayable() -> Bool
+    {
+        return booking?.isPayable ?? false
+    }
+    
     //MARK:- Check for rating
     func isRated() -> Bool
     {

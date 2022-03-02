@@ -337,6 +337,7 @@ struct Constants {
         static let TripSummary = "OrderedTripSummary"
         
         static let IsRated = "IsRated"
+        static let IsPayable = "IsPayable"
         
         static let PaymentMethod = "PaymentMethod"
         static let LastFourDigits = "LastFourDigits"

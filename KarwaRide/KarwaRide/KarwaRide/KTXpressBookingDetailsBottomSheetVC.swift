@@ -345,6 +345,8 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
                 self.btnRate.isHidden = false
                 self.starStackView.isHidden = true
             }
+            
+            self.btnPayNow.isHidden = !(vModel?.isPayable() ?? false)
         }
         else {
             self.btnRate.isHidden = true
