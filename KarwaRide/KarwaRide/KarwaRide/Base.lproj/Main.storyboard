@@ -552,7 +552,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select destination from recent trips, popular places or drop a pin on map" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIb-2L-tcm">
-                                <rect key="frame" x="43" y="534" width="289" height="38.5"/>
+                                <rect key="frame" x="43" y="534" width="289" height="37.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="289" id="Tjp-vM-z0O"/>
                                 </constraints>
@@ -14588,8 +14588,8 @@
                                     <action selector="backButtonClick" destination="rSp-WG-pwC" eventType="touchUpInside" id="I82-L7-Qmd"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin_outofzone" translatesAutoresizingMaskIntoConstraints="NO" id="YvR-ug-0Gz" customClass="SpringImageView" customModule="Spring">
-                                <rect key="frame" x="140" y="137" width="40" height="40"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin_outofzone" translatesAutoresizingMaskIntoConstraints="NO" id="YvR-ug-0Gz" customClass="SpringImageView" customModule="Spring">
+                                <rect key="frame" x="141" y="131" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="WPo-WQ-xzX"/>
                                     <constraint firstAttribute="height" constant="40" id="e1J-1a-W4h"/>
@@ -14893,7 +14893,7 @@
                             <constraint firstItem="jpb-yb-bRv" firstAttribute="top" secondItem="RWh-Uh-AFF" secondAttribute="bottom" constant="2" id="SDL-Zc-C3l"/>
                             <constraint firstItem="jpb-yb-bRv" firstAttribute="top" secondItem="mWv-Ct-2Tf" secondAttribute="bottom" id="UVz-6q-sdZ"/>
                             <constraint firstItem="81E-Eu-8Ta" firstAttribute="leading" secondItem="il5-lT-dni" secondAttribute="leading" constant="16" id="XaB-O5-Xbo"/>
-                            <constraint firstItem="YvR-ug-0Gz" firstAttribute="centerY" secondItem="mWv-Ct-2Tf" secondAttribute="centerY" id="dmX-hh-tge"/>
+                            <constraint firstItem="YvR-ug-0Gz" firstAttribute="centerY" secondItem="mWv-Ct-2Tf" secondAttribute="centerY" constant="-6" id="dmX-hh-tge"/>
                             <constraint firstItem="mWv-Ct-2Tf" firstAttribute="leading" secondItem="il5-lT-dni" secondAttribute="leading" id="dnF-cC-5kf"/>
                             <constraint firstItem="il5-lT-dni" firstAttribute="right" secondItem="RWh-Uh-AFF" secondAttribute="rightMargin" constant="12" id="eVO-9f-2ti"/>
                             <constraint firstItem="dLb-Ry-dhX" firstAttribute="top" secondItem="il5-lT-dni" secondAttribute="top" constant="9" id="iVO-o5-Ny3"/>
@@ -14903,7 +14903,7 @@
                             <constraint firstItem="enZ-3C-Eds" firstAttribute="top" secondItem="il5-lT-dni" secondAttribute="top" constant="12" id="wfw-jh-vTF"/>
                             <constraint firstItem="dLb-Ry-dhX" firstAttribute="leading" secondItem="il5-lT-dni" secondAttribute="leading" constant="16" id="xm5-4I-2KP"/>
                             <constraint firstItem="jpb-yb-bRv" firstAttribute="leading" secondItem="il5-lT-dni" secondAttribute="leading" id="xxk-vV-Tz3"/>
-                            <constraint firstItem="YvR-ug-0Gz" firstAttribute="centerX" secondItem="mWv-Ct-2Tf" secondAttribute="centerX" id="yb2-1T-gb1"/>
+                            <constraint firstItem="YvR-ug-0Gz" firstAttribute="centerX" secondItem="mWv-Ct-2Tf" secondAttribute="centerX" constant="1" id="yb2-1T-gb1"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Xpress Link" image="kmetroexpress" selectedImage="kmetroexpress" id="BhN-Jc-ZTq">
