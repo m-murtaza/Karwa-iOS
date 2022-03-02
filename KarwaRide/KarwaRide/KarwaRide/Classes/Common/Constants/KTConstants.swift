@@ -276,6 +276,7 @@ struct Constants {
         static let PaymentToken = "PaymentToken"
         static let PaymentMethod = "PaymentMethod"
         static let TotalFare = "TotalFare"
+        static let BookingId = "BookingId"
         static let TripId = "TripId"
         static let TripType = "TripType"
         static let Tip = "Tip"
@@ -506,6 +507,7 @@ struct Constants {
         static let GetPayments = "payment/methods"
         static let PayTrip = "trip/pay"
         static let PayTripByApplePay = "trip/pay/device"
+        static let PayBooking = "payment/booking"
         static let MPGSSuccessToServer = "mpgs/3ds"
         static let MPGSCreateSession = "mpgs/session"
         

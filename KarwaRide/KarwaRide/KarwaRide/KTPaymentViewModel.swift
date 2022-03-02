@@ -66,29 +66,29 @@ class KTPaymentViewModel: KTBaseViewModel
         }
     }
 
-    func payTripButtonTapped(payTripBean : PayTripBeanForServer)
+    func payTripButtonTapped(payTripBean : PayTripBeanForServer, isBooking: Bool)
     {
         self.del?.showProgressHud(show: true, status: "str_paying_with_card".localized())
 
         let message = selectedPaymentMethod.source!
 
-        payTripToServer(payTripBean: payTripBean, source: AESEncryption.init().encrypt(message))
+        payTripToServer(payTripBean: payTripBean, source: AESEncryption.init().encrypt(message), isBooking: isBooking)
     }
     
-    func processApplePaymentToken(payment: PKPayment)
+    func processApplePaymentToken(payment: PKPayment, isBooking: Bool)
     {
         let paymentToken = String(data: payment.token.paymentData, encoding: .utf8)!
         
         self.del?.showProgressHud(show: true, status: "str_paying_with_card".localized())
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.payTripToServerWithApplePay(payTripBean: (self.del?.getPayTripBean())!, paymentToken: paymentToken)
+            self.payTripToServerWithApplePay(payTripBean: (self.del?.getPayTripBean())!, paymentToken: paymentToken, isBooking: isBooking)
         }
     }
 
-    func payTripToServer(payTripBean : PayTripBeanForServer, source : String)
+    func payTripToServer(payTripBean : PayTripBeanForServer, source : String, isBooking: Bool)
     {
-        KTPaymentManager().payTripAtServer(source, payTripBean.data, selectedTipValue()) { (success, response) in
+        KTPaymentManager().payTripAtServer(source, payTripBean.data, selectedTipValue(), isBooking, payTripBean.tripId) { (success, response) in
 
             self.del?.hideProgressHud()
 
@@ -107,9 +107,9 @@ class KTPaymentViewModel: KTBaseViewModel
         }
     }
     
-    func payTripToServerWithApplePay(payTripBean : PayTripBeanForServer, paymentToken : String)
+    func payTripToServerWithApplePay(payTripBean : PayTripBeanForServer, paymentToken : String, isBooking: Bool)
     {
-        KTPaymentManager().payTripAtServerWithApplePay(paymentToken, payTripBean.data, selectedTipValue()) { (success, response) in
+        KTPaymentManager().payTripAtServerWithApplePay(paymentToken, payTripBean.data, selectedTipValue(), isBooking, payTripBean.tripId) { (success, response) in
 
             self.del?.hideProgressHud()
 

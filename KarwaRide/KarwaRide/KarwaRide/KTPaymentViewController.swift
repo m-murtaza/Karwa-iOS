@@ -59,6 +59,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     var gotoDashboardRequired = false
     private var isPaidSuccessfullShowed = false
     var isTriggeredFromBookingDetail = false
+    var onPaymentCompleted: (()->())?
     
     override func viewDidLoad()
     {
@@ -129,7 +130,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         
         func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
 
-            vModel?.processApplePaymentToken(payment: payment)
+            vModel?.processApplePaymentToken(payment: payment, isBooking: self.isTriggeredFromBookingDetail)
 
             vModel?.transaction?.applePayPayment = payment
             self.completion?((vModel?.transaction!)!)
@@ -441,6 +442,8 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
         tripPaidSuccessImageView.animate()
 
         isPaidSuccessfullShowed = true
+        
+        self.onPaymentCompleted?()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -521,7 +524,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     @IBAction func payBtnTapped(_ sender: Any) {
         //        springAnimateButtonTapIn(imageView: btnPay)
         //        springAnimateButtonTapOut(imageView: btnPay)
-        vModel!.payTripButtonTapped(payTripBean: payTripBean!)
+        vModel!.payTripButtonTapped(payTripBean: payTripBean!, isBooking: self.isTriggeredFromBookingDetail)
     }
     
     var animationDelay = 1.0

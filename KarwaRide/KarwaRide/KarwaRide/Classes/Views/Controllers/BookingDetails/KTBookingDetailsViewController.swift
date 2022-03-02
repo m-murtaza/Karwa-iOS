@@ -670,7 +670,15 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         let navController: UINavigationController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardId.PaymentNavigationController) as! UINavigationController
         navController.modalPresentationStyle = .fullScreen
         let ktPaymentViewController: KTPaymentViewController = (navController.viewControllers)[0] as! KTPaymentViewController
+        let payTripBean = PayTripBeanForServer("", "", vModel!.totalFareOfTrip().components(separatedBy: " ")[1], vModel!.bookingId(), Int(vModel!.booking!.tripType), "", "", "", "\(vModel?.booking?.driverTip ?? 0)")
+        ktPaymentViewController.payTripBean = payTripBean
         ktPaymentViewController.isTriggeredFromBookingDetail = true
+        ktPaymentViewController.onPaymentCompleted = { [weak self] in
+            guard let `self` = self else {return}
+            self.vModel!.booking!.isPayable = false
+            self.updateAssignmentInfo()
+            
+        }
         self.present(navController, animated: true, completion: nil)
     }
     

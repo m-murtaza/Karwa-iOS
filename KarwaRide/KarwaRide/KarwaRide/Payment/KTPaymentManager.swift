@@ -199,28 +199,43 @@ class KTPaymentManager: KTDALManager
         )
     }
     
-    func payTripAtServer(_ source: String, _ data : String, _ tipValue: String, completion completionBlock: @escaping KTDALCompletionBlock)
+    func payTripAtServer(_ source: String, _ data : String, _ tipValue: String, _ isBooking: Bool = false, _ bookingId: String? = nil, completion completionBlock: @escaping KTDALCompletionBlock)
     {
-        let param : NSDictionary = [Constants.PayTripAPIKey.Source: source,
-                                    Constants.PayTripAPIKey.Data: data,
-                                    Constants.PayTripAPIKey.Tip: tipValue]
-        
-        self.put(url: Constants.APIURL.PayTrip, param: param as? [String : Any], completion: completionBlock, success:{ (responseData,cBlock) in
+        let param : NSMutableDictionary = [Constants.PayTripAPIKey.Source: source,
+                                           Constants.PayTripAPIKey.Tip: tipValue]
+        var url = Constants.APIURL.PayTrip
+        if isBooking {
+            url = Constants.APIURL.PayBooking
+            param[Constants.PayTripAPIKey.BookingId] = bookingId
+        }
+        else {
+            param[Constants.PayTripAPIKey.Data] = data
+        }
+
+        self.put(url: url, param: param as? [String : Any], completion: completionBlock, success:{ (responseData,cBlock) in
                 completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
         })
     }
     
-    func payTripAtServerWithApplePay(_ paymentToken: String, _ data : String, _ tipValue: String, completion completionBlock: @escaping KTDALCompletionBlock)
+    func payTripAtServerWithApplePay(_ paymentToken: String, _ data : String, _ tipValue: String, _ isBooking: Bool = false, _ bookingId: String? = nil, completion completionBlock: @escaping KTDALCompletionBlock)
     {
-        let param : NSDictionary = [Constants.PayTripAPIKey.Data: data,
-                                    Constants.PayTripAPIKey.PaymentToken: paymentToken,
-                                    Constants.PayTripAPIKey.PaymentMethod: "ApplePay",
-                                    Constants.PayTripAPIKey.Tip: tipValue]
+        let param : NSMutableDictionary = [Constants.PayTripAPIKey.PaymentToken: paymentToken,
+                                           Constants.PayTripAPIKey.PaymentMethod: "ApplePay",
+                                           Constants.PayTripAPIKey.Tip: tipValue]
+        var url = Constants.APIURL.PayTripByApplePay
+        if isBooking {
+            url = Constants.APIURL.PayBooking
+            param[Constants.PayTripAPIKey.BookingId] = bookingId
+        }
+        else {
+            param[Constants.PayTripAPIKey.Data] = data
+        }
         
-        self.put(url: Constants.APIURL.PayTripByApplePay, param: param as? [String : Any], completion: completionBlock, success:{ (responseData,cBlock) in
+        self.put(url: url, param: param as? [String : Any], completion: completionBlock, success:{ (responseData,cBlock) in
                 completionBlock(Constants.APIResponseStatus.SUCCESS,responseData)
         })
     }
+    
     
     func removeAllPaymentData()
     {
