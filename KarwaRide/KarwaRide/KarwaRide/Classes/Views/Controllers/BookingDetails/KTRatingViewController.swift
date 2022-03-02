@@ -237,6 +237,10 @@ class KTRatingViewController: KTBaseViewController, KTRatingViewModelDelegate, R
       springAnimateButtonTapOut(button: btnSubmit)
     }
     
+    @IBAction func onClickBackPressed(_ sender: Any) {
+        self.dismiss()
+    }
+    
     func animateButton() {
         self.btnSubmit.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         UIView.animate(withDuration: 1.0,
