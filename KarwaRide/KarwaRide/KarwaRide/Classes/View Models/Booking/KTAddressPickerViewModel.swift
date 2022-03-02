@@ -64,10 +64,8 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     
     del = (delegate as! KTAddressPickerViewModelDelegate)
     
-      if fromXpressLocation == false {
           fetchLocations()
-      }
-
+      
       for item in sources {
           pickArea.append(contentsOf: areas.filter({$0.code! == item}))
       }
@@ -86,7 +84,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
       }
   }
     
-    func checkLatLonInsidePickArea(location: KTGeoLocation, zoneArea: [Area]) -> Bool {
+    func checkLatLonInsidePickArea(location: CLLocationCoordinate2D, zoneArea: [Area]) -> Bool {
         var latLonInside = false
         for item in zoneArea {
             let coordinates = item.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
@@ -152,6 +150,9 @@ class KTAddressPickerViewModel: KTBaseViewModel {
         //Success
         self.sortDataForDisplay(serverResponse: response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])
         self.loadDataInView()
+          if self.fromXpressLocation == true {
+              self.checkPickAndDropAreas()
+          }
       }
       else {
         let title = (response[Constants.ResponseAPIKey.Title] as? String) ?? "error_sr".localized()
@@ -166,12 +167,105 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   //MARK:-  Sort and Manage data for Dispaly
   func sortDataForDisplay(serverResponse locs: [KTGeoLocation]){
     updateHomeAndWorkIfAvailable()
-    nearBy = filterArray(ForLocationType: geoLocationType.Nearby , serverResponse: locs)
-    recent = filterArray(ForLocationType: geoLocationType.Recent , serverResponse: locs)
-    popular = filterArray(ForLocationType: geoLocationType.Popular , serverResponse: locs)
+      
+      if fromXpressLocation == false {
+          nearBy = filterArray(ForLocationType: geoLocationType.Nearby , serverResponse: locs)
+          recent = filterArray(ForLocationType: geoLocationType.Recent , serverResponse: locs)
+          popular = filterArray(ForLocationType: geoLocationType.Popular , serverResponse: locs)
+        }
+    
   }
+    
+    fileprivate func getFavouriteMetroStations() {
+        favoriteMetroStation.removeAll()
+        for itm in metroStations {
+            if KTBookmarkManager().getXpressFavorite(code: itm.code ?? 0) == true {
+                if favoriteMetroStation.contains(itm) == false {
+                    favoriteMetroStation.append(itm)
+                }
+            }
+        }
+    }
   
-  func updateHomeAndWorkIfAvailable() {
+    func checkPickAndDropAreas() {
+        updateHomeAndWorkIfAvailable()
+        getFavouriteMetroStations()
+        if self.del?.inFocusTextField() == SelectedTextField.PickupAddress {
+            if self.fromXpressLocation == true {
+                var newLocation = [KTGeoLocation]()
+                var newFavMetro = [Area]()
+
+                for item in self.bookmarks {
+                    if self.checkLatLonInsidePickArea(location: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude), zoneArea: self.pickArea) {
+                        newLocation.append(item)
+                    }
+                }
+                for item in self.favoriteMetroStation {
+                    if self.checkLatLonInsidePickArea(location: CLLocationCoordinate2D(latitude: getCenterPointOfPolygon(bounds: item.bound ?? "").latitude, longitude: getCenterPointOfPolygon(bounds: item.bound ?? "").longitude), zoneArea: self.pickArea) {
+                        newFavMetro.append(item)
+                    }
+                }
+                self.bookmarks = newLocation
+                self.favoriteMetroStation = newFavMetro
+
+            }
+        } else {
+            if self.fromXpressLocation == true {
+                if selectedRSPickZone != nil && selectedRSPickStation == nil {
+                    var dropArea = [Area]()
+                    let destinationStationArray = destinations.filter({$0.source! == selectedRSPickZone?.code!}).map({$0.destination})
+                    for item in destinationStationArray {
+                        dropArea.append(contentsOf: areas.filter({$0.code! == item}))
+                    }
+                    
+                    var newLocation = [KTGeoLocation]()
+                    var newfav = [Area]()
+
+                    for item in self.bookmarks {
+                        self.checkLatLonInsideDropArea(location: item, zoneArea: dropArea, newlocation: &newLocation)
+                    }
+                    self.bookmarks = newLocation
+                    
+                    for item in favoriteMetroStation {
+                        for drop in dropArea {
+                            if item.code == drop.code {
+                                newfav.append(item)
+                            } else if item.code == drop.parent {
+                                newfav.append(item)
+                            }
+                        }
+                    }
+                    
+                    favoriteMetroStation = newfav
+                    
+                } else if selectedRSPickStation != nil {
+                    var dropArea = [Area]()
+                    var destinationStationArray = destinations.filter({$0.source! == selectedRSPickStation?.code!}).map({$0.destination})
+                    let stopsOfStations = stops.filter({$0.parent! == selectedRSPickStation?.code!})
+                    
+                    destinationStationArray.append(contentsOf: destinations.filter({$0.source! == selectedRSPickStop?.code!}).map({$0.destination}))
+                    print(destinationStationArray)
+                    
+                    for item in destinationStationArray {
+                        dropArea.append(contentsOf: areas.filter({$0.code! == item}))
+                    }
+                    var newLocation = [KTGeoLocation]()
+                    for item in self.bookmarks {
+                        self.checkLatLonInsideDropArea(location: item, zoneArea: dropArea, newlocation: &newLocation)
+                    }
+                    self.bookmarks = newLocation
+                    self.favoriteMetroStation.removeAll()
+                    
+                }
+            }
+            
+        }
+        
+        self.loadDataInView()
+
+    }
+    
+    func updateHomeAndWorkIfAvailable() {
     bookmarks.removeAll()
     let bookmarkManager : KTBookmarkManager = KTBookmarkManager()
     let home : KTBookmark? = bookmarkManager.getHome()
@@ -186,6 +280,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
       if let favorites = KTBookmarkManager().fetchAllFavorites() {
           favorites.forEach( { bookmarks.append( $0.toGeolocation() )})
       }
+            
   }
   
   func filterArray(ForLocationType type : geoLocationType , serverResponse locs: [KTGeoLocation]) -> [KTGeoLocation]{
@@ -258,7 +353,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
               if self.fromXpressLocation == true {
                   var newLocation = [KTGeoLocation]()
                   for item in self.locations {
-                      if self.checkLatLonInsidePickArea(location: item, zoneArea: self.pickArea) {
+                      if self.checkLatLonInsidePickArea(location: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude), zoneArea: self.pickArea) {
                           newLocation.append(item)
                       }
                   }
@@ -385,7 +480,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
   
   //MARK: - TableView
     func numberOfRow(section : Int) -> Int {
-      if section == 1 {
+      if section == 2 {
           return bookmarks.count + favoriteMetroStation.count
       } else if section == 0 {
           return locations.count
@@ -395,7 +490,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
     }
       
       func moreButtonIcon(forIndex idx: IndexPath) -> UIImage {
-          if idx.section == 0 || idx.section == 1 {
+          if idx.section == 0 || idx.section == 2 {
               return #imageLiteral(resourceName: "APICMore") //UIImage(named: "APICMore")!
           } else {
               let addedFav = KTBookmarkManager().getXpressFavorite(code: metroStations[idx.row].code ?? 0)
@@ -428,7 +523,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
             //title = locations[idx.row].name!
           }
           return title.capitalizingFirstLetter()
-      } else if idx.section == 1 {
+      } else if idx.section == 2 {
           var title : String = ""
           if idx.row < bookmarks.count  {
             if bookmarks[idx.row].geolocationToBookmark != nil && bookmarks[idx.row].geolocationToBookmark?.name != nil {
@@ -468,7 +563,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
           }
           
           return area.capitalizingFirstLetter()
-      } else if idx.section == 1 {
+      } else if idx.section == 2 {
           var area : String = ""
           
           if idx.row < bookmarks.count  {
@@ -520,7 +615,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
           }
           return img!
 
-      } else if idx.section == 1 {
+      } else if idx.section == 2 {
           
           if idx.row < bookmarks.count  {
             switch bookmarks[idx.row].type {
@@ -576,7 +671,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
 
             (delegate as! KTAddressPickerViewModelDelegate).setPickUp(pick: area)
 
-        } else if idx.section == 1 {
+        } else if idx.section == 2 {
             var area : String = ""
             
             pickUpAddress = bookmarks[idx.row]
@@ -627,7 +722,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
 
             (delegate as! KTAddressPickerViewModelDelegate).setDropOff(drop: area)
 
-        } else if idx.section == 1 {
+        } else if idx.section == 2 {
             var area : String = ""
             
             dropOffAddress = bookmarks[idx.row]
@@ -730,7 +825,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
               let location : KTGeoLocation = locations[idxPath.row]
               saveBookmark(bookmarkType: BookmarkType.home, location: location)
           }
-          if idxPath.section == 1{
+          if idxPath.section == 2{
               let location : KTGeoLocation = bookmarks[idxPath.row]
               saveBookmark(bookmarkType: BookmarkType.home, location: location)
           }
@@ -741,7 +836,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
               let location : KTGeoLocation = locations[idxPath.row]
               saveBookmark(bookmarkType: BookmarkType.work, location: location)
           }
-          if idxPath.section == 1{
+          if idxPath.section == 2{
               let location : KTGeoLocation = bookmarks[idxPath.row]
               saveBookmark(bookmarkType: BookmarkType.work, location: location)
           }
@@ -752,7 +847,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
               let location : KTGeoLocation = locations[idxPath.row]
               (delegate as! KTAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
           }
-          if idxPath.section == 1{
+          if idxPath.section == 2{
               let location : KTGeoLocation = bookmarks[idxPath.row]
               (delegate as! KTAddressPickerViewModelDelegate).navigateToFavoriteScreen(location: location)
           }
@@ -771,7 +866,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
 //                }
 //            }
             
-            if indexPath.section == 1 {
+            if indexPath.section == 2 {
                 if indexPath.row >= bookmarks.count && ((indexPath.row - bookmarks.count) >=  0) && ((indexPath.row - bookmarks.count) < favoriteMetroStation.count)  {
                     if fromActionSheet == false {
                         let title = favoriteMetroStation[indexPath.row - bookmarks.count].name ?? ""
@@ -825,7 +920,7 @@ class KTAddressPickerViewModel: KTBaseViewModel {
 //                }
 //            }
             
-            if indexPath.section == 1 {
+            if indexPath.section == 2 {
                 if indexPath.row >= bookmarks.count && ((indexPath.row - bookmarks.count) >=  0) && ((indexPath.row - bookmarks.count) < favoriteMetroStation.count)  {
                     if fromActionSheet == false {
                         let title = favoriteMetroStation[indexPath.row - bookmarks.count].name ?? ""

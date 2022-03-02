@@ -1067,7 +1067,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
             clearButtonDestination.isHidden = true
         }
         if xpressLocation == true {
-            
+            (viewModel as! KTAddressPickerViewModel).checkPickAndDropAreas()
             if txtPickAddress.text?.count == 0 {
                 
             } else {
@@ -1090,6 +1090,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       (viewModel as! KTAddressPickerViewModel).metroStations = self.metroStations
         
         if xpressLocation == true {
+            (viewModel as! KTAddressPickerViewModel).checkPickAndDropAreas()
             if pickupAddress != nil && dropoffAddress == nil {
                 txtDropAddress.isUserInteractionEnabled = false
             } else {
@@ -1345,7 +1346,7 @@ extension KTAddressPickerViewController {
         let headerLabel = UILabel(frame: CGRect(x: 20, y: 20, width: self.tblView.frame.width-40, height: 30))
         if section == 0 {
             return nil
-        } else if section == 1 {
+        } else if section == 2 {
             headerLabel.text = "\("favorites_title".localized())".uppercased()
         } else {
             headerLabel.text = "\("str_metro_title".localized())".uppercased()
@@ -1399,7 +1400,7 @@ extension KTAddressPickerViewController {
         
         cell.moreButton.setImage((viewModel as! KTAddressPickerViewModel).moreButtonIcon(forIndex: indexPath), for: .normal)
 
-        if indexPath.section == 1 {
+        if indexPath.section == 2 {
             if let bookmarks = (viewModel as? KTAddressPickerViewModel)?.bookmarks {
                 if indexPath.row < bookmarks.count  {
                     cell.moreButton.isHidden = false
@@ -1411,7 +1412,7 @@ extension KTAddressPickerViewController {
             cell.moreButton.isHidden = false
         }
             
-        if indexPath.section != 2 {
+        if indexPath.section != 1 {
             if (viewModel as! KTAddressPickerViewModel).addressArea(forIndex: indexPath).count > 0 {
                 cell.addressLabel.isHidden = false
                 cell.addressLabel.text = (viewModel as! KTAddressPickerViewModel).addressArea(forIndex: indexPath)
@@ -1465,7 +1466,7 @@ extension KTAddressPickerViewController {
                 alertController.addAction(favoriteAction)
             }else if location.type == geoLocationType.favorite.rawValue {
                 
-                if indexPath?.section ?? 0 == 1 {
+                if indexPath?.section ?? 0 == 2 {
                       let editAction = UIAlertAction(title: "txt_edit".localized(), style: .default) { (UIAlertAction) in
                           (self.viewModel as! KTAddressPickerViewModel).editFavorite(forIndex: indexPath?.row ?? 0)
                     }
@@ -1542,7 +1543,7 @@ extension KTAddressPickerViewController {
                 selectedRSDropStation = nil
             }
             
-            if indexPath.section == 2 {
+            if indexPath.section == 1 {
                 let station = (self.viewModel as! KTAddressPickerViewModel).metroStations[indexPath.row]
                 if station.type == "MetroStation" || station.type == "TramStation" {
                     
@@ -1554,9 +1555,7 @@ extension KTAddressPickerViewController {
                             self.setLocation(location: (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath, type: selectedTxtField, fromActionSheet: false), type: type)
                         }
                     } else {
-
                         self.setLocation(location: (self.viewModel as! KTAddressPickerViewModel).locationAtIndexPath(indexPath: indexPath, type: selectedTxtField, fromActionSheet: false), type: type)
-                        
                     }
                     
                 } else {
@@ -1649,7 +1648,6 @@ extension KTAddressPickerViewController {
                 }
             }
             (viewModel as! KTAddressPickerViewModel).metroStations = self.destinationForPickUp
-            getFavouriteMetroStations()
         }
         self.tblView.reloadData()
     }
@@ -1988,7 +1986,7 @@ extension KTAddressPickerViewController {
                 }
             }
             (viewModel as! KTAddressPickerViewModel).metroStations = self.destinationForPickUp
-            getFavouriteMetroStations()
+            //getFavouriteMetroStations()
         }
     }
     
