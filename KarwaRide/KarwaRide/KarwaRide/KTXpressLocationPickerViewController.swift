@@ -1316,7 +1316,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                 self.tapOnMarker = false
             }
             self.setLocationButton.isEnabled = true
-            self.showAddressPickerBtn.isEnabled = false
+            self.showAddressPickerBtn.isEnabled = true
             self.checkCoordinateStatus(location)
             self.fromAddressScreenAddress = false
         }
