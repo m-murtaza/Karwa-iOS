@@ -410,7 +410,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             
 
             let wayPointImage = wayPointBGView.asImage()
-            wayPointsMarker.append(self.addAndGetMarkerOnMap(location: CLLocationCoordinate2D(latitude: item.Location.lat, longitude: item.Location.lon), image: wayPointImage))
+            wayPointsMarker.append(self.addAndGetWayPointsOnMap(location: CLLocationCoordinate2D(latitude: item.Location.lat, longitude: item.Location.lon), image: wayPointImage))
             
        }
         
