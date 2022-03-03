@@ -764,14 +764,15 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
             }
         }
         
-        if selectedRSPickStation != nil && pickUpSelected == true{
+        if selectedRSPickStation != nil && pickUpSelected == true {
             let stopsOfStations = stops.filter({$0.parent == selectedRSPickStation?.code!})
-            destination.fromDropOff = true
+            destination.fromDropOff = false
             self.getDestinationForAddressScreen()
             destination.metroStations = pickUpArea
 //            destination.metroStations = destinationForPickUp
             selectedRSPickStop = stopsOfStations.first!
             destination.pickupAddress = KTBookingManager().geoLocaiton(forLocationId: Int32(Int.random(in: 1..<100000)), latitude: selectedRSPickUpCoordinate?.latitude ?? 0.0, longitude: selectedRSPickUpCoordinate?.longitude ?? 0.0, name: selectedRSPickStation?.name ?? "")
+            destination.selectedTxtField = SelectedTextField.PickupAddress
             self.present(destination, animated: true)
         } else {
             self.getDestinationForAddressScreen()
@@ -920,11 +921,6 @@ extension KTXpressLocationPickerViewController: KTXpressAddressDelegate {
         
         if picklocation != nil && dropLocation != nil {
             pickUpSelected = false
-//            let update :GMSCameraUpdate = GMSCameraUpdate.setTarget(selectedRSPickUpCoordinate!, zoom: KTXpressCreateBookingConstants.DEFAULT_MAP_ZOOM)
-//            mapView.animate(with: update)
-//            setPickUpPolygon()
-//            setPickUpViewUI()
-            
             if let pick = picklocation as? Area {
                 pickAddressText = pick.name ?? ""
             } else {
@@ -1307,6 +1303,11 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                         self.setLocationButton.backgroundColor = UIColor(hexString: "#4BA5A7")
                         self.setLocationButton.isUserInteractionEnabled = true
                         selectedRSDropOffCoordinate = location.coordinate
+                        if selectedRSPickStation == nil && selectedRSPickZone != nil {
+                            _ = self.checkLatLonInsideDropArea(location: location, stationArea: self.destinationForPickUp)
+                        } else {
+                            (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
+                        }
                         if fromAddressScreenAddress == false {
                             (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
                         }
