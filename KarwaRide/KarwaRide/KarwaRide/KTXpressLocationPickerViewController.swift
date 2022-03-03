@@ -1143,6 +1143,25 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
         //self.mapView!.settings.myLocationButton = show
     }
     
+    func checkLatLonInsideDropArea(location: CLLocation, stationArea: [Area]) -> Bool {
+        var latLonInside = false
+        for item in zoneArea {
+            let coordinates = item.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            }
+            if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
+                latLonInside = true
+                print("it contains")
+                self.pickUpAddressLabel.text = item.name ?? ""
+            } else {
+                print("it wont contains")
+                latLonInside = false
+            }
+        }
+        
+        return latLonInside
+    }
+    
     func setPickUpPolygon() {
         
         pickUpSelected = true
@@ -1301,7 +1320,11 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     self.setLocationButton.isUserInteractionEnabled = true
                     self.setLocationButton.backgroundColor = UIColor(hexString: "#4BA5A7")
                     self.setLocationButton.isUserInteractionEnabled = true
-                    (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
+                    if selectedRSPickStation == nil && selectedRSPickZone != nil {
+                        _ = self.checkLatLonInsideDropArea(location: location, stationArea: self.destinationForPickUp)
+                    } else {
+                        (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
+                    }
                     selectedRSDropOffCoordinate = location.coordinate
                     break
                 }
@@ -1330,7 +1353,6 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                         (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
                     }
                 } else {
-                    
                     print("it wont contains")
                     self.setLocationButton.setTitle("str_outzone".localized(), for: .normal)
                     self.setLocationButton.backgroundColor = UIColor.clear
@@ -1340,7 +1362,6 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     if i == destinationForPickUp.count - 1 {
                         (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
                     }
-//                    self.setDropOffButton.layer.shadowColor = UIColor.clear.cgColor
                     
                 }
                 
@@ -1414,8 +1435,6 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     if selectedRSPickStation == nil {
                         (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
                     }
-                } else {
-//                    self.setDropLocations(fromMapDrag: true)
                 }
             } else {
                 self.tapOnMarker = false
