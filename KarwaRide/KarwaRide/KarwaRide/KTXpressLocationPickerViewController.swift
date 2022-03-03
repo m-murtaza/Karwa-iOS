@@ -1145,7 +1145,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
     
     func checkLatLonInsideDropArea(location: CLLocation, stationArea: [Area]) -> Bool {
         var latLonInside = false
-        for item in zoneArea {
+        for item in stationArea {
             let coordinates = item.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
                 return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
             }
@@ -1470,9 +1470,19 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
     
     fileprivate func setDropOffLocationData(_ marker: GMSMarker) {
         selectedRSDropStation = marker.userData as? Area
-        let stopOfStations = areas.filter{$0.parent == selectedRSDropStation?.code}
-        selectedRSDropZone = areas.filter{$0.code == selectedRSDropStation?.parent}.first!
-        selectedRSDropStop = stopOfStations.first!
+        var stopOfStations = areas.filter{$0.parent == selectedRSDropStation?.code}
+
+        if selectedRSDropStation?.type ?? "" == "MetroStop" ||   selectedRSDropStation?.type ?? "" == "TramStop" {
+            selectedRSDropStop = selectedRSDropStation
+            selectedRSDropZone = areas.filter{$0.code == selectedRSDropStation?.parent}.first!
+            selectedRSDropStation = allStations.filter({$0.code == selectedRSDropStation?.parent}).first!
+            stopOfStations = areas.filter{$0.parent == selectedRSDropStation?.code}
+        } else {
+            stopOfStations = areas.filter{$0.parent == selectedRSDropStation?.code}
+            selectedRSDropZone = areas.filter{$0.code == selectedRSDropStation?.parent}.first!
+            selectedRSDropStop = stopOfStations.first!
+        }
+        
         selectedRSDropOffCoordinate = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
         
         let new = destinations.filter({$0.source == selectedRSPickZone?.code})
@@ -1493,7 +1503,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
             } else {
                 selectedRSDropStop = stopOfStations.first!
             }
-            showAlertForStation(station: (marker.userData as! Area))
+            showAlertForStation(station: selectedRSDropStation!)
         }
     }
     
