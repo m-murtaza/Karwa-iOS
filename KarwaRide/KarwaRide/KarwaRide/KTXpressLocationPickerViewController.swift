@@ -1288,11 +1288,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                     let pickupCoordinates = selectedRSPickStation!.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
                         return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
                     }
-                    
-                    if fromAddressScreenAddress == false {
-                        (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
-                    }
-                    
+                                    
                     if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: pickupCoordinates) {
                         print("not permitted")
                         self.setLocationButton.setTitle("SETTODROPZONE".localized(), for: .normal)
@@ -1300,6 +1296,7 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                         self.markerImage.image = #imageLiteral(resourceName: "pin_outofzone")
                         self.setLocationButton.setTitleColor(UIColor(hexString: "#8EA8A7"), for: .normal)
                         self.setLocationButton.isUserInteractionEnabled = false
+                        self.pickUpAddressLabel.text = selectedRSPickStation?.name ?? ""
                     }
                     else {
                         print("Permitted")
@@ -1310,6 +1307,9 @@ extension KTXpressLocationPickerViewController: GMSMapViewDelegate, KTXpressLoca
                         self.setLocationButton.backgroundColor = UIColor(hexString: "#4BA5A7")
                         self.setLocationButton.isUserInteractionEnabled = true
                         selectedRSDropOffCoordinate = location.coordinate
+                        if fromAddressScreenAddress == false {
+                            (self.viewModel as! KTXpressLocationSetUpViewModel).fetchLocationName(forGeoCoordinate: location.coordinate)
+                        }
                         break
                     }
                 } else {
