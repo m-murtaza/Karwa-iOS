@@ -225,7 +225,7 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       (viewModel as! KTAddressPickerViewModel).locations.removeAll()
       self.loadData()
       clearButtonPickup.isHidden = true
-      txtDropAddress.isUserInteractionEnabled = false
+//      txtDropAddress.isUserInteractionEnabled = false
   }
   
   @IBAction func clearActionDropoff(_ sender: Any) {
@@ -1042,126 +1042,137 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
   
   // MARK: - UItextField Delegates
   
-  func textFieldDidBeginEditing(_ textField: UITextField){
-      
-      if txtPickAddress.text?.count == 0 {
-          self.txtDropAddress.endEditing(true)
-          self.txtPickAddress.becomeFirstResponder()
-          return
-      }
-      
-    if selectedInputMechanism == SelectedInputMechanism.MapView {
-      
-      updateSelectedField(txt:textField)
-      
-    }
-    
-    if textField.isEqual(txtDropAddress) {
-      selectedTxtField = SelectedTextField.DropoffAddress
-        (viewModel as! KTAddressPickerViewModel).selectedTxtField = selectedTxtField
-      titleLabel.text = "txt_set_drop_off".localized()
-      clearButtonPickup.isHidden = true
-        if textField.text?.count ?? 0 != 0 {
-            clearButtonDestination.isHidden = false
-       } else {
-            clearButtonDestination.isHidden = true
-        }
+    func textFieldDidBeginEditing(_ textField: UITextField){
+        
         if xpressLocation == true {
-            (viewModel as! KTAddressPickerViewModel).checkPickAndDropAreas()
             if txtPickAddress.text?.count == 0 {
-                
+                self.txtDropAddress.endEditing(true)
+                self.txtPickAddress.becomeFirstResponder()
+                return
+            }
+        }
+        
+        if selectedInputMechanism == SelectedInputMechanism.MapView {
+            updateSelectedField(txt:textField)
+        }
+        
+        if textField.isEqual(txtDropAddress) {
+            selectedTxtField = SelectedTextField.DropoffAddress
+            (viewModel as! KTAddressPickerViewModel).selectedTxtField = selectedTxtField
+            titleLabel.text = "txt_set_drop_off".localized()
+            clearButtonPickup.isHidden = true
+            if textField.text?.count ?? 0 != 0 {
+                clearButtonDestination.isHidden = false
             } else {
-                if selectedRSPickStation != nil {
-                    setDestinations()
+                clearButtonDestination.isHidden = true
+            }
+            if xpressLocation == true {
+                (viewModel as! KTAddressPickerViewModel).checkPickAndDropAreas()
+                if txtPickAddress.text?.count == 0 {
+                    
                 } else {
-                    self.getDestinationForPickUp()
+                    if selectedRSPickStation != nil {
+                        setDestinations()
+                    } else {
+                        self.getDestinationForPickUp()
+                    }
                 }
             }
         }
-    }
-    else {
-      selectedTxtField = SelectedTextField.PickupAddress
-        (viewModel as! KTAddressPickerViewModel).selectedTxtField = selectedTxtField
-      titleLabel.text = "txt_pick_up".localized()
-        if textField.text?.count ?? 0 != 0 {
-            clearButtonPickup.isHidden = false
+        else {
+            selectedTxtField = SelectedTextField.PickupAddress
+            (viewModel as! KTAddressPickerViewModel).selectedTxtField = selectedTxtField
+            titleLabel.text = "txt_pick_up".localized()
+            if textField.text?.count ?? 0 != 0 {
+                clearButtonPickup.isHidden = false
+            }
+            clearButtonDestination.isHidden = true
+            (viewModel as! KTAddressPickerViewModel).metroStations = self.metroStations
+            
+            if xpressLocation == true {
+                (viewModel as! KTAddressPickerViewModel).checkPickAndDropAreas()
+                if pickupAddress != nil && dropoffAddress == nil {
+                    //                txtDropAddress.isUserInteractionEnabled = false
+                } else {
+                    txtDropAddress.isUserInteractionEnabled = true
+                }
+            }
+            
         }
-      clearButtonDestination.isHidden = true
-      (viewModel as! KTAddressPickerViewModel).metroStations = self.metroStations
         
-        if xpressLocation == true {
-            (viewModel as! KTAddressPickerViewModel).checkPickAndDropAreas()
-            if pickupAddress != nil && dropoffAddress == nil {
-                txtDropAddress.isUserInteractionEnabled = false
-            } else {
-                txtDropAddress.isUserInteractionEnabled = true
+        (viewModel as! KTAddressPickerViewModel).txtFieldSelectionChanged()
+        
+        if self.pickupAddress != nil {
+            self.txtDropAddress.isUserInteractionEnabled = true
+        }
+        
+        //    removeTxtFromTextBox = true
+        if selectedInputMechanism == SelectedInputMechanism.MapView {
+            
+            self.setOnMapLabel.text = "str_show_list".localized()
+            
+            self.clearButtonPickup.isHidden = true
+            self.clearButtonDestination.isHidden = true
+            
+            if selectedTxtField == SelectedTextField.PickupAddress
+            {
+                print(self.pickUpTxt())
+                self.txtPickAddress.tintColor = UIColor.white
+                self.txtPickAddress.superview?.addExternalBorder(borderWidth: 2.0,
+                                                                 borderColor: UIColor.primary,
+                                                                 cornerRadius: 8.0)
+                self.txtPickAddress.superview?.backgroundColor = UIColor.white
+                self.txtDropAddress.superview?.removeExternalBorders()
+                self.txtDropAddress.superview?.backgroundColor = UIColor.clear
+                self.txtDropAddress.tintColor = UIColor.primary
+                
+            }
+            else
+            {
+                self.txtDropAddress.superview?.addExternalBorder(borderWidth: 2.0,
+                                                                 borderColor: UIColor.primary,
+                                                                 cornerRadius: 8.0)
+                self.txtDropAddress.superview?.backgroundColor = UIColor.white
+                self.txtPickAddress.superview?.removeExternalBorders()
+                self.txtPickAddress.superview?.backgroundColor = UIColor.clear
+                self.txtDropAddress.tintColor = UIColor.white
+                self.txtPickAddress.tintColor = UIColor.primary
+                
+                
+            }
+            if(zoomForPickupRequired)
+            {
+                zoomForPickupRequired = false
+                updateMap(zoomLevel: KTCreateBookingConstants.PICKUP_MAP_ZOOM)
+            }
+            else
+            {
+                updateMap()
             }
         }
         
+        toggleSkipButton()
+        tab = .address
     }
-    
-    (viewModel as! KTAddressPickerViewModel).txtFieldSelectionChanged()
-    
-      if self.pickupAddress != nil {
-          self.txtDropAddress.isUserInteractionEnabled = true
-      }
-    
-//    removeTxtFromTextBox = true
-    if selectedInputMechanism == SelectedInputMechanism.MapView {
-      
-      self.setOnMapLabel.text = "str_show_list".localized()
-        
-        self.clearButtonPickup.isHidden = true
-        self.clearButtonDestination.isHidden = true
-
-        if selectedTxtField == SelectedTextField.PickupAddress
-        {
-            print(self.pickUpTxt())
-            self.txtPickAddress.tintColor = UIColor.white
-            self.txtPickAddress.superview?.addExternalBorder(borderWidth: 2.0,
-                                                   borderColor: UIColor.primary,
-                                                   cornerRadius: 8.0)
-            self.txtPickAddress.superview?.backgroundColor = UIColor.white
-            self.txtDropAddress.superview?.removeExternalBorders()
-            self.txtDropAddress.superview?.backgroundColor = UIColor.clear
-            self.txtDropAddress.tintColor = UIColor.primary
-
-        }
-        else
-        {
-            self.txtDropAddress.superview?.addExternalBorder(borderWidth: 2.0,
-                                                   borderColor: UIColor.primary,
-                                                   cornerRadius: 8.0)
-            self.txtDropAddress.superview?.backgroundColor = UIColor.white
-            self.txtPickAddress.superview?.removeExternalBorders()
-            self.txtPickAddress.superview?.backgroundColor = UIColor.clear
-            self.txtDropAddress.tintColor = UIColor.white
-            self.txtPickAddress.tintColor = UIColor.primary
-
-
-        }
-      if(zoomForPickupRequired)
-      {
-        zoomForPickupRequired = false
-        updateMap(zoomLevel: KTCreateBookingConstants.PICKUP_MAP_ZOOM)
-      }
-      else
-      {
-        updateMap()
-      }
-    }
-    
-    toggleSkipButton()
-    tab = .address
-  }
   
-  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-    textField.superview?.addExternalBorder(borderWidth: 2.0,
-                                           borderColor: UIColor.primary,
-                                           cornerRadius: 8.0)
-    textField.superview?.backgroundColor = UIColor.white
-    return true
-  }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        if xpressLocation == true {
+            if txtPickAddress.text?.count ?? 0 == 0 && textField == txtDropAddress {
+                let setPickAlert = UIAlertController(title: "str_setpick_loc".localized(), message: "", preferredStyle: UIAlertControllerStyle.alert)
+                setPickAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action) in
+                    self.txtPickAddress.becomeFirstResponder()
+                }))
+                self.present(setPickAlert, animated: true, completion: nil)
+                return false
+            }
+        }
+        textField.superview?.addExternalBorder(borderWidth: 2.0,
+                                               borderColor: UIColor.primary,
+                                               cornerRadius: 8.0)
+        textField.superview?.backgroundColor = UIColor.white
+        return true
+    }
   
   func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
     textField.superview?.removeExternalBorders()
@@ -1204,11 +1215,11 @@ KTAddressPickerViewModelDelegate, UITableViewDelegate, UITableViewDataSource, UI
       
       if textField.isEqual(txtPickAddress) {
           
-          if xpressLocation == true {
-              if trimmedStr.count == 1 && string == ""{
-                  txtDropAddress.isUserInteractionEnabled = false
-              }
-          }
+//          if xpressLocation == true {
+//              if trimmedStr.count == 1 && string == ""{
+//                  txtDropAddress.isUserInteractionEnabled = false
+//              }
+//          }
           
           if searchText.count == 1 && string == ""{
               clearButtonPickup.isHidden = true
@@ -1715,7 +1726,7 @@ extension KTAddressPickerViewController {
             self.tblView.reloadData()
         } else {
             txtPickAddress.becomeFirstResponder()
-            txtDropAddress.isUserInteractionEnabled = false
+            //txtDropAddress.isUserInteractionEnabled = false
             pickupAddress = nil
             showOutZoneMessage("str_outzone".localized())
         }
@@ -1859,6 +1870,7 @@ extension KTAddressPickerViewController {
             if type == .DropoffAddress {
                 setDropOffLocationFromGeoLocation(actualLocation, loc)
             } else if type == .PickupAddress {
+                valueChanged = true
                 setPickupLocationFromGeoLocation(actualLocation, pickArea, loc)
             }
 
@@ -1867,6 +1879,7 @@ extension KTAddressPickerViewController {
                 print(location)
                 let metroAreaCoordinate = getCenterPointOfPolygon(bounds: loc.bound!)
                 if type == .PickupAddress {
+                    valueChanged = true
                     setPickLocationFromAreas(metroAreaCoordinate, loc)
                 } else {                    
                     setDropOffLocationFromAreas(metroAreaCoordinate, loc)
