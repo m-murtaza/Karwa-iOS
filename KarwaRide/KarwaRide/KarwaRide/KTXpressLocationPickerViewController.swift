@@ -203,6 +203,7 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
                 selectedRSDropZone = nil
                 selectedRSDropStation = nil
                 selectedRSDropStop = nil
+                selectedRSDropOffCoordinate = nil
                 pickAddressText = self.pickUpAddressLabel.text ?? ""
                 self.pickUpAddressLabel.text = ""
                 callSetPickUpAction()
@@ -620,6 +621,10 @@ class KTXpressLocationPickerViewController:  KTBaseCreateBookingController {
                     if new.count > 0 {
                         selectedRSPickZone = zones.filter({$0.code! == new.first!}).first!
                     }
+                    selectedRSDropOffCoordinate = nil
+                    selectedRSDropZone = nil
+                    selectedRSDropStation = nil
+                    selectedRSDropStop = nil
                     self.setDestinationsForSelectedLocation()
                     self.setDropOffViewUI()
                     self.setDropOffPolygon()
