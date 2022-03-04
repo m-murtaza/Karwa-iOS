@@ -268,7 +268,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func getRating() -> Int32 {
-        return booking?.rating ?? 0
+        return booking?.givenRating ?? 0
     }
     
     func driverRating() -> Double {
