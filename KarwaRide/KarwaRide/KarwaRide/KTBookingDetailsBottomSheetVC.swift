@@ -306,6 +306,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         if (vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue) {
             if vModel?.isRated() ?? false {
                 self.btnRate.isHidden = true
+                self.starStackView.superview?.isHidden = false
                 self.starStackView.isHidden = false
                 self.starStackView.removeFullyAllArrangedSubviews()
                 for _ in 0..<Int(vModel?.getRating() ?? 0) {
@@ -320,6 +321,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             else {
                 self.btnRate.isHidden = false
                 self.starStackView.isHidden = true
+                self.starStackView.superview?.isHidden = true
             }
             
             self.btnPayNow.isHidden = !(vModel?.isPayable() ?? false)
@@ -327,6 +329,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
         else {
             self.btnRate.isHidden = true
             self.starStackView.isHidden = true
+            self.starStackView.superview?.isHidden = true
             self.btnPayNow.isHidden = true
         }
     }
@@ -445,7 +448,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             
             showDriverInfoBox()
             
-            self.bookingTime.isHidden = false
+            self.bookingTime.isHidden = true
             
             hideSeperatorBeforeReportAnIssue()
             
@@ -489,7 +492,7 @@ class KTBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideRebookBtn()
             hideFareDetailBtn()
             bottomStartRatingLabel.isHidden = false
-            bookingTime.isHidden = false
+            bookingTime.isHidden = true
             hideSeperatorBeforeReportAnIssue()
             
             showDriverInfoBox()

@@ -330,6 +330,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         if (vModel?.bookingStatii() == BookingStatus.COMPLETED.rawValue) {
             if vModel?.isRated() ?? false {
                 self.btnRate.isHidden = true
+                self.starStackView.superview?.isHidden = false
                 self.starStackView.isHidden = false
                 self.starStackView.removeFullyAllArrangedSubviews()
                 for _ in 0..<Int(vModel?.getRating() ?? 0) {
@@ -344,6 +345,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             else {
                 self.btnRate.isHidden = false
                 self.starStackView.isHidden = true
+                self.starStackView.superview?.isHidden = true
             }
             
             self.btnPayNow.isHidden = !(vModel?.isPayable() ?? false)
@@ -351,6 +353,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
         else {
             self.btnRate.isHidden = true
             self.starStackView.isHidden = true
+            self.starStackView.superview?.isHidden = true
             self.btnPayNow.isHidden = true
         }
     }
@@ -464,7 +467,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideRebookBtn()
             hideFareDetailBtn()
             bottomStartRatingLabel.isHidden = false
-            bookingTime.isHidden = false
+            bookingTime.isHidden = true
             hideSeperatorBeforeReportAnIssue()
             
             showDriverInfoBox()
@@ -516,7 +519,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideFareDetailBtn()
             bottomStartRatingLabel.isHidden = false
             hideSeperatorBeforeReportAnIssue()
-            bookingTime.isHidden = false
+            bookingTime.isHidden = true
 
             self.view.customCornerRadius = 20.0
                        
@@ -668,7 +671,7 @@ class KTXpressBookingDetailsBottomSheetVC: UIViewController, Draggable
             hideSeperatorBeforeReportAnIssue()
             showShareBtn()
             showPhoneButton()
-            bookingTime.isHidden = false
+            bookingTime.isHidden = true
 
             DispatchQueue.main.async {
                 self.heightOFScrollViewContent.constant = 545
