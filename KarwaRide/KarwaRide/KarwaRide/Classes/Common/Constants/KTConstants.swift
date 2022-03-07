@@ -278,6 +278,7 @@ struct Constants {
         static let TotalFare = "TotalFare"
         static let BookingId = "BookingId"
         static let TripId = "TripId"
+        static let IsDevicePayment = "IsDevicePayment"
         static let TripType = "TripType"
         static let Tip = "Tip"
         static let Remarks = "Remarks"

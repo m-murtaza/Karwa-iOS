@@ -226,6 +226,7 @@ class KTPaymentManager: KTDALManager
         if isBooking {
             url = Constants.APIURL.PayBooking
             param[Constants.PayTripAPIKey.BookingId] = bookingId
+            param[Constants.PayTripAPIKey.IsDevicePayment] = true
         }
         else {
             param[Constants.PayTripAPIKey.Data] = data
