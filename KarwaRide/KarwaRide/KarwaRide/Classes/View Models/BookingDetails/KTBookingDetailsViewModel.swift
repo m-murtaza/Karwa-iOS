@@ -294,7 +294,7 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
     }
     
     func getRating() -> Int32 {
-        return booking?.givenRating ?? 0
+        return booking?.jobRating ?? 0
     }
     
     func driverRating() -> Double {

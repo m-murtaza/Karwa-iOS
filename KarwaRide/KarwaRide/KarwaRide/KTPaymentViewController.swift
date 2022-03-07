@@ -59,7 +59,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
     var gotoDashboardRequired = false
     private var isPaidSuccessfullShowed = false
     var isTriggeredFromBookingDetail = false
-    var onPaymentCompleted: (()->())?
+    var onPaymentCompleted: ((_ paymentMethod: KTPaymentMethod?)->())?
     
     override func viewDidLoad()
     {
@@ -443,7 +443,14 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
         isPaidSuccessfullShowed = true
         
-        self.onPaymentCompleted?()
+        if isTriggeredFromBookingDetail {
+            labelTripPaid.text = "str_success_booking_payment_text".localized()
+        }
+        else {
+            labelTripPaid.text = "strSuccessTripPaymentText".localized()
+        }
+        
+        self.onPaymentCompleted?(vModel?.selectedPaymentMethod)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -544,7 +551,7 @@ class KTPaymentViewController: KTBaseDrawerRootViewController, KTPaymentViewMode
 
     @IBAction func btnBackTapped(_ sender: Any)
     {
-        if(isPaidSuccessfullShowed || gotoDashboardRequired)
+        if((isPaidSuccessfullShowed || gotoDashboardRequired) && !isTriggeredFromBookingDetail)
         {
             gotoDashboard()
         }

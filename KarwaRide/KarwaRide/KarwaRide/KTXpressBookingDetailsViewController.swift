@@ -1030,9 +1030,12 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         let payTripBean = PayTripBeanForServer("", "", vModel!.totalFareOfTrip().components(separatedBy: " ")[1], vModel!.bookingId(), Int(vModel!.booking!.tripType), "", "", "", "\(vModel?.booking?.driverTip ?? 0)")
         ktPaymentViewController.payTripBean = payTripBean
         ktPaymentViewController.isTriggeredFromBookingDetail = true
-        ktPaymentViewController.onPaymentCompleted = { [weak self] in
+        ktPaymentViewController.onPaymentCompleted = { [weak self] _paymentMethod in
             guard let `self` = self else {return}
             self.vModel!.booking!.isPayable = false
+            self.vModel!.booking!.lastFourDigits = _paymentMethod?.last_four_digits
+            self.vModel!.booking!.paymentMethod = _paymentMethod?.brand ?? _paymentMethod?.payment_type
+            self.vModel!.booking!.bookingStatus = 30
             self.bottomSheetVC.updateAssignmentInfo()
             
         }

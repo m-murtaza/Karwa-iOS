@@ -227,7 +227,7 @@ class KTRatingViewModel: KTBaseViewModel {
             if status == Constants.APIResponseStatus.SUCCESS {
                 
                 self.booking?.isRated = true
-                self.booking?.givenRating = rating
+                self.booking?.jobRating = rating
                 KTNotificationManager().deleteNotification(forBooking: self.booking!)
                 KTDALManager().saveInDb()
                 self.del?.showAltForThanks(rating: rating)

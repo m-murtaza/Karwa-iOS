@@ -192,7 +192,7 @@ class KTBookingManager: KTBaseFareEstimateManager {
         
         b.isPayable = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.IsPayable] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.IsPayable] as! Bool : false
         b.isRated = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.IsRated] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.IsRated] as! Bool : false
-        b.givenRating = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.GivenRating] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.GivenRating] as! Int32 : 0
+        b.jobRating = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.JobRating] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.JobRating] as! Int32 : 0
         
         b.paymentMethod = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.PaymentMethod] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.PaymentMethod] as? String : ""
         b.lastFourDigits = (!self.isNsnullOrNil(object:booking[Constants.BookingResponseAPIKey.LastFourDigits] as AnyObject)) ? booking[Constants.BookingResponseAPIKey.LastFourDigits] as? String : ""
