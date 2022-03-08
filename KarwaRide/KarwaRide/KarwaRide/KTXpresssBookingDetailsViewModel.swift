@@ -188,7 +188,10 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     
     //MARK:- Driver Info
     func callDriver() {
-        guard let phone : String = booking?.driverPhone else {
+        
+        UIApplication.shared.open(URL(string: "TEL://+97444588888")!)
+        
+        /*guard let phone : String = booking?.driverPhone else {
             del?.showError!(title: "Error", message: "Driver phone number is not available")
             return
         }
@@ -197,7 +200,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
         }
         else {
             del?.showError!(title: "Error", message: "Driver phone number is not available")
-        }
+        }*/
         
     }
     
@@ -706,7 +709,8 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
                     if bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.pickupLat)!, destinationLong: (self.booking?.pickupLon)!)
-                        self.del?.updateBookingStatusOnCard(true)
+                        self.updateBookingCard()
+                        self.del?.updateBookingCard()
                     }
                     else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
                     {
@@ -762,7 +766,7 @@ class KTXpresssBookingDetailsViewModel: KTBaseViewModel {
     
     @objc func fetchBooking(_ bookingId : String, _ isFromBookingId : Bool)
     {
-        self.del?.showProgressHud(show: true, status: "Fetching Trip Information")
+        self.del?.showProgressHud(show: true, status: "")
         
         KTBookingManager().booking(bookingId as String, isFromBookingId) { (status, response) in
             

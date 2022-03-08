@@ -1110,11 +1110,9 @@ class KTCreateBookingViewController:
       destination.dropoffAddress = (viewModel as! KTCreateBookingViewModel).dropOffAddress()
       destination.previousView = (viewModel as! KTCreateBookingViewModel)
       
-      if segue.identifier == "segueBookingToAddresspickerForDropoff" {
-        
+      if segue.identifier! == "segueBookingToAddresspickerForDropoff" {
         destination.selectedTxtField = SelectedTextField.DropoffAddress
-      }
-      else {
+      } else {
         destination.selectedTxtField = SelectedTextField.PickupAddress
       }
     }

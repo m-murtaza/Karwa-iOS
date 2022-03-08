@@ -275,7 +275,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
         }
         
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
+        update = GMSCameraUpdate.fit(bounds, withPadding: 100)
 
         
         CATransaction.begin()
@@ -678,7 +678,7 @@ class KTBookingDetailsViewController: KTBaseDrawerRootViewController, GMSMapView
             self.vModel!.booking!.isPayable = false
             self.vModel!.booking!.lastFourDigits = _paymentMethod?.last_four_digits
             self.vModel!.booking!.paymentMethod = _paymentMethod?.brand ?? _paymentMethod?.payment_type
-            self.vModel!.booking!.bookingStatus = 30
+            self.vModel!.booking!.bookingStatus = BookingStatus.COMPLETED.rawValue
             self.updateAssignmentInfo()
             
         }

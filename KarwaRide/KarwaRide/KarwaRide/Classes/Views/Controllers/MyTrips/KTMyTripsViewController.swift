@@ -61,8 +61,16 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
 //        } else {
 //            // Fallback on earlier versions
 //        }
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showCurrentBooking(notification:)), name: Notification.Name("BackgroundBookingNotification"), object: nil)
+
       addMenuButton()
+    }
+    
+    @objc func showCurrentBooking(notification: Notification) {
+        if let currentBooking = notification.userInfo!["booking"] as? KTBooking {
+            (viewModel as! KTMyTripsViewModel).selectedBooking = currentBooking
+            self.moveToDetails()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -114,9 +122,8 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 170.0
+        return 161.0
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -176,7 +183,7 @@ class KTMyTripsViewController: KTBaseDrawerRootViewController,KTMyTripsViewModel
     //            cell.lblCallerId.isHidden = false
     //            cell.lblCallerId.text = (viewModel as! KTMyTripsViewModel).callerId(forIdx: indexPath.row)
     //        }
-    animateCell(cell)
+//    animateCell(cell)
     
     return cell
   }

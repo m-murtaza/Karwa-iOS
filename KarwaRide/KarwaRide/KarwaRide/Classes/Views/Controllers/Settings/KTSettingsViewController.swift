@@ -83,9 +83,6 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         if section == 2 {
             numRows = 2
         }
-        else if section == 3 {
-            numRows = 2
-        }
         return numRows
     }
     
@@ -144,7 +141,6 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         var cell: UITableViewCell?
         if indexPath.section == 0 && indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "userInfoCellIdentifier")
-            
             guard let _ = cell else {
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
@@ -155,12 +151,12 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
             let isEmailVerified = (viewModel as! KTSettingsViewModel).isEmailVerified()
 
             (cell as! KTSettingsProfileTableViewCell).setUserInfo(name: name, phone: phone, completeness: perCompletion, emailVerified: isEmailVerified)
-
             cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             
         }
         else if indexPath.section == 1 && indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
+            (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor.black
             guard let _ = cell else {
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
@@ -173,6 +169,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         
         else if indexPath.section == 2 && indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
+            (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor.black
             guard let _ = cell else {
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
@@ -185,6 +182,7 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
         }
         else if indexPath.section == 2 && indexPath.row == 1 {
             cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
+            (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor.black
             guard let _ = cell else {
                 return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
             }
@@ -230,9 +228,12 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 (cell as! KTSettingsImgTextTableViewCell).lblText.text = "str_otp_settings".localized()
                 (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "otp_ico_setting")
                 (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = false
+                (cell as! KTSettingsImgTextTableViewCell).lblText.textColor = UIColor.black
 
                 
-            } else if indexPath.row == 1 {
+            }
+            /*Removed Rating option
+            else if indexPath.row == 1 {
                 cell = tableView.dequeueReusableCell(withIdentifier: "ImgTxtCellIdentifier")
                 guard let _ = cell else {
                     return UITableViewCell(style: .default, reuseIdentifier: "Error Cell")
@@ -242,8 +243,8 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 (cell as! KTSettingsImgTextTableViewCell).imgIcon.image = UIImage(named: "SettingIconRate")
                 (cell as! KTSettingsImgTextTableViewCell).otpSwitch.isHidden = true
                 (cell as! KTSettingsImgTextTableViewCell).detailText.isHidden = true
-
             }
+              */
             
         }
         else if indexPath.section == 4 {
@@ -308,11 +309,12 @@ class KTSettingsViewController: KTBaseViewController ,KTSettingsViewModelDelegat
                 self.performSegue(name: "segueSettingsToSetWork")
             }
         }
+        /* Removed Rate option
         else if indexPath.section == 3 {
             if indexPath.row == 1{
                 (viewModel as! KTSettingsViewModel).rateApplication()
             }
-        }
+        }*/
         
         else if indexPath.section == 4 {
             if indexPath.row == 0 {

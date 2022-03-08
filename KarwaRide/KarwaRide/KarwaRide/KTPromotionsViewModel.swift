@@ -37,6 +37,9 @@ class KTPromotionsViewModel: KTBaseViewModel {
                     (self.delegate as? KTPromotionsViewModelDelegate)?.showEmptyMessage(message: "str_no_record".localized())
                     return
                 }
+                
+                self.promotions.removeAll() // Remove duplicate from the promotion list
+                
                 for item in promotions {
                     var promotionInfo = PromotionModel()
                     

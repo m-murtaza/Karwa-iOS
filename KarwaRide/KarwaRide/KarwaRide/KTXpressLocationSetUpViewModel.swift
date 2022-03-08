@@ -18,6 +18,7 @@ var zones = [Area]()
 var zonalArea = [[String : [Area]]]()
 var destinations = [Destination]()
 var stops = [Area]()
+var allStations = [Area]()
 var pickUpArea = [Area]()
 var dropOffArea = [Area]()
 var selectedRSPickUpCoordinate: CLLocationCoordinate2D?
@@ -108,6 +109,9 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
                 stops.append(contentsOf: metroStopsArea)
                 stops.append(contentsOf: tramStopsArea)
 
+                allStations.append(contentsOf: metroStations)
+                allStations.append(contentsOf: tramStations)
+
                 for item in zonalArea {
                     print("Zonal Area", item)
                 }
@@ -115,19 +119,24 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
                 destinations.removeAll()
 
                 if let totalDestinations = totalOperatingResponse["Destinations"] as? [[String:Any]] {
-
                     for item in totalDestinations {
-
                         let destination = Destination(source: (item["Source"] as? Int)!, destination: (item["Destination"] as? Int)!, isActive: (item["IsActive"] as? Bool)!)
-
                         destinations.append(destination)
-
                     }
-
                 }
 
-                for item in metroStations {
+                for item in stops {
+                    if let pickUpLocation = destinations.filter({$0.source! == item.code!}).first {
+                        if pickUpArea.contains(where: {$0.code! == pickUpLocation.source }) {
 
+                        } else {
+                            let station = areas.filter({$0.code == item.parent}).first!
+                            pickUpArea.append(station)
+                        }
+                    }
+                }
+                
+                for item in metroStations {
                     if let pickUpLocation = destinations.filter({$0.source! == item.code!}).first {
                         if pickUpArea.contains(where: {$0.code! == pickUpLocation.source }) {
 
@@ -135,7 +144,6 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
                             pickUpArea.append(item)
                         }
                     }
-
                 }
                 
 //                for item in metroStopsArea {
@@ -190,6 +198,13 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
                 (self.delegate as! KTXpressLocationViewModelDelegate).setPickUp(pick: pAddress.name)
               }
             }
+        } else {
+            DispatchQueue.main.async {
+              //self.delegate?.userIntraction(enable: true)
+              if self.delegate != nil {
+                (self.delegate as! KTXpressLocationViewModelDelegate).setPickUp(pick: "")
+              }
+            }
         }
       }
     }
@@ -209,6 +224,7 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
     }
     
     fileprivate func callRideService() {
+        self.delegate?.showProgressHud(show: true, status: "str_finding".localized())
         KTXpressBookingManager().getRideService(rideData: self.rideLocationData) { [weak self] (status, response) in
             self?.delegate?.hideProgressHud()
             guard let strongSelf = self else{
@@ -267,6 +283,7 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
         
         if rideLocationData.pickUpStop == nil && rideLocationData.pickUpStation == nil && rideLocationData.pickUpZone != nil {
             KTBookingManager().address(forLocation: rideLocationData.pickUpCoordinate!, Limit: 1) { (status, response) in
+                self.delegate?.hideProgressHud()
               if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0 {
                 let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
                   self.rideLocationData.pickUpZoneAddress = pAddress.name ?? ""
@@ -275,6 +292,7 @@ class KTXpressLocationSetUpViewModel: KTBaseViewModel {
             }
         } else if rideLocationData.dropOffStop == nil && rideLocationData.dropOfSftation == nil && rideLocationData.dropOffZone != nil {
             KTBookingManager().address(forLocation: rideLocationData.dropOffCoordinate!, Limit: 1) { (status, response) in
+                self.delegate?.hideProgressHud()
               if status == Constants.APIResponseStatus.SUCCESS && response[Constants.ResponseAPIKey.Data] != nil && (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation]).count > 0 {
                 let pAddress : KTGeoLocation = (response[Constants.ResponseAPIKey.Data] as! [KTGeoLocation])[0]
                   self.rideLocationData.dropOffZoneAddress = pAddress.name ?? ""
@@ -323,6 +341,47 @@ extension UIViewController {
             return false
 
         }
+
+    }
+    
+    func checkLatLonInsideZone(location: CLLocation) -> (Bool, Area) {
+        
+        var latLonInside = false
+        var zoneFound = false
+        var nearByZone = Area()
+        
+        for item in zones {
+            let coordinates = item.bound!.components(separatedBy: ";").map{$0.components(separatedBy: ",")}.map{$0.map({Double($0)!})}.map { (value) -> CLLocationCoordinate2D in
+                return CLLocationCoordinate2D(latitude: value[0], longitude: value[1])
+            }
+            if CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude).contained(by: coordinates) {
+                latLonInside = true
+                print("it contains")
+                zoneFound = true
+                nearByZone = item
+                break
+            } else {
+                print("it wont contains")
+                for loc in coordinates {
+                    let distanceInMeters = location.distance(from: CLLocation(latitude: loc.latitude, longitude: loc.longitude))
+                    if distanceInMeters < (2*1609) {
+                        latLonInside = true
+                        zoneFound = true
+                        nearByZone = item
+                        break
+                    } else {
+                        latLonInside = false
+                    }
+                }
+                
+                if zoneFound == true {
+                    break
+                }
+            }
+            
+        }
+        
+        return (latLonInside,nearByZone)
 
     }
 }

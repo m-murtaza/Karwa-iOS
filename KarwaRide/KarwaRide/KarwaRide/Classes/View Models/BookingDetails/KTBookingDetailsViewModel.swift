@@ -704,6 +704,8 @@ class KTBookingDetailsViewModel: KTBaseViewModel {
                     if bStatus == BookingStatus.ARRIVED || bStatus == BookingStatus.CONFIRMED
                     {
                         self.fetchRouteToPickupOrDropOff(vTrack: vtrack, destinationLat: (self.booking?.pickupLat)!, destinationLong: (self.booking?.pickupLon)!)
+                        self.del?.updateBookingStatusOnCard(true)
+                        self.updateBookingCard()
                     }
                     else if(bStatus == BookingStatus.PICKUP && self.booking?.dropOffLat != nil && self.booking?.dropOffLon != nil)
                     {

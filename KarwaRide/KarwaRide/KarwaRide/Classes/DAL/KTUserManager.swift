@@ -38,6 +38,12 @@ class KTUserManager: KTDALManager {
             user.name = response[Constants.LoginResponseAPIKey.Name] as? String
             user.countryCode = response[Constants.LoginResponseAPIKey.CountryCode] as? String
             user.phone = response[Constants.LoginResponseAPIKey.Phone] as? String
+            if let gender = response[Constants.EditAccountInfoParam.gender] as? String, let genderIntVal = Int16(gender) {
+                user.gender = genderIntVal
+            }
+            if(!self.isNsnullOrNil(object: response[Constants.EditAccountInfoParam.dob] as AnyObject)) {
+                user.dob = Date.dateFromServerStringWithoutDefault(date: response[Constants.EditAccountInfoParam.dob] as? String)
+            }
             user.email = response[Constants.LoginResponseAPIKey.Email] as? String
             user.sessionId = response[Constants.LoginResponseAPIKey.SessionID] as? String
             user.isEmailVerified = response[Constants.LoginResponseAPIKey.IsEmailVerified] as! Bool

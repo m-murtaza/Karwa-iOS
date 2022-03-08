@@ -106,6 +106,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         KTUserManager().fetchVersion()
         NotificationCenter.default.post(name: Notification.Name("LocationManagerNotificationIdentifier"), object: nil, userInfo: ["location":KTLocationManager.sharedInstance.baseLocation as Any])
+        NotificationCenter.default.post(name: Notification.Name("CurrentBookingNotification"), object: nil, userInfo: nil)
+
         if creatingRide == true {
             if let stamp = UserDefaults.standard.value(forKey: "progress_date") as? Date {
                 self.timeGapBetweenDates(previousDate: stamp, currentDate: Date())

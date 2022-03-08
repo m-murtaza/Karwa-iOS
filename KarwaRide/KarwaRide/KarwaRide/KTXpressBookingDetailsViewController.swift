@@ -83,7 +83,9 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     let MAX_ZOOM_LEVEL = 16
     var isAbleToObserveZooming = false
     var haltAutoZooming = false
-    
+
+    var fromBackGround = false
+
     var rideExploreDelegate: RideExploreDelegate?
 
     lazy var sheet = SheetViewController(
@@ -169,8 +171,22 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         self.mapView.settings.rotateGestures = false
         self.mapView.settings.tiltGestures = false
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showBookingStatus(notification:)), name: Notification.Name("CurrentBookingNotification"), object: nil)
+
 //        self.navigationController?.navigationBar.backIndicatorImage = nil
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func showBookingStatus(notification: Notification) {
+        if(vModel?.bookingStatii() == BookingStatus.CONFIRMED.rawValue || vModel?.bookingStatii() == BookingStatus.PICKUP.rawValue || vModel?.bookingStatii() == BookingStatus.ARRIVED.rawValue || vModel?.bookingStatii() == BookingStatus.DISPATCHING.rawValue) {
+            vModel?.stopBookingUpdateTimer()
+            vModel?.stopVehicleUpdateTimer()
+            sideMenuController?.contentViewController = self.storyboard?.instantiateViewController(withIdentifier: "MyTirpsNavigationController")
+            sideMenuController?.hideMenu()
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                NotificationCenter.default.post(name: Notification.Name("BackgroundBookingNotification"), object: nil, userInfo: ["booking": (self.viewModel as! KTXpresssBookingDetailsViewModel).booking ?? KTBooking()])
+            }
+        }
     }
     
     func initializeValue() {
@@ -285,6 +301,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 
     override func viewDidDisappear(_ animated: Bool)
     {
+        NotificationCenter.default.removeObserver(self)
         vModel?.viewWillDisappear()
     }
     
@@ -393,8 +410,9 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             
 
             let wayPointImage = wayPointBGView.asImage()
-            wayPointsMarker.append(self.addAndGetMarkerOnMap(location: CLLocationCoordinate2D(latitude: item.Location.lat, longitude: item.Location.lon), image: wayPointImage))
-        }
+            wayPointsMarker.append(self.addAndGetWayPointsOnMap(location: CLLocationCoordinate2D(latitude: item.Location.lat, longitude: item.Location.lon), image: wayPointImage))
+            
+       }
         
         removeOldPolyline()
         if(!points.isEmpty)
@@ -450,45 +468,43 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     }
     
     @objc func animatePolylinePath() {
+        
+        if (self.i < self.path.count()) {
             
-            if (self.i < self.path.count()) {
-                
-                self.animationPath.add(self.path.coordinate(at: self.i))
-                self.animationPolyline?.path = self.animationPath
-                self.animationPolyline?.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
-                self.animationPolyline?.strokeWidth = 4
-                self.animationPolyline?.map = nil
-                self.animationPolyline?.map = self.mapView
-                self.i += 1
-            }
-            else if self.i == self.path.count() {
-                timer.invalidate()
-                self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
-                self.i += 1
-                
-                //self.i = 0
-                self.animationPath = GMSMutablePath()
-                self.animationPolyline?.map = nil
-                polyline.strokeColor = bgPolylineColor
-            }
-            else {
-                
-                self.i = 0
-                
-                timer.invalidate()
-            }
+            self.animationPath.add(self.path.coordinate(at: self.i))
+            self.animationPolyline?.path = self.animationPath
+            self.animationPolyline?.strokeColor = UIColor(displayP3Red: 0, green: 97/255, blue: 112/255, alpha: 255/255)
+            self.animationPolyline?.strokeWidth = 4
+            self.animationPolyline?.map = nil
+            self.animationPolyline?.map = self.mapView
+            self.i += 1
         }
+        else if self.i == self.path.count() {
+            timer.invalidate()
+            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(animatePolylinePath), userInfo: nil, repeats: true)
+            self.i += 1
+            
+            //self.i = 0
+            self.animationPath = GMSMutablePath()
+            self.animationPolyline?.map = nil
+            polyline.strokeColor = bgPolylineColor
+        }
+        else {
+            
+            self.i = 0
+            
+            timer.invalidate()
+        }
+    }
 
     func focusMapToShowAllMarkers(gmsMarker : Array<GMSMarker>) {
         var bounds = GMSCoordinateBounds()
         for marker: GMSMarker in gmsMarker {
             bounds = bounds.includingCoordinate(marker.position)
         }
-
         var update : GMSCameraUpdate?
-        update = GMSCameraUpdate.fit(bounds, withPadding: 150)
-
-
+        update = GMSCameraUpdate.fit(bounds,
+                                     with: UIEdgeInsets(top: 100, left: 50, bottom: 225, right: 50))
         CATransaction.begin()
         CATransaction.setValue(1.0, forKey: kCATransactionAnimationDuration)
         mapView.animate(with: update!)
@@ -534,6 +550,14 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 
     var isTooltipVisible : Bool = false
 
+    func addAndGetWayPointsOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker{
+        let marker = GMSMarker()
+        marker.position = location
+        marker.icon = image
+        marker.map = self.mapView
+        return marker
+    }
+    
     func addAndGetMarkerOnMap(location: CLLocationCoordinate2D, image: UIImage) -> GMSMarker{
         let marker = GMSMarker()
         marker.position = location
@@ -671,11 +695,8 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
     
     //MARK:- Map
     func initializeMap(location : CLLocationCoordinate2D) {
-        
         self.mapView.clear()
-        
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15.0)
-        
         self.mapView.camera = camera;
         self.mapView.delegate = self
         
@@ -692,7 +713,6 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
         } catch {
             NSLog("One or more of the map styles failed to load. \(error)")
         }
-        
     }
     
     func showCurrentLocationDot(show: Bool) {
@@ -821,10 +841,9 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
 //        } else {
 //        }
         
-        if  (viewModel as! KTXpresssBookingDetailsViewModel).booking?.bookingStatus ==  BookingStatus.CANCELLED.rawValue {
+        if  (viewModel as! KTXpresssBookingDetailsViewModel).booking?.bookingStatus ==  BookingStatus.CANCELLED.rawValue || (viewModel as! KTXpresssBookingDetailsViewModel).booking?.bookingStatus ==  BookingStatus.COMPLETED.rawValue {
             addMarkerOnMap(location: location, image: UIImage(named: "pin_pickup_map")!)
         }
-        
 
 //        addMarkerOnMap(location: location, image: UIImage(named:"APPickUpMarker")!)
     }
@@ -890,7 +909,7 @@ class KTXpressBookingDetailsViewController: KTBaseDrawerRootViewController, GMSM
             dashedPolyline.strokeWidth = 3.0
             bgPolylineColor = #colorLiteral(red: 0.003020502627, green: 0.3786181808, blue: 0.4473349452, alpha: 1)
             let styles = [GMSStrokeStyle.solidColor(bgPolylineColor), GMSStrokeStyle.solidColor(UIColor.clear)]
-            let lengths = [0.5, 0.5] // Play with this for dotted line
+            let lengths = [0.5, 0.5] // Play with this for dotted    line
             dashedPolyline.spans = GMSStyleSpans(dashedPolyline.path!, styles, lengths as [NSNumber], .rhumb)
             
             let bounds = GMSCoordinateBounds(coordinate: startLocation, coordinate: endLocation)
